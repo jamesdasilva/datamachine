@@ -1,6 +1,6 @@
 # data-machine
 
-Esta máquina fabrica dados falsos para preencher programas JavaScript. A estrutura dos dados é definida em objetos molds
+Esta máquina fabrica dados falsos para preencher programas JavaScript. A estrutura dos dados é definida em objetos ___data molds___.
 
 ### Installation
 
@@ -8,10 +8,10 @@ Dentro do diretório raiz do projeto, execute o comando pelo terminal:
 ```
 sudo npm -g install .
 ```
-O programa será instalado globalmente e poderá ser utilizado em qualquer diretório através do comando data-machine.
+O programa será instalado globalmente e poderá ser utilizado em qualquer diretório através do comando ___data-machine___.
 
 ### Getting started
-Para gerar dados com o data-machine deve-se criar o data mold, como por exemplo:
+Para gerar dados com o _data-machine_, deve-se antes de qualquer coisa, criar o _data mold_, como por exemplo:
 ```
 var dataMolds = [];
 dataMolds.push({
@@ -30,13 +30,13 @@ dataMolds.push({
 
 module.exports = dataMolds;
 ```
-Como se pode ver, trata-se de um vetor com objetos em que os valores são strings que determinarão os valores dos objetos que serão criados pela data-machine. Este código deve ser salvo em um arquivo .js.
-Então os dados podem ser gerados através do comando "data-machine generate". Segue um exemplo:
+Como se pode ver, trata-se de um vetor com objetos em que os valores são _strings que determinarão os valores dos objetos que serão criados pela data-machine_. Este código deve ser salvo em um arquivo .js.
+Então os dados podem ser gerados através do comando __data-machine generate__. Segue um exemplo:
 
 ```
-$ data-machine g data-molds.js 10
+$ data-machine generate data-molds.js 10
 ```
-Este comando cria um array com 10 objetos estruturados segundo os "data molds" informados no arquivo data-molds.js. Ele gera um arquivo com o nome data.json, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o json abaixo. 
+Este comando cria um array com 10 objetos _estruturados segundo os data molds informados no arquivo data-molds.js_. Ele gera um arquivo com o nome _data.json_, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
 
 ```
 [{"name":"ullamco","email":"aliquip@outlook.com","birthday":"1997-06-07T03:15:56.000Z"},
@@ -50,4 +50,8 @@ Este comando cria um array com 10 objetos estruturados segundo os "data molds" i
 {"name":"nisi","email":"aliqua@vnw.com.br","birthday":"1982-09-05T03:58:51.000Z"},
 {"name":"aliqua","email":"eiusmod@1sti.com.br","birthday":"1986-03-21T18:53:13.000Z","location":{"lat":90.268,"lng":35.269}}]
 ```
-Note que os objetos do array não são todos iguais. Como podemos ver, parte dos objetos não possui o atributo "location". Isso aconteceu porque foram definidos dois "data molds" no array dataMolds do arquivo data-molds.js, que foi utilizado em um dos parâmetros do comando "data-machine". O data-machine sorteia um dos "data molds" para gerar cada objeto do array.
+Note que os objetos do array não são todos iguais. Como podemos ver, parte dos objetos não possui o atributo _location_. Isso aconteceu porque foram definidos dois _data molds_ no array _dataMolds_ do arquivo _data-molds.js_, que foi utilizado em um dos parâmetros do comando _data-machine_. O _data-machine_ sorteia um dos _data molds_ para gerar cada objeto do array.
+
+### Attribute Types
+
+Os ___attribute types___ são strings que são usadas informar ao data-machine o conjunto de valores possíveis para cada atributo de um objeto.
