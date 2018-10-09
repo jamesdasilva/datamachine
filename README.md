@@ -55,3 +55,14 @@ Note que os objetos do array não são todos iguais. Como podemos ver, parte dos
 ### Attribute Types
 
 Os ___attribute types___ são strings que são usadas informar ao data-machine o conjunto de valores possíveis para cada atributo de um objeto.
+
+Att Type                   | Parâmetros | 
+---------                  | ------ |
+bool                       | não tem |
+integer:min;max            | min: limite inferior / max: limite superior |
+decimal:places;min;max     | places: número de casas decimais / min: limite inferior / max: limite superior |
+word                       | não tem |
+text:n                     | n: quantidade de palavras |
+name                       | não tem |
+email                      | não tem
+date:minyear;maxyear       | minyear: limite inferior / maxyear: limite superior
