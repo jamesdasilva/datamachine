@@ -1,0 +1,31 @@
+var chai = require('chai');
+var DecimalType = require('../src/types/decimal');
+
+describe('DecimalType', function() {
+  describe('.genarate()', function() {
+    var valueGenerated;
+    beforeEach(function(){
+      valueGenerated = DecimalType.generate('decimal:5;10;100');
+    });
+
+    it('should return a string when call .generate("decimal:2;0;100")', function() {
+      chai.expect(valueGenerated).to.be.a('string');
+    });
+
+    it('should return a string representing the given number with 5 decimal places when call .generate("decimal:2;0;100")', function() {
+      chai.expect(valueGenerated).to.match(/^\d+.\d{5}$/);
+    });
+
+    it('should return a string representing the given number with 5 decimal places when call .generate("decimal:5;0;100")', function() {
+      chai.expect(valueGenerated).to.match(/^\d+.\d{5}$/);
+    });
+
+    it('should return a string representing the given a number less than 100 when call .generate("decimal:5;0;100")', function() {
+      chai.expect(parseFloat(valueGenerated)).to.be.lessThan(100);
+    });
+
+    it('should return a string representing the given number greater than 10 when call .generate("decimal:5;10;100")', function() {
+      chai.expect(parseFloat(valueGenerated)).to.be.greaterThan(10);
+    });
+  });
+});

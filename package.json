@@ -6,8 +6,10 @@
   "preferGlobal": true,
   "bin": "./index.js",
   "dependencies": {
+    "chai": "^4.2.0",
     "commander": "^2.18.0",
     "firebase-admin": "^6.0.0",
-    "lorem-ipsum": "^1.0.6"
+    "lorem-ipsum": "^1.0.6",
+    "mocha": "^5.2.0"
   }
 }
