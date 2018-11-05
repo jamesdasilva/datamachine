@@ -1,6 +1,6 @@
 var molds = [];
 molds.push({
-    teste: 'integer:12;20',
+    teste: '[5]bool',
     name: 'text:1',
     email: 'email',
     about: 'text:2',

@@ -1,4 +1,6 @@
-[{"teste":16,"name":"et","email":"velit@1sti.com.br","about":"irure officia","birthday":"1998-11-18T21:09:56.000Z","avatar":"in","location":{"lat":32.341,"lng":29.666}},
-{"teste":17,"name":"dolor","email":"fugiat@yahoo.com.br","about":"adipisicing id","birthday":"1991-05-02T08:03:32.000Z","avatar":"veniam","location":{"lat":75.021,"lng":51.124}},
-{"teste":16,"name":"amet","email":"duis@outlook.com","about":"cupidatat cupidatat","birthday":"1990-03-11T20:42:54.000Z","avatar":"consequat","location":{"lat":11.056,"lng":98.016}},
-{"teste":16,"name":"proident","email":"ea@outlook.com","about":"ex veniam","birthday":"1993-04-03T03:00:06.000Z","avatar":"veniam","location":{"lat":62.755,"lng":59.363}}]
+[{"teste":[true,true,true,false,false],"name":"ad","email":"officia@vnw.com.br","about":"sunt amet","birthday":"1988-12-17T18:25:31.000Z","avatar":"ullamco","location":{"lat":"51.071","lng":"59.384"}},
+{"teste":[false,true,true,true,false],"name":"incididunt","email":"fugiat@gmail.com","about":"ipsum Lorem","birthday":"1986-06-09T14:09:39.000Z","avatar":"esse","location":{"lat":"98.404","lng":"49.070"}},
+{"teste":[true,true,false,false,true],"name":"nostrud","email":"ea@outlook.com","about":"incididunt cillum","birthday":"1992-09-12T20:13:06.000Z","avatar":"incididunt","location":{"lat":"67.937","lng":"78.025"}},
+{"teste":[false,false,false,true,true],"name":"aliquip","email":"ex@yahoo.com.br","about":"adipisicing pariatur","birthday":"1995-07-15T15:59:53.000Z","avatar":"ipsum","location":{"lat":"37.950","lng":"88.828"}},
+{"teste":[false,true,false,true,true],"name":"commodo","email":"proident@vnw.com.br","about":"voluptate fugiat","birthday":"1999-06-15T21:27:03.000Z","avatar":"minim","location":{"lat":"86.828","lng":"69.222"}},
+{"teste":[true,true,true,true,true],"name":"aliqua","email":"quis@yahoo.com.br","about":"officia eu","birthday":"1988-07-08T23:34:20.000Z","avatar":"id","location":{"lat":"81.811","lng":"30.752"}}]
