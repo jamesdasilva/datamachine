@@ -2,6 +2,7 @@
 
 var generateOutput = require('./src/generate-output');
 var DataDesigner = require('./src/data-designer');
+var getFilePath = require('./src/helpers/getFilePath');
 
 var fs = require('fs');
 var program = require('commander');
@@ -15,6 +16,7 @@ word:5
 text:50
 id
 */
+console.log('Iniciando execução...');
 
 program
   .version('0.0.1')

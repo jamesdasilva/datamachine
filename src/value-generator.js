@@ -3,8 +3,9 @@
 var AttributeTypes = {};
 
 Object.prototype.getParams = function(type){
-  var regExpParams = /:[\d|\w|;*]*$/g
+  var regExpParams = /:.*$/g
   var stringParams = type.match(regExpParams) + '';
+  console.log(type, 'stringParams', stringParams);
   if (stringParams != 'null') {
     stringParams = stringParams.slice(1);
     return stringParams.split(';');
@@ -40,7 +41,6 @@ var makeAtt = function(type){
     if(AttributeTypes[keyType])
       return AttributeTypes[keyType].generate(type);
   }
-  
   
 };
 

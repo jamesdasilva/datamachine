@@ -5,6 +5,10 @@
   "license": "MIT",
   "preferGlobal": true,
   "bin": "./index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "tdd": "./node_modules/mocha/bin/mocha --watch"
+  },
   "dependencies": {
     "chai": "^4.2.0",
     "commander": "^2.18.0",
