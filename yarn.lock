@@ -32,6 +32,11 @@ chai@^4.2.0:
     pathval "^1.1.0"
     type-detect "^4.0.5"
 
+chance@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/chance/-/chance-1.0.17.tgz#3d67f1bd60d1a14de90e36a625920543707c6538"
+  integrity sha512-C3Lpcmarn/zPcUutJPfpwF+7PoSB5KIdKb5SQYc5ffyJfb3Vp2Qq2gK8F2kEvfN+a+FHNfCBrO0lGJB+4Xnb1Q==
+
 check-error@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/check-error/-/check-error-1.0.2.tgz#574d312edd88bb5dd8912e9286dd6c0aed4aac82"
@@ -115,12 +120,6 @@ inherits@2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
-lorem-ipsum@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/lorem-ipsum/-/lorem-ipsum-1.0.6.tgz#69e9ab02bbb0991915d71b5559fe016d526f013f"
-  dependencies:
-    minimist "~1.2.0"
-
 minimatch@3.0.4, minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
@@ -130,10 +129,6 @@ minimatch@3.0.4, minimatch@^3.0.4:
 minimist@0.0.8:
   version "0.0.8"
   resolved "http://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
-
-minimist@~1.2.0:
-  version "1.2.0"
-  resolved "http://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 mkdirp@0.5.1:
   version "0.5.1"

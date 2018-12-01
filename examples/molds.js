@@ -1,15 +1,10 @@
 var molds = [];
 molds.push({
+    prime: 'primeNumber:1;10',
     bool: 'boolean',
     name: 'name',
-    email: 'email',
-    word: 'word',
-    about: 'text',
-    birthday: 'date:1980;2000',
-    location:{
-        lat: 'latitude', 
-        lng: 'longitude'
-    }
+    cpf: 'cpf',
+    cursos: 'enum:engenharia de comp._utação;medi-cina;letras;vi._l,Õões'
 });
 
 module.exports = molds;

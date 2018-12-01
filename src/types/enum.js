@@ -9,6 +9,6 @@ function generate(type){
   
   module.exports = {
     generate: generate,
-    regExp: /^enum:((.)*;)+.+$/
+    regExp: /^enum:([\w À-ú,\.\-]*;)*[\w À-ú,\.\-]+$/
   };
   

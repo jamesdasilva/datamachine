@@ -20,7 +20,7 @@ id
 */
 console.log('Iniciando execução...');
 
-console.log('generateRandomNumber', generateRandomNumber(-3,-1));
+console.log('generateRandomNumber', generateRandomNumber(-3, 1));
 
 program
   .version('0.0.1')

@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "chai": "^4.2.0",
+    "chance": "^1.0.17",
     "commander": "^2.18.0",
     "faker": "^4.1.0",
-    "lorem-ipsum": "^1.0.6",
     "mocha": "^5.2.0"
   }
 }
