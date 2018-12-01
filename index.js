@@ -4,6 +4,8 @@ var generateOutput = require('./src/generate-output');
 var DataDesigner = require('./src/data-designer');
 var getFilePath = require('./src/helpers/getFilePath');
 
+let generateRandomNumber = require('./src/helpers/generateRandomNumber');
+
 var fs = require('fs');
 var program = require('commander');
 
@@ -18,6 +20,8 @@ id
 */
 console.log('Iniciando execução...');
 
+console.log('generateRandomNumber', generateRandomNumber(-3,-1));
+
 program
   .version('0.0.1')
   .description('Esta máquina fabrica de dados falsos para preencher programas JavaScript. A estrutura dos dados é definida em objetos molds');
@@ -29,16 +33,16 @@ program
   .option("--c, --account-config <accountConfig>", "Configuração do Cloud Firestore")
   .option("--s, --structure <structure>", "Estrutura de dados: object, array, ou collection")
   .description('Gerar e persistir conjunto de dados')
-  .action((molds, length, options) => {
+  .action((moldFileName, length, options) => {
     
     var length = length || 5;
-    var moldsFile = `${process.cwd()}/${molds}`;
+    var moldFilePath = getFilePath(moldFileName);
     
-    if (!fs.existsSync(moldsFile)) {
+    if (!fs.existsSync(moldFilePath)) {
         console.log('Arquivo de entrada não encontrado');
         return false;
     }
-    var molds = require(moldsFile);
+    var molds = require(moldFilePath);
     var output = options.output || 'json';
     var accountConfig = options.accountConfig || false;
     var dataStructure = options.structure || 'array';

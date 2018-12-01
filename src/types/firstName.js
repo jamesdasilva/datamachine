@@ -2,13 +2,13 @@ var faker = require('faker');
 
 function generate(type){
   if(this.regExp.test(type)){
-    let text = faker.lorem.text();
-    return text;
+    let firstName = faker.name.firstName();
+    return firstName;
   }
   return false;
 }
 
 module.exports = {
   generate: generate,
-  regExp: /^text$/
+  regExp: /^firstName$/
 };

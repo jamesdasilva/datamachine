@@ -16,7 +16,7 @@ describe('generateRandomNumber()', function(){
       chai.expect(generateRandomNumber(2, 2)).to.be.false;
     });
     it('should return false when call generateRandomNumber(3, 2)', function() {
-      chai.expect(generateRandomNumber(3, 2)).to.be.false;
+      chai.expect(generateRandomNumber(3, 2)).to.be.false; 
     });
 
 });

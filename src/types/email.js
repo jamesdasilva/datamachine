@@ -1,14 +1,9 @@
-var loremIpsum = require('lorem-ipsum');
+var faker = require('faker');
 
 function generate(type){
   if(this.regExp.test(type)){
-    var dominios = ['gmail.com', 'yahoo.com.br', 'outlook.com', '1sti.com.br', 'vnw.com.br'];
-    var indexDominio = Math.floor(Math.random() * dominios.length);
-    var nick = loremIpsum({
-      count: 1, 
-      units: 'words'
-    });
-    return `${nick}@${dominios[indexDominio]}`;
+    let email = faker.internet.email();
+    return email.toLocaleLowerCase();
   }
   return false;
 }

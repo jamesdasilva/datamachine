@@ -1,16 +1,14 @@
-var loremIpsum = require('lorem-ipsum');
+let faker = require('faker');
 
 function generate(type){
   if(this.regExp.test(type)){
-    return loremIpsum({
-      count: 1, 
-      units: 'words'
-    });
+    let word = faker.lorem.word();
+    return word;
   }
   return false;
 }
 
 module.exports = {
   generate: generate,
-  regExp: /^word:\d+$/
+  regExp: /^word$/
 };
