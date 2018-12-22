@@ -5,7 +5,6 @@ var AttributeTypes = {};
 Object.prototype.getParams = function(type){
   var regExpParams = /:([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]*;)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+$/g
   var stringParams = type.match(regExpParams) + '';
-  console.log(type, 'stringParams', stringParams);
   if (stringParams != 'null') {
     stringParams = stringParams.slice(1);
     return stringParams.split(';');
