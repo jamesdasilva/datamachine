@@ -1,7 +1,7 @@
 {
   "name": "datamachine",
   "version": "1.0.0",
-  "description": "Datamachine is a CLI tool for manufacturing simulation data",
+  "description": "Datamachine is a CLI tool for manufacturing mock data",
   "author": {
     "name": "James da Silva",
     "email": "jamesodas@gmail.com"
@@ -14,6 +14,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/EstudioVnW/datamachine"
+  }, 
+  "bugs": {
+    "url" : "https://github.com/EstudioVnW/datamachine/issues",
+    "email" : "jamesodas@gmail.com"
   },
   "engines": {
     "node": ">=0.8.0"
