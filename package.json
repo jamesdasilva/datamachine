@@ -1,9 +1,10 @@
 {
   "name": "datamachine",
   "version": "1.0.0",
+  "description": "Datamachine is a CLI tool for manufacturing simulation data",
   "author": {
     "name": "James da Silva",
-    "email": "jamessilva@1sti.com.br"
+    "email": "jamesodas@gmail.com"
   },
   "keywords": [
     "data mocks",
