@@ -1,9 +1,9 @@
-var Word = require('./word');
+let generateString = require('../helpers/generateString');
 
 function generate(type){
   if(this.regExp.test(type)){
-    var prefixo = '-dfm';
-    var token = Word.generate(12);
+    var prefixo = '-dm';
+    var token = generateString(6);
     var timestamp = new Date().getTime();
     return prefixo +'-'+ timestamp +'-'+ token;
   }

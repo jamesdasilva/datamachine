@@ -6,10 +6,8 @@ var generateOutput = require('./src/generate-output');
 var DataDesigner = require('./src/data-designer');
 var getFilePath = require('./src/helpers/getFilePath');
 
-console.log('Iniciando execução...');
-
 program
-  .version('1.0.0')
+  .version('1.0.1')
   .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
 
 program
@@ -21,6 +19,8 @@ program
     
     var length = length || 5;
     var moldFilePath = getFilePath(moldFileName);
+
+    console.log(moldFilePath);
     
     if (!fs.existsSync(moldFilePath)) {
 			console.log('Arquivo de entrada não encontrado');
