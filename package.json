@@ -1,6 +1,6 @@
 {
   "name": "datamachine",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Datamachine is a CLI tool for manufacturing mock data",
   "author": {
     "name": "James da Silva",
@@ -9,7 +9,15 @@
   "keywords": [
     "data mocks",
     "data simulation",
-    "Command Line"
+    "Command Line",
+    "commander",
+    "faker",
+    "chance",
+    "mock",
+    "generator",
+    "massive",
+    "json",
+    "data"
   ],
   "repository": {
     "type": "git",

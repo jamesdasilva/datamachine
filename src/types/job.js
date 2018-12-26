@@ -10,5 +10,5 @@ function generate(type){
 
 module.exports = {
   generate: generate,
-  regExp: /^title$/
+  regExp: /^job$/
 };
