@@ -5,10 +5,10 @@ String.prototype.replaceAll = function(search, replacement) {
   return target.split(search).join(replacement);
 };
 
-var setFile = function(data){
+var setFile = function(data, dataFileName){
   var dataJson = JSON.stringify(data); // converte os dados em uma string json
-  dataJsonWithNewline = dataJson.replaceAll('},','},\n')
-  fs.writeFile("data.json", dataJsonWithNewline, function(err) {
+  dataJsonWithNewline = dataJson.replaceAll(',',',\n');
+  fs.writeFile(dataFileName + ".json", dataJsonWithNewline, function(err) {
     if(err) {
       console.log(err);
       return false;

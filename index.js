@@ -28,7 +28,7 @@ program
     }
     var molds = require(moldFilePath);
     var output = 'json';
-    var accountConfig = false;
+    var accountConfig = moldFileName;
     var dataStructure = options.structure || 'array';
 
     switch(dataStructure){
