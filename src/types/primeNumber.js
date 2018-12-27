@@ -1,7 +1,9 @@
 var Chance = require('chance');
 
+var getParams = require('../helpers/getParams');
+
 function generate(type){
-	let params = this.getParams(type);
+	let params = getParams(type);
 	let min = params[0], max = params[1];
   let chance = new Chance();
   if(this.regExp.test(type)){

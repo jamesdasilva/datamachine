@@ -1,15 +1,8 @@
-Object.prototype.getParams = function(type){
-  var regExpParams = /:[\d|\w|;*]*$/g
-  var stringParams = type.match(regExpParams) + '';
-  if (stringParams != 'null') {
-    stringParams = stringParams.slice(1);
-    return stringParams.split(';');
-  }
-  return false;
-}
+var getParams = require('../helpers/getParams');
+
 function generate(type){
   if(this.test(type)){
-    var params = this.getParams(type);
+    var params = getParams(type);
     var decimalPlaces = params[0] || 2;
     var min = params[1] || 0.00;
     var max = params[2] || 10000.00;
@@ -18,7 +11,7 @@ function generate(type){
       number = Math.random() * max;
       if(number > min) break;
     }
-    return parseFloat(Number(number).toFixed(decimalPlaces)).toFixed(decimalPlaces);
+    return parseFloat(Number(number).toFixed(decimalPlaces));
   }
   return false;
 }

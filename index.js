@@ -7,7 +7,7 @@ var DataDesigner = require('./src/data-designer');
 var getFilePath = require('./src/helpers/getFilePath');
 
 program
-  .version('1.0.2')
+  .version('1.0.3')
   .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
 
 program
@@ -20,7 +20,7 @@ program
     var length = length || 5;
     var moldFilePath = getFilePath(moldFileName);
 
-    console.log(moldFilePath);
+    console.log("Schema path: ", moldFilePath);
     
     if (!fs.existsSync(moldFilePath)) {
 			console.log('Arquivo de entrada não encontrado');
@@ -32,15 +32,18 @@ program
     var dataStructure = options.structure || 'array';
 
     switch(dataStructure){
-			case 'object':
+      case 'object':
+        console.log("Generating object...");
 				var obj = DataDesigner.generateObject(molds[0]);
 				generateOutput(output, obj, accountConfig);
 				break;
-			case 'array':
+      case 'array':
+        console.log("Generating array...");
 				var arr = DataDesigner.generateArray(length, molds);
 				generateOutput(output, arr, accountConfig);
 				break;
-			case 'collection':
+      case 'collection':
+        console.log("Generating conllection...");
 				var col = DataDesigner.generateCollection(length, molds);
 				generateOutput(output, col, accountConfig);
 				break;
