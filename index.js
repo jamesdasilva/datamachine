@@ -7,7 +7,7 @@ var DataDesigner = require('./src/data-designer');
 var getFilePath = require('./src/helpers/getFilePath');
 
 program
-  .version('1.0.3')
+  .version('1.1.0')
   .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
 
 program
