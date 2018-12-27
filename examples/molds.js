@@ -1,8 +1,16 @@
 var molds = [];
 molds.push({
-    name: 'name',
-    cpf: 'cpf',
-    cursos: 'enum:Engenharia de Computação;Medicina;Letras;Comunicação Social'
+    att1: 'enum:op1;op2',
+    att2: 'primeNumber:1;100',
+    att3:{
+        att1: 'enum:op1;op2',
+        att2: 'primeNumber:1;100',
+        att4:{
+            att1: 'enum:op1;op2',
+            att2: 'primeNumber:1;100'
+        }
+    },
+    att5: 'primeNumber:1;100',
+    att6: 'primeNumber:1;100'
 });
-
 module.exports = molds;

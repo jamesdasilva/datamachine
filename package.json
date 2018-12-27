@@ -1,6 +1,35 @@
 {
   "name": "datamachine",
-  "version": "1.0.0",
+  "version": "1.0.3",
+  "description": "Datamachine is a CLI tool for manufacturing mock data",
+  "author": {
+    "name": "James da Silva",
+    "email": "jamessilva@1sti.com.br"
+  },
+  "keywords": [
+    "data mocks",
+    "data simulation",
+    "Command Line",
+    "commander",
+    "faker",
+    "chance",
+    "mock",
+    "generator",
+    "massive",
+    "json",
+    "data"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EstudioVnW/datamachine"
+  },
+  "bugs": {
+    "url": "https://github.com/EstudioVnW/datamachine/issues",
+    "email": "jamessilva@1sti.com.br"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
   "main": "index.js",
   "license": "MIT",
   "preferGlobal": true,
@@ -10,10 +39,12 @@
     "tdd": "./node_modules/mocha/bin/mocha --watch"
   },
   "dependencies": {
-    "chai": "^4.2.0",
     "chance": "^1.0.17",
     "commander": "^2.18.0",
-    "faker": "^4.1.0",
+    "faker": "^4.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^5.2.0"
   }
 }

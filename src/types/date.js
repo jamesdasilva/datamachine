@@ -1,7 +1,9 @@
+var getParams = require('../helpers/getParams');
+
 function generate(type){
   if(this.regExp.test(type)){
     var ano;
-    var params = this.getParams(type);
+    var params = getParams(type);
     var min = params[0] || 1970;
     var max = params[1] || new Date().getFullYear();
     while(true){
