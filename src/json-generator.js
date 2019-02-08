@@ -7,7 +7,7 @@ String.prototype.replaceAll = function(search, replacement) {
 
 var setFile = function(data, dataFileName){
   var dataJson = JSON.stringify(data); // converte os dados em uma string json
-  dataJsonWithNewline = dataJson.replaceAll(',',',\n');
+  dataJsonWithNewline = dataJson.replaceAll('},{','},\n{');
   fs.writeFile(dataFileName + ".json", dataJsonWithNewline, function(err) {
     if(err) {
       console.log(err);

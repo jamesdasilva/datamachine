@@ -1,5 +1,5 @@
 var chai = require('chai');
-var BoolType = require('../src/types/bool');
+var BoolType = require('../src/types/boolean');
 
 describe('BoolType', function() {
   describe('.genarate()', function() {
