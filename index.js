@@ -73,7 +73,7 @@ program
 
     let output = 'json';
 
-    let fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/;
+    let fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
 
     let file1NameWithOutExtension;
     let file2NameWithOutExtension;
