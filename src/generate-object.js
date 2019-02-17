@@ -7,7 +7,7 @@ function gerarObjeto(objeto){
   if(typeof objeto != 'object') return false;
 
   Object.keys(objeto).forEach(item => { 
-    if(typeof objeto[item] == 'object'){ 
+    if(typeof objeto[item] == 'object' && objeto[item].constructor != RegExp){ 
       result[item] = gerarObjeto(objeto[item]); // recursividade 
     }else{
       result[item] = ValueGenerator.make(objeto[item]);

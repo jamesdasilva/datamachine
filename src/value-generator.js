@@ -14,7 +14,11 @@ var getName = function(type){
 var makeAtt = function(type){
   var type = type;
   var regEx = /^\[\d+\]/;
-  if(regEx.test(type)){
+  if(type.constructor == RegExp){
+    let randExp = require(`./types/randExp`);
+    if(randExp)
+      return randExp.generate(type);
+  }else if(regEx.test(type)){
     var array = type.match(regEx)[0];
     var arrayLength = parseInt(array.slice(1, array.length - 1));
     var array = [];
