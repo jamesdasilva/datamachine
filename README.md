@@ -1,6 +1,6 @@
 # datamachine
 
-Esta ferramenta CLI produz dados falsos com realismo e precisão
+Com esta ferramenta CLI você pode produzir dados falsos com realismo e precisão para simular API's, bancos de dados e estados de aplicação. Para gerar os dados, ela utiliza bibliotecas como chance.js, Faker.js e randexp.js.
 
 ### Installation
 
@@ -13,39 +13,36 @@ O programa será instalado globalmente e poderá ser utilizado em qualquer diret
 ### Getting started
 Para gerar dados com o _datamachine_, deve-se antes de qualquer coisa, criar o _data schema_ e salvar em um arquivo .js. Segue um exemplo:
 ```
-var molds = [];
-molds.push({
-    name: 'name',
+module.exports = [{
+    nome: 'name',
     cpf: 'cpf',
+    celular: /(\(\d{2}\) \d{5}\-\d{4})/,
     nascimento: 'date:1990;1994',
     curso: 'enum:Engenharia de Computação;Medicina;Letras;Comunicação Social',
     mediaEnem: 'decimal:2;300;1000'
-});
-module.exports = molds;
+}]
 ```
 Então os dados podem ser gerados através do comando __datamachine generate__, como por exemplo:
 ```
-$ datamachine generate candidato.schema.js 10
+$ datamachine generate candidato.schema.js 5
 ```
 Este comando cria um array com 10 objetos, estruturados segundo os schema informado no arquivo __candidato.schema.js__. Ele gera um arquivo com o nome __data.json__, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
 
 ```
-[{"name":"Henry Labadie","cpf":"259.079.375-80","nascimento":"1992-07-08T09:00:18.000Z","curso":"Letras","mediaEnem":"817.67"},
-{"name":"Luigi Goodwin","cpf":"887.295.600-55","nascimento":"1992-12-20T11:30:32.000Z","mediaEnem":"324.16"},
-{"name":"Jesus Dare","cpf":"685.405.782-55","nascimento":"1991-01-24T13:46:49.000Z","mediaEnem":"636.01"},
-{"name":"Dr. Kenna Tillman","cpf":"514.215.299-98","nascimento":"1993-07-21T16:38:00.000Z","mediaEnem":"898.92"},
-{"name":"Rodolfo Waelchi","cpf":"365.512.467-88","nascimento":"1992-06-12T17:02:50.000Z","mediaEnem":"355.73"},
-{"name":"Doyle Kutch","cpf":"984.622.157-65","nascimento":"1993-07-22T06:25:09.000Z","mediaEnem":"306.28"},
-{"name":"Eveline Moore","cpf":"146.971.653-49","nascimento":"1993-05-19T08:37:48.000Z","mediaEnem":"386.64"},
-{"name":"Hope Sporer","cpf":"913.349.720-60","nascimento":"1992-03-20T14:24:23.000Z","mediaEnem":"577.75"},
-{"name":"Chanelle Cummings MD","cpf":"417.434.903-72","nascimento":"1992-03-06T23:50:03.000Z","mediaEnem":"855.17"},
-{"name":"Emilia Bahringer","cpf":"464.458.705-20","nascimento":"1993-02-21T13:09:34.000Z","mediaEnem":"827.90"}]
+[{"nome":"Andrew Goyette","cpf":"874.281.534-76","celular":"(31) 55190-5339","nascimento":"1992-01-21T10:19:27.000Z","curso":"Letras","mediaEnem":762.97},
+{"nome":"Bettye Legros","cpf":"455.159.591-83","celular":"(18) 93105-3613","nascimento":"1993-10-24T01:18:09.000Z","curso":"Comunicação Social","mediaEnem":961.82},
+{"nome":"Ressie Donnelly","cpf":"507.009.678-85","celular":"(45) 58872-4444","nascimento":"1993-10-18T00:29:04.000Z","curso":"Comunicação Social","mediaEnem":719.55},
+{"nome":"Glennie Hyatt","cpf":"535.377.996-75","celular":"(36) 12295-4648","nascimento":"1992-03-13T14:32:13.000Z","curso":"Medicina","mediaEnem":437.51},
+{"nome":"Mr. Ericka Schmeler","cpf":"086.883.462-91","celular":"(42) 91668-3807","nascimento":"1992-04-27T01:55:03.000Z","curso":"Letras","mediaEnem":385.61}]
 ```
 
 ### Attribute Types
 
 Att Type                | Exemplo           | Valores
 ---------               | -------           | ------
+randExp                 | /(\(\d{2}\) \d{5}\-\d{4})/ | (31) 55190-5339", (18) 93105-3613, (45) 58872-4444
+enum                    | "enum:maçã;uva;pera" | maçã, uva, maçã, pera, ...
+idAutoIncrement         | idAutoIncrement   | 1, 2, 3, 4, 5, 6, 7, ...
 boolean                 | "boolean"         | true, false
 integer:min;max         | "integer:20;50"   | 11, 40, 23, ...
 decimal:places;min;max  | "decimal:2;20;50" | 29.11, 41.10, 29.96, ...
@@ -53,7 +50,6 @@ primeNumber:min;max     | "primeNumber:1;10" | 2, 7, 3, ...
 date:minyear;maxyear    | "date:1990;2000"  | 1998-05-24T05:41:16.000Z, ...
 latitude                | "latitude"    | 33.1238, -12.4788, ...
 longitude               | "longitude"   | -100.9198, 177.1068, ...
-enum                    | lista de valores  | "enum:maçã;uva;pera" | maçã, uva, pera
 id                      | "id"    | -dm-1545847763800-8y6iPo, -dm-1545847763800-FIg6Jx, ...
 email                   | "email"           | danny4@gmail.com, paris.mohr@gmail.com, ...
 firstName               | "firstName"       | Liliana, Jessie, Brady, ...
