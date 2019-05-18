@@ -36,7 +36,8 @@
   "bin": "./index.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha",
-    "tdd": "./node_modules/mocha/bin/mocha --watch"
+    "tdd": "./node_modules/mocha/bin/mocha --watch",
+    "complexity-report": "./node_modules/.bin/es6-plato -r -d ./report src"
   },
   "dependencies": {
     "chance": "^1.0.17",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "es6-plato": "^1.1.6",
     "mocha": "^5.2.0"
   }
 }
