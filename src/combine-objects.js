@@ -1,4 +1,4 @@
-module.exports = function (obj1, obj2, childName){
+module.exports = (obj1, obj2, childName) => {
     
     if(childName){
         let objWithChild = {};

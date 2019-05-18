@@ -13,7 +13,6 @@ var setFile = function(data, dataFileName){
       console.log(err);
       return false;
     } else {
-      console.log("The file was saved!");
       return true;
     }
   });

@@ -1,17 +1,17 @@
 //var generateObject = require('./generate-object');
 
-var AttributeTypes = {};
+let AttributeTypes = {};
 
-var getName = function(type){
-  var regExpTypeName = /^[\w*]*/g
-  var typeName = type.match(regExpTypeName) + '';
+let getName = type => {
+  let regExpTypeName = /^[\w*]*/g;
+  let typeName = type.match(regExpTypeName) + '';
   if (typeName != 'null') {
     return typeName;
   }
   return false;
 }
 
-var makeAtt = function(type){
+let makeAtt = type => {
   var type = type;
   var regEx = /^\[\d+\]/;
   if(type.constructor == RegExp){
