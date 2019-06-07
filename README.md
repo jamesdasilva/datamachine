@@ -38,7 +38,7 @@ Este comando cria um array com 5 objetos, estruturados segundo os schema informa
 {"nome":"Glennie Hyatt","cpf":"535.377.996-75","celular":"(36) 12295-4648","nascimento":"1992-03-13T14:32:13.000Z","curso":"Medicina","mediaEnem":437.51},
 {"nome":"Mr. Ericka Schmeler","cpf":"086.883.462-91","celular":"(42) 91668-3807","nascimento":"1992-04-27T01:55:03.000Z","curso":"Letras","mediaEnem":385.61}]
 ```
-Note que um data schema é basicamente um objeto Javascript, em que os valores atributos são strings e expressões regulares. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. 
+Note que um data schema é basicamente um objeto Javascript, em que os valores dos atributos são strings ou expressões regulares. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. O atributo do schema que tiver a string 'decimal:2;300;1000' como valor, irá gerar atributos com valores em números de com duas casas decimais no intervalo entre 300.00 e 1000.00, como 567.00, 300.54 e 971,67, por exemplo.
 
 ### Strings Types
 
