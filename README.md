@@ -29,7 +29,7 @@ Então os dados podem ser gerados através do comando __datamachine generate__, 
 ```
 $ datamachine generate candidato.schema.js 5
 ```
-Este comando cria um array com 10 objetos, estruturados segundo os schema informado no arquivo __candidato.schema.js__. Ele gera um arquivo com o nome __data.json__, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
+Este comando cria um array com 5 objetos, estruturados segundo os schema informado no arquivo __candidato.schema.js__. Ele gera um arquivo com o nome __data.json__, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
 
 ```
 [{"nome":"Andrew Goyette","cpf":"874.281.534-76","celular":"(31) 55190-5339","nascimento":"1992-01-21T10:19:27.000Z","curso":"Letras","mediaEnem":762.97},
@@ -38,8 +38,9 @@ Este comando cria um array com 10 objetos, estruturados segundo os schema inform
 {"nome":"Glennie Hyatt","cpf":"535.377.996-75","celular":"(36) 12295-4648","nascimento":"1992-03-13T14:32:13.000Z","curso":"Medicina","mediaEnem":437.51},
 {"nome":"Mr. Ericka Schmeler","cpf":"086.883.462-91","celular":"(42) 91668-3807","nascimento":"1992-04-27T01:55:03.000Z","curso":"Letras","mediaEnem":385.61}]
 ```
+Note que um data schema é basicamente um objeto Javascript, em que os valores atributos são strings e expressões regulares. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. 
 
-### Attribute Types
+### Strings Types
 
 Att Type                | Example           | Generated Values
 ---------               | -------           | ------
