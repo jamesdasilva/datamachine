@@ -40,7 +40,7 @@ Este comando cria um array com 5 objetos, estruturados segundo os schema informa
 ```
 Note que um data schema é basicamente um objeto Javascript, em que os valores dos atributos são strings ou expressões regulares. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. O atributo do schema que tiver a string 'decimal:2;300;1000' como valor, irá gerar atributos com valores em números de com duas casas decimais no intervalo entre 300.00 e 1000.00, como 567.00, 300.54 e 971,67, por exemplo.
 
-### Strings Types
+### String Types
 
 Att Type                | Example           | Generated Values
 ---------               | -------           | ------
@@ -67,4 +67,9 @@ paragraphs              | "paragraphs"  | Rerum optio quaerat. Doloribus ratione
 cpf                     | "cpf"         |211.508.653-85, 313.628.781-97, ...
 
 ### combine Command
+
+Com o comando __combine__ é possível gerar massas de dados a partir da combinação de outras massas de dados. Ele dá duas opções: merge e child. O merge, que é a opção padrão, gera uma massa de dados, em o n-ésimo objeto (linha) possui os atributos com os valores do n-ésimo objeto da primeira massa somado aos atributos com os valores de um objeto sorteado da segunda massa.
+```
+datamachine combine massa1.json massa2.json
+```
 
