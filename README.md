@@ -70,11 +70,44 @@ cpf                     | "cpf"         |211.508.653-85, 313.628.781-97, ...
 
 ### combine command
 
-Com o comando __combine__ é possível gerar massas de dados a partir da combinação de outras massas de dados. Ele dá duas opções: merge e child. O merge, que é a opção padrão, gera uma massa de dados, em o n-ésimo objeto (linha) possui os atributos com os valores do n-ésimo objeto da primeira massa somado aos atributos com os valores de um objeto sorteado da segunda massa.
+Com o comando __combine__ é possível gerar massas de dados a partir da combinação de outras massas de dados. Ele dá duas opções: merge e child. O merge, que é a opção padrão, gera uma massa de dados, em que o n-ésimo objeto possui os atributos com os valores do n-ésimo objeto da primeira massa somado aos atributos com os valores de um objeto sorteado da segunda massa.
+
+Por exemplo, executando o comando:
 ```
 datamachine combine massa1.json massa2.json
 ```
-
+Considerando que o conteúdo de massa1.json é:
+```
+[ {"name":"Antonina Schroeder","cpf":"067.710.318-29"},
+{"name":"Coralie Yost","cpf":"514.495.434-05"},
+{"name":"John Wintheiser","cpf":"632.071.773-44"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89"},
+{"name":"Aron Runte","cpf":"857.366.231-02"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36"},
+{"name":"Freeman Senger","cpf":"449.370.375-01"},
+{"name":"Rocky Runte","cpf":"517.723.566-11"}]
+```
+E o conteúdo de massa2.json é:
+```
+[{"cidade":"Juazeiro","UF":"Bahia"},
+{"cidade":"Petrolina","UF":"Pernambuco"},
+{"cidade":"São Paulo","UF":"São Paulo"}]
+```
+O resultado terá o conteúdo:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":"Juazeiro","UF":"Bahia"},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":"São Paulo","UF":"São Paulo"},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":"Juazeiro","UF":"Bahia"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":"São Paulo","UF":"São Paulo"},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":"Juazeiro","UF":"Bahia"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":"São Paulo","UF":"São Paulo"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":"São Paulo","UF":"São Paulo"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":"Juazeiro","UF":"Bahia"},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":"Juazeiro","UF":"Bahia"},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":"Petrolina","UF":"Pernambuco"}]
+```
 
 ### concat command
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
