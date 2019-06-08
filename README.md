@@ -2,7 +2,9 @@
 
 Com esta ferramenta CLI você pode produzir dados falsos com realismo e precisão para simular API's, bancos de dados e estados de aplicação. Para gerar os dados, ela utiliza bibliotecas como chance.js, Faker.js e randexp.js. Com ela, você também será capaz de converter dados entre os formatos Json e CSV.
 
-Tendo dados realistas em mãos, fica mais fácil desenvolver partes de um software, como no caso de ter que fazer o front-end de uma Single Page Application sem ter o back-end disponível. Com o datamachine, você pode criar mocks de dados para forjar um estado de aplicação; ou melhor ainda, criar mocks de API's que ainda não foram construídas, combinado com o json-server. 
+Tendo dados realistas em mãos, fica mais fácil desenvolver partes de um software, como no caso de ter que fazer o front-end de uma Single Page Application sem ter o back-end disponível. Com o datamachine, você pode criar mocks de dados para forjar um estado de aplicação; ou melhor ainda, criar mocks de API's que ainda não foram construídas, se combinado com o json-server. 
+
+Para você conseguir gerar dados ainda mais precisos, __datamachine__ permite a manipulação de massas de dados, combinando, somando, subtraindo ou embaralhando para gerar massas de dados ainda mais elaboradas.
 
 
 ### Installation
@@ -72,4 +74,11 @@ Com o comando __combine__ é possível gerar massas de dados a partir da combina
 ```
 datamachine combine massa1.json massa2.json
 ```
+
+
+### sum Command
+
+### sub Command
+
+### mix Command
 
