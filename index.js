@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-var fs = require('fs');
-var program = require('commander');
+const fs = require('fs');
+const program = require('commander');
 
-var generateOutput = require('./src/generate-output');
-var DataDesigner = require('./src/data-designer');
-var getFilePath = require('./src/helpers/getFilePath');
-var combineArraysOfObjects = require('./src/combine-arrays-of-objects');
+const generateOutput = require('./src/generate-output');
+const DataDesigner = require('./src/data-designer');
+const getFilePath = require('./src/helpers/getFilePath');
+const combineArraysOfObjects = require('./src/combine-arrays-of-objects');
 
 const exposeGenerateCommand = require('./src/commands/generate');
 const exposeCombineCommand = require('./src/commands/combine');
@@ -34,7 +34,5 @@ exposeAdaptToJSONServerCommand(
   generateOutput,
   getFilePath
 );
-  
 
 program.parse(process.argv);
-

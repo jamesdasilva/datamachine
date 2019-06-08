@@ -7,40 +7,41 @@ const exposeGenerateCommand = (
   getFilePath) => {
 
   program
-  .command('generate <molds> [length]')
+  .command('generate <schemas> [length]')
   .alias('g')
-  .option("--s, --structure <structure>", "Estrutura de dados: object, array, ou collection")
+  .option('--s, --structure <structure>", "Estrutura de dados: object, array, ou collection')
   .description('Gerar conjunto de dados')
-  .action((moldFileName, length, options) => {
+  .action((schemaName, length, options) => {
   
-    var length = length || 5;
-    var moldFilePath = getFilePath(moldFileName);
+    length = length || 5;
+    var output = 'json';
+    const schemaPath = getFilePath(schemaName);
 
-    console.log("Schema path: ", moldFilePath);
+    console.log('Schema path: ', schemaPath);
     
-    if (!fs.existsSync(moldFilePath)) {
+    if (!fs.existsSync(schemaPath)) {
       console.log('Arquivo de entrada não encontrado');
       return false;
     }
-    var molds = require(moldFilePath);
+    var schemas = require(schemaPath);
     var output = 'json';
-    var accountConfig = moldFileName;
+    var accountConfig = schemaName;
     var dataStructure = options.structure || 'array';
 
     switch(dataStructure){
       case 'object':
-        console.log("Generating object...");
-        var obj = DataDesigner.generateObject(molds[0]);
+        console.log('Generating object...');
+        var obj = DataDesigner.generateObject(schemas[0]);
         generateOutput(output, obj, accountConfig);
         break;
       case 'array':
-        console.log("Generating array...");
-        var arr = DataDesigner.generateArray(length, molds);
+        console.log('Generating array...');
+        var arr = DataDesigner.generateArray(length, schemas);
         generateOutput(output, arr, accountConfig);
         break;
       case 'collection':
-        console.log("Generating conllection...");
-        var col = DataDesigner.generateCollection(length, molds);
+        console.log('Generating conllection...');
+        var col = DataDesigner.generateCollection(length, schemas);
         generateOutput(output, col, accountConfig);
         break;
       default:
