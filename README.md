@@ -68,7 +68,7 @@ paragraph               | "paragraph"   | Soluta aut sunt et. Vero vitae fugiat 
 paragraphs              | "paragraphs"  | Rerum optio quaerat. Doloribus ratione maiores. Deleniti soluta ipsa nobis unde qui enim. Numquam quo minima impedit deleniti quos autem dolor.\n \rIure minima deleniti. Voluptas ut maiores rerum. Sunt dolore magni voluptates tenetur molestiae. Illum voluptatibus numquam error non laboriosam et iusto quae. Quia corrupti fugit. Necessitatibus deserunt porro.\n \rAut in ut omnis. Repudiandae molestias eaque quis in cupiditate. Nulla dicta et asperiores quasi omnis molestiae rerum.
 cpf                     | "cpf"         |211.508.653-85, 313.628.781-97, ...
 
-### combine Command
+### combine command
 
 Com o comando __combine__ é possível gerar massas de dados a partir da combinação de outras massas de dados. Ele dá duas opções: merge e child. O merge, que é a opção padrão, gera uma massa de dados, em o n-ésimo objeto (linha) possui os atributos com os valores do n-ésimo objeto da primeira massa somado aos atributos com os valores de um objeto sorteado da segunda massa.
 ```
@@ -76,9 +76,9 @@ datamachine combine massa1.json massa2.json
 ```
 
 
-### sum Command
+### concat command
 
-### sub Command
+### sub command
 
-### mix Command
+### mix command
 
