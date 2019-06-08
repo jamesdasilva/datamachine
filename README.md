@@ -74,9 +74,9 @@ Com o comando __combine__ é possível gerar massas de dados a partir da combina
 
 Por exemplo, executando o comando:
 ```
-datamachine combine massa1.json massa2.json
+datamachine combine pessoas.json cidades.json
 ```
-Considerando que o conteúdo de massa1.json é:
+Considerando que o conteúdo de pesssoas.json é:
 ```
 [ {"name":"Antonina Schroeder","cpf":"067.710.318-29"},
 {"name":"Coralie Yost","cpf":"514.495.434-05"},
@@ -89,7 +89,7 @@ Considerando que o conteúdo de massa1.json é:
 {"name":"Freeman Senger","cpf":"449.370.375-01"},
 {"name":"Rocky Runte","cpf":"517.723.566-11"}]
 ```
-E o conteúdo de massa2.json é:
+E o conteúdo de cidades.json é:
 ```
 [{"cidade":"Juazeiro","UF":"Bahia"},
 {"cidade":"Petrolina","UF":"Pernambuco"},
@@ -108,6 +108,25 @@ O resultado terá o conteúdo:
 {"name":"Freeman Senger","cpf":"449.370.375-01","cidade":"Juazeiro","UF":"Bahia"},
 {"name":"Rocky Runte","cpf":"517.723.566-11","cidade":"Petrolina","UF":"Pernambuco"}]
 ```
+
+Se for usado o parâmetro child, como no exemplo a seguir:
+```
+datamachine combine pessoas.json cidades.json --child=cidade
+```
+o resultado será:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
+```
+Ou seja, os objetos do resultado será aninhados.
 
 ### concat command
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
