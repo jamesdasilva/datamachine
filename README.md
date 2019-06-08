@@ -77,8 +77,20 @@ datamachine combine massa1.json massa2.json
 
 
 ### concat command
+Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
+```
+datamachine concat massa1.json massa2.json
+```
 
 ### sub command
+Com o comando __sub__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
+```
+datamachine sub massa1.json massa2.json
+```
 
 ### mix command
+
+```
+datamachine mix massa1.json
+```
 
