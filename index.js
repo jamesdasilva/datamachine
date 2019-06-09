@@ -7,10 +7,12 @@ const DataDesigner = require('./src/data-designer');
 const getFilePath = require('./src/helpers/getFilePath');
 const combineArraysOfObjects = require('./src/combine-arrays-of-objects');
 const concatArraysOfObjects = require('./src/concat-arrays-of-objects');
+const shuffleArraysOfObjects = require('./src/shuffle-arrays-of-objects');
 
 const exposeGenerateCommand = require('./src/commands/generate');
 const exposeCombineCommand = require('./src/commands/combine');
 const exposeConcatCommand = require('./src/commands/concat');
+const exposeShuffleCommand = require('./src/commands/shuffle');
 const exposeAdaptToJSONServerCommand = require('./src/commands/adapt-to-json-server');
 
 program
@@ -27,7 +29,7 @@ exposeGenerateCommand(
 exposeCombineCommand(
   program,
   generateOutput,
-  concatArraysOfObjects,
+  combineArraysOfObjects,
   getFilePath
 );
 
@@ -35,6 +37,13 @@ exposeConcatCommand(
   program,
   generateOutput,
   concatArraysOfObjects,
+  getFilePath
+);
+
+exposeShuffleCommand(
+  program,
+  generateOutput,
+  shuffleArraysOfObjects,
   getFilePath
 );
 
