@@ -128,7 +128,7 @@ O resultado será:
 ```
 Ou seja, os objetos do resultado será aninhados.
 
-### concat command
+### Concat Command
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
 datamachine concat massa1.json massa2.json
@@ -183,13 +183,13 @@ Resultado:
 {"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
 ```
 
-### sub command
+### Sub Command
 Com o comando __sub__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
 datamachine sub massa1.json massa2.json
 ```
 
-### mix command
+### Mix Command
 
 ```
 datamachine mix massa1.json
