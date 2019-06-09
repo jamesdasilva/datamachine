@@ -113,7 +113,7 @@ Se for usado o parâmetro child, como no exemplo a seguir:
 ```
 datamachine combine pessoas.json cidades.json --child=cidade
 ```
-o resultado será:
+O resultado será:
 ```
 [{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
 {"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
@@ -132,6 +132,55 @@ Ou seja, os objetos do resultado será aninhados.
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
 datamachine concat massa1.json massa2.json
+```
+Sendo massa1.json:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29"},
+{"name":"Coralie Yost","cpf":"514.495.434-05"},
+{"name":"John Wintheiser","cpf":"632.071.773-44"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89"},
+{"name":"Aron Runte","cpf":"857.366.231-02"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36"},
+{"name":"Freeman Senger","cpf":"449.370.375-01"},
+{"name":"Rocky Runte","cpf":"517.723.566-11"}]
+```
+E massa2.json:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
+```
+Resultado:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29"},
+{"name":"Coralie Yost","cpf":"514.495.434-05"},
+{"name":"John Wintheiser","cpf":"632.071.773-44"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89"},
+{"name":"Aron Runte","cpf":"857.366.231-02"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36"},
+{"name":"Freeman Senger","cpf":"449.370.375-01"},
+{"name":"Rocky Runte","cpf":"517.723.566-11"},
+{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
 ```
 
 ### sub command
