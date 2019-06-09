@@ -1,5 +1,3 @@
-[
-    {"cidade":"Juazeiro","UF":"Bahia"},
-    {"cidade":"Petrolina","UF":"Pernambuco"},
-    {"cidade":"São Paulo","UF":"São Paulo"}
-]
+[{"cidade":"Juazeiro","UF":"Bahia"},
+{"cidade":"Petrolina","UF":"Pernambuco"},
+{"cidade":"São Paulo","UF":"São Paulo"}]

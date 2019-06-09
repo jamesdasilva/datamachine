@@ -15,19 +15,20 @@ const exposeGenerateCommand = (
   
     length = length || 5;
     var output = 'json';
-    const schemaPath = getFilePath(schemaName);
+    var dataStructure = options.structure || 'array';
 
+    // pegar schema
+    const schemaPath = getFilePath(schemaName);
     console.log('Schema path: ', schemaPath);
-    
     if (!fs.existsSync(schemaPath)) {
       console.log('Arquivo de entrada não encontrado');
       return false;
     }
     var schemas = require(schemaPath);
-    var output = 'json';
-    var accountConfig = schemaName;
-    var dataStructure = options.structure || 'array';
+    // ------------
 
+    // gerar 
+    var accountConfig = schemaName;
     switch(dataStructure){
       case 'object':
         console.log('Generating object...');
