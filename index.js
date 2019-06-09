@@ -16,7 +16,7 @@ const exposeShuffleCommand = require('./src/commands/shuffle');
 const exposeAdaptToJSONServerCommand = require('./src/commands/adapt-to-json-server');
 
 program
-  .version('1.1.0')
+  .version('1.2.0')
   .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
 
 exposeGenerateCommand(
