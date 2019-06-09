@@ -68,7 +68,7 @@ paragraph               | "paragraph"   | Soluta aut sunt et. Vero vitae fugiat 
 paragraphs              | "paragraphs"  | Rerum optio quaerat. Doloribus ratione maiores. Deleniti soluta ipsa nobis unde qui enim. Numquam quo minima impedit deleniti quos autem dolor.\n \rIure minima deleniti. Voluptas ut maiores rerum. Sunt dolore magni voluptates tenetur molestiae. Illum voluptatibus numquam error non laboriosam et iusto quae. Quia corrupti fugit. Necessitatibus deserunt porro.\n \rAut in ut omnis. Repudiandae molestias eaque quis in cupiditate. Nulla dicta et asperiores quasi omnis molestiae rerum.
 cpf                     | "cpf"         |211.508.653-85, 313.628.781-97, ...
 
-### combine command
+### Combine Command
 
 Com o comando __combine__ é possível gerar massas de dados a partir da combinação de outras massas de dados. Ele dá duas opções: merge e child. O merge, que é a opção padrão, gera uma massa de dados, em que o n-ésimo objeto possui os atributos com os valores do n-ésimo objeto da primeira massa somado aos atributos com os valores de um objeto sorteado da segunda massa.
 
@@ -113,7 +113,7 @@ Se for usado o parâmetro child, como no exemplo a seguir:
 ```
 datamachine combine pessoas.json cidades.json --child=cidade
 ```
-o resultado será:
+O resultado será:
 ```
 [{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
 {"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
@@ -128,19 +128,68 @@ o resultado será:
 ```
 Ou seja, os objetos do resultado será aninhados.
 
-### concat command
+### Concat Command
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
 datamachine concat massa1.json massa2.json
 ```
+Sendo massa1.json:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29"},
+{"name":"Coralie Yost","cpf":"514.495.434-05"},
+{"name":"John Wintheiser","cpf":"632.071.773-44"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89"},
+{"name":"Aron Runte","cpf":"857.366.231-02"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36"},
+{"name":"Freeman Senger","cpf":"449.370.375-01"},
+{"name":"Rocky Runte","cpf":"517.723.566-11"}]
+```
+E massa2.json:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
+```
+Resultado:
+```
+[{"name":"Antonina Schroeder","cpf":"067.710.318-29"},
+{"name":"Coralie Yost","cpf":"514.495.434-05"},
+{"name":"John Wintheiser","cpf":"632.071.773-44"},
+{"name":"Dolores Murazik","cpf":"145.943.869-89"},
+{"name":"Aron Runte","cpf":"857.366.231-02"},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83"},
+{"name":"Marisol Friesen","cpf":"363.207.003-27"},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36"},
+{"name":"Freeman Senger","cpf":"449.370.375-01"},
+{"name":"Rocky Runte","cpf":"517.723.566-11"},
+{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"John Wintheiser","cpf":"632.071.773-44","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Dolores Murazik","cpf":"145.943.869-89","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Aron Runte","cpf":"857.366.231-02","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Mr. Caitlyn Weissnat","cpf":"034.723.997-83","cidade":{"cidade":"Petrolina","UF":"Pernambuco"}},
+{"name":"Marisol Friesen","cpf":"363.207.003-27","cidade":{"cidade":"Juazeiro","UF":"Bahia"}},
+{"name":"Ardella Hettinger","cpf":"925.747.039-36","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Freeman Senger","cpf":"449.370.375-01","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
+{"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
+```
 
-### sub command
+### Sub Command
 Com o comando __sub__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
 datamachine sub massa1.json massa2.json
 ```
 
-### mix command
+### Mix Command
 
 ```
 datamachine mix massa1.json
