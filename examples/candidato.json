@@ -1,5 +1,5 @@
-[{"contador":1,"inteiro":41,"valor":41,"primos":3,"logico":true,"fruta":"uva","nome":"Hailey Medhurst IV","cpf":"793.839.670-21","nascimento":"1991-06-10T12:46:28.000Z","mediaEnem":748.83},
-{"contador":2,"inteiro":42,"valor":37.79,"primos":7,"logico":false,"fruta":"maçã","nome":"Roman Mayert MD","cpf":"469.531.848-25","nascimento":"1993-11-11T03:48:50.000Z","mediaEnem":532.19},
-{"contador":3,"inteiro":30,"valor":31.99,"primos":7,"logico":false,"fruta":"pera","nome":"Keshawn Schimmel","cpf":"943.859.098-65","nascimento":"1992-01-31T13:03:15.000Z","mediaEnem":718.39},
-{"contador":4,"inteiro":46,"valor":29.36,"primos":3,"logico":true,"fruta":"maçã","nome":"April Quitzon","cpf":"713.024.658-80","nascimento":"1992-05-31T06:17:40.000Z","mediaEnem":960.74},
-{"contador":5,"inteiro":45,"valor":24.83,"primos":7,"logico":true,"fruta":"pera","nome":"Cole Hirthe","cpf":"372.172.326-00","nascimento":"1991-10-19T14:49:39.000Z","mediaEnem":302.14}]
+[{"contador":1,"inteiro":39,"valor":27.51,"primos":3,"logico":false,"fruta":"maçã","nome":"Diego Runolfsdottir","cpf":"478.265.868-01","nascimento":"1993-03-18T01:54:28.000Z","mediaEnem":465.6},
+{"contador":2,"inteiro":44,"valor":30.49,"primos":2,"logico":false,"fruta":"maçã","nome":"Durward Weimann","cpf":"429.773.892-96","nascimento":"1993-04-05T22:56:58.000Z","mediaEnem":898.71},
+{"contador":3,"inteiro":34,"valor":43.83,"primos":2,"logico":true,"fruta":"maçã","nome":"Elsa Bergnaum","cpf":"367.727.240-89","nascimento":"1991-01-16T07:26:07.000Z","mediaEnem":449.56},
+{"contador":4,"inteiro":36,"valor":46.45,"primos":5,"logico":true,"fruta":"uva","nome":"Watson Shields","cpf":"467.554.538-62","nascimento":"1991-03-06T23:26:34.000Z","mediaEnem":970.21},
+{"contador":5,"inteiro":48,"valor":34.48,"primos":2,"logico":true,"fruta":"pera","nome":"Simeon Runolfsdottir","cpf":"331.029.537-00","nascimento":"1992-01-01T03:58:45.000Z","mediaEnem":776.73}]

@@ -15,7 +15,7 @@ let makeAtt = type => {
   var type = type;
   var regEx = /^\[\d+\]/;
   if(type.constructor == RegExp){
-    let randExp = require(`./types/randExp`);
+    let randExp = require(`../../types/randExp`);
     if(randExp)
       return randExp.generate(type);
   }else if(regEx.test(type)){
@@ -30,7 +30,7 @@ let makeAtt = type => {
     return array;
   }else{
     var keyType = getName(type) as string;
-    AttributeTypes[keyType] = require(`./types/${keyType}`);
+    AttributeTypes[keyType] = require(`../../types/${keyType}`);
     if(AttributeTypes[keyType])
       return AttributeTypes[keyType].generate(type);
   }

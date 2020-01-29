@@ -1,12 +1,12 @@
 var fs = require('fs');
 var program = require('commander');
 
-import generateOutput from './output-generator/generate-output';
-import DataDesigner from './data-designer';
+import generateOutput from './output-generator/json-output';
+import DataDesigner from './domain/data-generation/data-designer';
 import getFilePath from './helpers/getFilePath';
-import combineArraysOfObjects from './combine-arrays-of-objects';
-import concatArraysOfObjects from './concat-arrays-of-objects';
-import shuffleArraysOfObjects from './shuffle-arrays-of-objects';
+import combineArraysOfObjects from './domain/data-operations/combine-arrays-of-objects';
+import concatArraysOfObjects from './domain/data-operations/concat-arrays-of-objects';
+import shuffleArraysOfObjects from './domain/data-operations/shuffle-arrays-of-objects';
 
 import exposeGenerateCommand from './CLI/generate';
 import exposeCombineCommand from './CLI/combine';
@@ -20,15 +20,13 @@ program
 exposeGenerateCommand(
   program,
   generateOutput,
-  DataDesigner,
-  getFilePath
+  DataDesigner
 );
 
 exposeCombineCommand(
   program,
   generateOutput,
-  combineArraysOfObjects,
-  getFilePath
+  combineArraysOfObjects
 );
 
 exposeConcatCommand(
