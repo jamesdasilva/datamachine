@@ -1,4 +1,4 @@
-faker = require('faker');
+var faker = require('faker');
 
 module.exports = {
   generate: function (type: any) {

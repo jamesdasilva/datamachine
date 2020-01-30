@@ -36,7 +36,7 @@
   "bin": "./index.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "test": "./node_modules/mocha/bin/mocha",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "tdd": "./node_modules/mocha/bin/mocha --watch",
     "complexity-report": "./node_modules/.bin/es6-plato -r -d ./report src"
   },
@@ -47,7 +47,9 @@
     "randexp": "^0.5.3"
   },
   "devDependencies": {
+    "@types/chai": "4.2.8",
     "@types/mocha": "5.2.7",
+    "@types/sinon": "7.5.1",
     "chai": "^4.2.0",
     "es6-plato": "^1.1.6",
     "mocha": "^5.2.0",

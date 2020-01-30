@@ -1,11 +1,10 @@
-var chai = require('chai');
+var _chai = require('chai');
 var BoolType = require('../src/types/boolean');
 
-describe('BoolType', function() {
-  describe('.genarate()', function() {
-    it('should return a bool when run method generate()', function() {
-      console.log(BoolType.generate());
-      chai.expect(BoolType.generate()).to.be.a('boolean');
+describe('BoolType', () => {
+  describe('.genarate()', () => {
+    it('should return a bool when run method generate()', () => {
+      _chai.expect(BoolType.generate()).to.be.a('boolean');
     });
   });
 });
