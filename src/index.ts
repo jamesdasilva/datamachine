@@ -1,8 +1,8 @@
-var fs = require('fs');
 var program = require('commander');
 
-import generateOutput from './output-generator/json-output';
-import DataDesigner from './domain/data-generation/data-designer';
+import generateOutput from './registry/json-output';
+import JsonOutput from './registry/json-output';
+import ArrayGenerator from './domain/data-generation/array-generator';
 import getFilePath from './helpers/getFilePath';
 import combineArraysOfObjects from './domain/data-operations/combine-arrays-of-objects';
 import concatArraysOfObjects from './domain/data-operations/concat-arrays-of-objects';
@@ -19,8 +19,8 @@ program
 
 exposeGenerateCommand(
   program,
-  generateOutput,
-  DataDesigner
+  JsonOutput,
+  ArrayGenerator
 );
 
 exposeCombineCommand(

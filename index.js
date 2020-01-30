@@ -179,22 +179,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var value_generator_1 = __importDefault(__webpack_require__(39));
-function gerarObjeto(objeto) {
-    var result = {};
-    if (typeof objeto != 'object')
-        return false;
-    Object.keys(objeto).forEach(function (item) {
-        if (typeof objeto[item] == 'object' && objeto[item].constructor != RegExp) {
-            result[item] = gerarObjeto(objeto[item]); // recursividade 
+var fs = __webpack_require__(1);
+var getFilePath_1 = __importDefault(__webpack_require__(3));
+var JsonOutput = /** @class */ (function () {
+    function JsonOutput() {
+    }
+    JsonOutput.prototype.generate = function (data, dataFileName) {
+        try {
+            var dataJson = JSON.stringify(data);
+            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
+            var dataFilePath = getFilePath_1.default(dataFileName + ".json");
+            console.log('----', dataFilePath);
+            console.log('* ----', !!fs.writeFileSync(dataFilePath, dataJsonWithNewline, 'utf-8'));
+            return !!fs.writeFileSync(dataFileName + ".json", dataJsonWithNewline, 'utf-8');
         }
-        else {
-            result[item] = value_generator_1.default.make(objeto[item]);
+        catch (_a) {
+            console.log('ERRO ao gerar arquivo de saída');
+            return false;
         }
-    });
-    return result;
+    };
+    JsonOutput.prototype.extract = function () {
+        throw new Error("Method not implemented.");
+    };
+    JsonOutput.prototype.replaceAll = function (_string, search, replacement) {
+        var target = _string;
+        return target.split(search).join(replacement);
+    };
+    ;
+    return JsonOutput;
+}());
+exports.default = JsonOutput;
+function a(output, data, dataFileName) {
+    console.log('generator output', output, data, dataFileName);
+    switch (output) {
+        case 'json':
+            var dataFileName = dataFileName.split('.');
+            var jsonOutput = new JsonOutput;
+            jsonOutput.generate(data, getFilePath_1.default(dataFileName[0]));
+            break;
+    }
 }
-exports.default = gerarObjeto;
+exports.a = a;
+;
 
 
 /***/ }),
@@ -8654,22 +8680,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __webpack_require__(1);
 var program = __webpack_require__(32);
-var json_output_1 = __importDefault(__webpack_require__(37));
-var data_designer_1 = __importDefault(__webpack_require__(38));
+var json_output_1 = __importDefault(__webpack_require__(6));
+var json_output_2 = __importDefault(__webpack_require__(6));
+var array_generator_1 = __importDefault(__webpack_require__(37));
 var getFilePath_1 = __importDefault(__webpack_require__(3));
-var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(1094));
-var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(1098));
-var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(1099));
-var generate_1 = __importDefault(__webpack_require__(1100));
-var combine_1 = __importDefault(__webpack_require__(1101));
-var concat_1 = __importDefault(__webpack_require__(1102));
-var shuffle_1 = __importDefault(__webpack_require__(1103));
+var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(1093));
+var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(1097));
+var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(1098));
+var generate_1 = __importDefault(__webpack_require__(1099));
+var combine_1 = __importDefault(__webpack_require__(1100));
+var concat_1 = __importDefault(__webpack_require__(1101));
+var shuffle_1 = __importDefault(__webpack_require__(1102));
 program
     .version('1.2.0')
     .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
-generate_1.default(program, json_output_1.default, data_designer_1.default);
+generate_1.default(program, json_output_2.default, array_generator_1.default);
 combine_1.default(program, json_output_1.default, combine_arrays_of_objects_1.default);
 concat_1.default(program, json_output_1.default, concat_arrays_of_objects_1.default, getFilePath_1.default);
 shuffle_1.default(program, json_output_1.default, shuffle_arrays_of_objects_1.default, getFilePath_1.default);
@@ -9940,44 +9966,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __webpack_require__(1);
-var getFilePath_1 = __importDefault(__webpack_require__(3));
-var JsonOutput = /** @class */ (function () {
-    function JsonOutput() {
+var object_generator_1 = __importDefault(__webpack_require__(38));
+var ArrayGenerator = /** @class */ (function () {
+    function ArrayGenerator() {
     }
-    JsonOutput.prototype.generate = function (data, dataFileName) {
-        try {
-            var dataJson = JSON.stringify(data);
-            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
-            return !!fs.writeFileSync(dataFileName + ".json", dataJsonWithNewline, 'utf-8');
-        }
-        catch (_a) {
-            console.log('ERRO ao gerar arquivo de saída');
+    ArrayGenerator.prototype.generate = function (length, molds) {
+        var result = [], moldsArray = [], indexMold;
+        if (typeof molds != 'object') {
             return false;
         }
+        else if (molds.length == 0) {
+            moldsArray = Object.keys(molds).map(function (keyItem) {
+                return molds[keyItem];
+            });
+        }
+        else {
+            moldsArray = molds;
+        }
+        for (var k = 0; k < length; k++) {
+            indexMold = Math.floor(Math.random() * moldsArray.length);
+            result.push(new object_generator_1.default().generate(moldsArray[indexMold]));
+        }
+        return result;
     };
-    JsonOutput.prototype.extract = function () {
-        throw new Error("Method not implemented.");
-    };
-    JsonOutput.prototype.replaceAll = function (_string, search, replacement) {
-        var target = _string;
-        return target.split(search).join(replacement);
-    };
-    ;
-    return JsonOutput;
+    return ArrayGenerator;
 }());
-function default_1(output, data, dataFileName) {
-    console.log('generator output', output, data, dataFileName);
-    switch (output) {
-        case 'json':
-            var dataFileName = dataFileName.split('.');
-            var jsonOutput = new JsonOutput;
-            jsonOutput.generate(data, getFilePath_1.default(dataFileName[0]));
-            break;
-    }
-}
-exports.default = default_1;
-;
+exports.default = ArrayGenerator;
 
 
 /***/ }),
@@ -9990,12 +10004,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var generate_object_1 = __importDefault(__webpack_require__(6));
-var generate_array_1 = __importDefault(__webpack_require__(1093));
-exports.default = {
-    generateObject: generate_object_1.default,
-    generateArray: generate_array_1.default
-};
+var attribute_generator_1 = __importDefault(__webpack_require__(39));
+var ObjectGenerator = /** @class */ (function () {
+    function ObjectGenerator() {
+    }
+    ObjectGenerator.prototype.generate = function (objeto) {
+        var _this = this;
+        var result = {};
+        if (typeof objeto != 'object')
+            return false;
+        Object.keys(objeto).forEach(function (item) {
+            if (typeof objeto[item] == 'object' && objeto[item].constructor != RegExp) {
+                result[item] = _this.generate(objeto[item]); // recursividade 
+            }
+            else {
+                result[item] = new attribute_generator_1.default().generate(objeto[item]);
+            }
+        });
+        return result;
+    };
+    return ObjectGenerator;
+}());
+exports.default = ObjectGenerator;
 
 
 /***/ }),
@@ -10004,44 +10034,49 @@ exports.default = {
 
 "use strict";
 
-//var generateObject = require('./generate-object');
 Object.defineProperty(exports, "__esModule", { value: true });
-var AttributeTypes = {};
-var getName = function (type) {
-    var regExpTypeName = /^[\w*]*/g;
-    var typeName = type.match(regExpTypeName) + '';
-    if (typeName != 'null') {
-        return typeName;
+var AttributeGenerator = /** @class */ (function () {
+    function AttributeGenerator() {
+        this.AttributeTypes = {};
     }
-    return false;
-};
-var makeAtt = function (type) {
-    var type = type;
-    var regEx = /^\[\d+\]/;
-    if (type.constructor == RegExp) {
-        var randExp = __webpack_require__(5);
-        if (randExp)
-            return randExp.generate(type);
-    }
-    else if (regEx.test(type)) {
-        var array = type.match(regEx)[0];
-        var arrayLength = parseInt(array.slice(1, array.length - 1));
-        array = [];
-        type = type.split(']');
-        type = type[1];
-        for (var k = 0; k < arrayLength; k++) {
-            array.push(makeAtt(type));
+    AttributeGenerator.prototype.getName = function (type) {
+        var regExpTypeName = /^[\w*]*/g;
+        var typeName = type.match(regExpTypeName) + '';
+        if (typeName != 'null') {
+            return typeName;
         }
-        return array;
-    }
-    else {
-        var keyType = getName(type);
-        AttributeTypes[keyType] = __webpack_require__(45)("./" + keyType);
-        if (AttributeTypes[keyType])
-            return AttributeTypes[keyType].generate(type);
-    }
-};
-exports.default = { make: makeAtt };
+        return false;
+    };
+    AttributeGenerator.prototype.generate = function (type) {
+        var type = type;
+        var regEx = /^\[\d+\]/;
+        if (type.constructor == RegExp) {
+            var randExp = __webpack_require__(5); // mudar isso aqui
+            if (randExp)
+                return randExp.generate(type);
+        }
+        else if (regEx.test(type)) {
+            var array = type.match(regEx)[0];
+            var arrayLength = parseInt(array.slice(1, array.length - 1));
+            array = [];
+            type = type.split(']');
+            type = type[1];
+            for (var k = 0; k < arrayLength; k++) {
+                array.push(this.generate(type));
+            }
+            return array;
+        }
+        else {
+            var keyType = this.getName(type);
+            this.AttributeTypes[keyType] = __webpack_require__(45)("./" + keyType);
+            if (this.AttributeTypes[keyType])
+                return this.AttributeTypes[keyType].generate(type);
+        }
+    };
+    ;
+    return AttributeGenerator;
+}());
+exports.default = AttributeGenerator;
 
 
 /***/ }),
@@ -99948,27 +99983,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var generate_object_1 = __importDefault(__webpack_require__(6));
-function default_1(length, molds) {
-    var result = [], moldsArray = [], indexMold;
-    if (typeof molds != 'object') {
-        return false;
-    }
-    else if (molds.length == 0) {
-        moldsArray = Object.keys(molds).map(function (keyItem) {
-            return molds[keyItem];
-        });
-    }
-    else {
-        moldsArray = molds;
-    }
-    for (var k = 0; k < length; k++) {
-        indexMold = Math.floor(Math.random() * moldsArray.length);
-        result.push(generate_object_1.default(moldsArray[indexMold]));
-    }
-    return result;
-}
-exports.default = default_1;
+var raffle_object_1 = __importDefault(__webpack_require__(1094));
+var combine_objects_1 = __importDefault(__webpack_require__(1096));
+exports.default = (function (array1, array2, childName) {
+    return array1.map(function (item) {
+        return combine_objects_1.default(item, raffle_object_1.default(array2), childName);
+    });
+});
 
 
 /***/ }),
@@ -99981,26 +100002,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var raffle_object_1 = __importDefault(__webpack_require__(1095));
-var combine_objects_1 = __importDefault(__webpack_require__(1097));
-exports.default = (function (array1, array2, childName) {
-    return array1.map(function (item) {
-        return combine_objects_1.default(item, raffle_object_1.default(array2), childName);
-    });
-});
-
-
-/***/ }),
-/* 1095 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var generateRandomNumber_1 = __importDefault(__webpack_require__(1096));
+var generateRandomNumber_1 = __importDefault(__webpack_require__(1095));
 function default_1(arrayOfObjects) {
     return arrayOfObjects[generateRandomNumber_1.default(0, arrayOfObjects.length)];
 }
@@ -100009,7 +100011,7 @@ exports.default = default_1;
 
 
 /***/ }),
-/* 1096 */
+/* 1095 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100028,7 +100030,7 @@ exports.default = default_1;
 
 
 /***/ }),
-/* 1097 */
+/* 1096 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100045,7 +100047,7 @@ exports.default = (function (obj1, obj2, childName) {
 
 
 /***/ }),
-/* 1098 */
+/* 1097 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100057,7 +100059,7 @@ exports.default = (function (array1, array2) {
 
 
 /***/ }),
-/* 1099 */
+/* 1098 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100083,7 +100085,7 @@ exports.default = (function (array) {
 
 
 /***/ }),
-/* 1100 */
+/* 1099 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100103,7 +100105,7 @@ function getSchema(schemaName) {
     }
     return JSON.parse(fs.readFileSync(schemaPath, 'utf-8'));
 }
-function default_1(program, generateOutput, DataDesigner) {
+function default_1(program, JsonOutput, ArrayGenerator) {
     program
         .command('generate <schemas> [length]')
         .alias('g')
@@ -100119,15 +100121,11 @@ function default_1(program, generateOutput, DataDesigner) {
         // gerar 
         var accountConfig = schemaName;
         switch (dataStructure) {
-            case 'object':
-                console.log('Generating object...');
-                var obj = DataDesigner.generateObject(schemas);
-                generateOutput(output, obj, accountConfig);
-                break;
             case 'array':
                 console.log('Generating array...');
-                var arr = DataDesigner.generateArray(length, schemas.schema);
-                generateOutput(output, arr, accountConfig);
+                var arr = new ArrayGenerator().generate(length, schemas.schema);
+                var fileName = accountConfig.split('.')[0];
+                new JsonOutput().generate(arr, fileName);
                 break;
             default:
                 console.log('Estrutura de dados desconhecida');
@@ -100139,7 +100137,7 @@ exports.default = default_1;
 
 
 /***/ }),
-/* 1101 */
+/* 1100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100201,7 +100199,7 @@ exports.default = (function (program, generateOutput, combineArraysOfObjects) {
 
 
 /***/ }),
-/* 1102 */
+/* 1101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100252,7 +100250,7 @@ exports.default = (function (program, generateOutput, concatArraysOfObjects, get
 
 
 /***/ }),
-/* 1103 */
+/* 1102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

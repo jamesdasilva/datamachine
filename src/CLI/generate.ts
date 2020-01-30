@@ -15,8 +15,8 @@ function getSchema (schemaName) {
 
 export default function (
   program,
-  generateOutput,
-  DataDesigner) {
+  JsonOutput,
+  ArrayGenerator) {
 
   program
   .command('generate <schemas> [length]')
@@ -36,15 +36,11 @@ export default function (
     // gerar 
     var accountConfig = schemaName;
     switch(dataStructure){
-      case 'object':
-        console.log('Generating object...');
-        var obj = DataDesigner.generateObject(schemas);
-        generateOutput(output, obj, accountConfig);
-        break;
       case 'array':
         console.log('Generating array...');
-        var arr = DataDesigner.generateArray(length, schemas.schema);
-        generateOutput(output, arr, accountConfig);
+        var arr = new ArrayGenerator().generate(length, schemas.schema);
+        let fileName = accountConfig.split('.')[0];
+        new JsonOutput().generate(arr, fileName);
         break;
       default:
         console.log('Estrutura de dados desconhecida');
