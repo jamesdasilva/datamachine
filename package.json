@@ -37,7 +37,7 @@
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "tdd": "./node_modules/mocha/bin/mocha --watch",
+    "tdd": "mocha -r ts-node/register test/**/*.spec.ts --watch",
     "complexity-report": "./node_modules/.bin/es6-plato -r -d ./report src"
   },
   "dependencies": {

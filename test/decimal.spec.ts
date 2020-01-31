@@ -4,7 +4,7 @@ var DecimalType = require('../src/types/decimal');
 describe('DecimalType', function() {
   describe('.genarate()', function() {
     var valueGenerated;
-    beforeEach(function(){
+    beforeEach(function() {
       valueGenerated = DecimalType.generate('decimal:5;10;100');
     });
 
