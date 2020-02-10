@@ -1,8 +1,6 @@
 var program = require('commander');
 
-import generateOutput from './registry/json-output';
-import JsonOutput from './registry/json-output';
-import ArrayGenerator from './domain/data-generation/array-generator';
+import generateOutput from "./registry/json-registry";
 import getFilePath from './helpers/getFilePath';
 import combineArraysOfObjects from './domain/data-operations/combine-arrays-of-objects';
 import concatArraysOfObjects from './domain/data-operations/concat-arrays-of-objects';
@@ -15,13 +13,14 @@ import exposeShuffleCommand from './CLI/shuffle';
 
 program
   .version('1.2.0')
-  .description('O Datamachine é uma ferramenta CLI para fabricar dados falsos');
+  .description('Datamachine é uma ferramenta para fabricar dados falsos e realistas')
+  .on('--help', function(){
+    console.log('')
+    console.log('Command options:');
+    console.log('  [command] --help                         para ver variações de comandos');
+  });
 
-exposeGenerateCommand(
-  program,
-  JsonOutput,
-  ArrayGenerator
-);
+exposeGenerateCommand();
 
 exposeCombineCommand(
   program,
