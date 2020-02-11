@@ -6,7 +6,7 @@ import combineArraysOfObjects from './domain/data-operations/combine-arrays-of-o
 import concatArraysOfObjects from './domain/data-operations/concat-arrays-of-objects';
 import shuffleArraysOfObjects from './domain/data-operations/shuffle-arrays-of-objects';
 
-import exposeGenerateCommand from './CLI/generate';
+import exposeGenerateCommand from './CLI/generate.command';
 import exposeCombineCommand from './CLI/combine';
 import exposeConcatCommand from './CLI/concat';
 import exposeShuffleCommand from './CLI/shuffle';

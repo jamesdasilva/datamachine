@@ -8,9 +8,9 @@ export default class JsonRegistry implements IResgitry {
     try {
       var dataJson = JSON.stringify(data);
       var dataJsonWithNewline = this.replaceAll(dataJson, '},{','},\n{');
-      return !!fs.writeFileSync(`${dataFileName}.data.json`, dataJsonWithNewline, 'utf-8');
+      fs.writeFileSync(`${dataFileName}.data.json`, dataJsonWithNewline, 'utf-8');
+      return true;
     } catch {
-      console.log('ERRO ao gerar arquivo de saída'); 
       return false;
     }
   }
