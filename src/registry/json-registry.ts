@@ -25,8 +25,9 @@ export default class JsonRegistry implements IResgitry {
     throw new Error("Method not implemented.");
   }
   public generateOutputFileName(options, inputFileName) {
-    if(options.outputFileName) {
-      return options.outputFileName;
+    console.log(options);
+    if(options.outName) {
+      return options.outName;
     }
     return inputFileName.split('.')[0];
   }

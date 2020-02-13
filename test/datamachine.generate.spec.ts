@@ -4,7 +4,7 @@ import JsonRegistry from '../src/registry/json-registry'
 import ArrayGenerator from '../src/domain/data-generation/array-generator';
 import sinon = require('sinon');
 
-describe.only('Datamachine', () => {
+describe('Datamachine', () => {
   describe('.generate()', () => {
     let schemaContent;
     let schemaName;
@@ -40,10 +40,18 @@ describe.only('Datamachine', () => {
       writeStub.restore();
       generateStub.restore();
     });
-    it('Deve ler o arquivo do schema', () => {
+    it('Deve ler o arquivo de entrada, importando o schema', () => {
       const datamachine = new Datamachine();
       datamachine.generate(schemaName, length, options);
       sinon.assert.calledOnce(readStub);
+    });
+    it('Se não houver schema, não deve tentar gerar a massa de dados e nem tentar gerar arquivo de saída', () => {
+      readStub.restore();
+      readStub = sinon.stub(JsonRegistry.prototype, <any>'read').returns(false);
+      const datamachine = new Datamachine();
+      datamachine.generate(schemaName, length, options);
+      sinon.assert.notCalled(generateStub);
+      sinon.assert.notCalled(writeStub);
     });
     it('Se houver schema, deve gerar a massa de dados', () => {
       const datamachine = new Datamachine();

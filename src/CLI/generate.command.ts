@@ -6,12 +6,12 @@ export default function () {
   program
   .command('generate <schemas> [length]')
   .alias('g')
-  .option('-S, --structure <structure>", "Object, array, ou collection')
-  .option('-N, --outName <outName>", "Nome do arquivo de saída')
+  .option('-S, --structure <structure>", "array ou collection')
+  .option('-N, --outName <outName>", "nome do arquivo de saída')
   .description('gerar massa de dados a partir de um schema')
   .action((schemaName, length, options) => {
     let datamachine = new Datamachine(new Log());
-    console.log('<< DATAMACHINE >>');
+    console.log('<< DATAMACHINE >>', options.outName);
     datamachine
       .generate(
         schemaName,

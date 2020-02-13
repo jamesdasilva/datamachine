@@ -140,6 +140,83 @@ module.exports = {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs = __webpack_require__(1);
+var getFilePath_1 = __importDefault(__webpack_require__(5));
+var JsonRegistry = /** @class */ (function () {
+    function JsonRegistry() {
+    }
+    JsonRegistry.prototype.write = function (data, dataFileName) {
+        try {
+            var dataJson = JSON.stringify(data);
+            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
+            fs.writeFileSync(dataFileName + ".data.json", dataJsonWithNewline, 'utf-8');
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    };
+    JsonRegistry.prototype.read = function (fileName) {
+        var filePath = this.getFilePath(fileName);
+        if (!fs.existsSync(filePath)) {
+            return false;
+        }
+        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    };
+    JsonRegistry.prototype.extract = function () {
+        throw new Error("Method not implemented.");
+    };
+    JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
+        console.log(options);
+        if (options.outName) {
+            return options.outName;
+        }
+        return inputFileName.split('.')[0];
+    };
+    JsonRegistry.prototype.getFilePath = function (fileName) {
+        var cwd = process.cwd();
+        var barType = cwd.match(/\\/)[0];
+        if (barType == '\\') {
+            var fileNameWithBackslash = fileName.replace(/\//, '\\');
+            return cwd + "\\" + fileNameWithBackslash;
+        }
+        else {
+            var fileNameWithBar = fileName.replace(/\\/, '//');
+            return cwd + "/" + fileNameWithBar;
+        }
+    };
+    ;
+    JsonRegistry.prototype.replaceAll = function (_string, search, replacement) {
+        var target = _string;
+        return target.split(search).join(replacement);
+    };
+    ;
+    return JsonRegistry;
+}());
+exports.default = JsonRegistry;
+function a(output, data, dataFileName) {
+    switch (output) {
+        case 'json':
+            var dataFileName = dataFileName.split('.');
+            var jsonRegistry = new JsonRegistry();
+            jsonRegistry.write(data, getFilePath_1.default(dataFileName[0]));
+            break;
+    }
+}
+exports.a = a;
+;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1(moldFileName) {
     var cwd = process.cwd();
@@ -158,7 +235,7 @@ exports.default = default_1;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var RandExp = __webpack_require__(49);
@@ -170,7 +247,7 @@ module.exports = {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -1397,82 +1474,6 @@ function exists(file) {
     return false;
   }
 }
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __webpack_require__(1);
-var getFilePath_1 = __importDefault(__webpack_require__(4));
-var JsonRegistry = /** @class */ (function () {
-    function JsonRegistry() {
-    }
-    JsonRegistry.prototype.write = function (data, dataFileName) {
-        try {
-            var dataJson = JSON.stringify(data);
-            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
-            fs.writeFileSync(dataFileName + ".data.json", dataJsonWithNewline, 'utf-8');
-            return true;
-        }
-        catch (_a) {
-            return false;
-        }
-    };
-    JsonRegistry.prototype.read = function (fileName) {
-        var filePath = this.getFilePath(fileName);
-        if (!fs.existsSync(filePath)) {
-            return false;
-        }
-        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    };
-    JsonRegistry.prototype.extract = function () {
-        throw new Error("Method not implemented.");
-    };
-    JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
-        if (options.outputFileName) {
-            return options.outputFileName;
-        }
-        return inputFileName.split('.')[0];
-    };
-    JsonRegistry.prototype.getFilePath = function (fileName) {
-        var cwd = process.cwd();
-        var barType = cwd.match(/\\/)[0];
-        if (barType == '\\') {
-            var fileNameWithBackslash = fileName.replace(/\//, '\\');
-            return cwd + "\\" + fileNameWithBackslash;
-        }
-        else {
-            var fileNameWithBar = fileName.replace(/\\/, '//');
-            return cwd + "/" + fileNameWithBar;
-        }
-    };
-    ;
-    JsonRegistry.prototype.replaceAll = function (_string, search, replacement) {
-        var target = _string;
-        return target.split(search).join(replacement);
-    };
-    ;
-    return JsonRegistry;
-}());
-exports.default = JsonRegistry;
-function a(output, data, dataFileName) {
-    switch (output) {
-        case 'json':
-            var dataFileName = dataFileName.split('.');
-            var jsonRegistry = new JsonRegistry();
-            jsonRegistry.write(data, getFilePath_1.default(dataFileName[0]));
-            break;
-    }
-}
-exports.a = a;
-;
 
 
 /***/ }),
@@ -10806,9 +10807,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var program = __webpack_require__(6);
-var json_registry_1 = __importDefault(__webpack_require__(7));
-var getFilePath_1 = __importDefault(__webpack_require__(4));
+var program = __webpack_require__(7);
+var json_registry_1 = __importDefault(__webpack_require__(4));
+var getFilePath_1 = __importDefault(__webpack_require__(5));
 var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(38));
 var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(42));
 var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(43));
@@ -10976,19 +10977,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var program = __webpack_require__(6);
+var program = __webpack_require__(7);
 var datamachine_1 = __importDefault(__webpack_require__(45));
 var log_1 = __importDefault(__webpack_require__(1102));
 function default_1() {
     program
         .command('generate <schemas> [length]')
         .alias('g')
-        .option('-S, --structure <structure>", "Object, array, ou collection')
-        .option('-N, --outName <outName>", "Nome do arquivo de saída')
+        .option('-S, --structure <structure>", "array ou collection')
+        .option('-N, --outName <outName>", "nome do arquivo de saída')
         .description('gerar massa de dados a partir de um schema')
         .action(function (schemaName, length, options) {
         var datamachine = new datamachine_1.default(new log_1.default());
-        console.log('<< DATAMACHINE >>');
+        console.log('<< DATAMACHINE >>', options.outName);
         datamachine
             .generate(schemaName, length, {
             structure: options.structure,
@@ -11009,7 +11010,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(7));
+var json_registry_1 = __importDefault(__webpack_require__(4));
 var array_generator_1 = __importDefault(__webpack_require__(46));
 var Datamachine = /** @class */ (function () {
     function Datamachine(log) {
@@ -11151,7 +11152,7 @@ var AttributeGenerator = /** @class */ (function () {
         var type = type;
         var regEx = /^\[\d+\]/;
         if (type.constructor == RegExp) {
-            var randExp = __webpack_require__(5); // mudar isso aqui
+            var randExp = __webpack_require__(6); // mudar isso aqui
             if (randExp)
                 return randExp.generate(type);
         }
@@ -12087,8 +12088,8 @@ var map = {
 	"./paragraphs.ts": 28,
 	"./primeNumber": 29,
 	"./primeNumber.ts": 29,
-	"./randExp": 5,
-	"./randExp.ts": 5,
+	"./randExp": 6,
+	"./randExp.ts": 6,
 	"./text": 30,
 	"./text.ts": 30,
 	"./word": 31,
@@ -102233,7 +102234,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var fs_1 = __importDefault(__webpack_require__(1));
-var getFilePath_1 = __importDefault(__webpack_require__(4));
+var getFilePath_1 = __importDefault(__webpack_require__(5));
 function extractDataMass(fileName) {
     var filePath = getFilePath_1.default(fileName);
     return JSON.parse(fs_1.default.readFileSync(filePath, 'utf-8'));
@@ -102290,8 +102291,31 @@ exports.default = (function (program, generateOutput, combineArraysOfObjects) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var json_registry_1 = __importDefault(__webpack_require__(4));
 var fs = __webpack_require__(1);
+function fileNameIsValid(fileName) {
+    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
+    return fileNamePattern.test(fileName);
+}
+function createDefaultName(fileName1, fileName2) {
+    var file1NameWithOutExtension;
+    var file2NameWithOutExtension;
+    var file1NameWithOutFolders;
+    var file2NameWithOutFolders;
+    if (fileNameIsValid(fileName1)) {
+        file1NameWithOutFolders = fileName1.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
+    }
+    if (fileNameIsValid(fileName2)) {
+        file2NameWithOutFolders = fileName2.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
+    }
+    return "concat-" + file1NameWithOutExtension[0] + "-" + file2NameWithOutExtension[0];
+}
 exports.default = (function (program, generateOutput, concatArraysOfObjects, getFilePath) {
     program
         .command('concat <file1> <file2>')
@@ -102300,37 +102324,25 @@ exports.default = (function (program, generateOutput, concatArraysOfObjects, get
         .option("--on, --outname <child>", "Definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
         .description('Concatenar duas massas diferentes gerando uma única massa de dados')
         .action(function (file1Name, file2Name, options) {
+        var jsonRegistry = new json_registry_1.default();
         console.log("Lendo o arquivo " + file1Name + "...");
-        var file1Path = getFilePath(file1Name);
-        var file1 = JSON.parse(fs.readFileSync(file1Path, 'utf-8'));
+        var file1 = jsonRegistry.read(file1Name);
         console.log("Lendo o arquivo " + file2Name + "...");
-        var file2Path = getFilePath(file2Name);
-        var file2 = JSON.parse(fs.readFileSync(file2Path, 'utf-8'));
+        var file2 = jsonRegistry.read(file2Name);
         console.log("Concatenando os dados...");
         var concatenedArrays = concatArraysOfObjects(file1, file2);
-        var output = 'json';
-        var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-        var file1NameWithOutExtension;
-        var file2NameWithOutExtension;
-        var file1NameWithOutFolders;
-        var file2NameWithOutFolders;
-        if (fileNamePattern.test(file1Name)) {
-            file1NameWithOutFolders = file1Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-            file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-        }
-        if (fileNamePattern.test(file1Name)) {
-            file2NameWithOutFolders = file2Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-            file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
-        }
         var outputName;
         if (options.outname) {
             outputName = options.outname;
         }
         else {
-            outputName = file1NameWithOutExtension[0] + "-concatened-with-" + file2NameWithOutExtension[0];
+            outputName = createDefaultName(file1Name, file2Name);
         }
+        // outputName = defineOutName(options, fileName1, , fileName2);
+        console.log(outputName);
         console.log("Gerando arquivo de saída...");
-        generateOutput(output, concatenedArrays, outputName);
+        //generateOutput(output, concatenedArrays, outputName);
+        jsonRegistry.write(concatenedArrays, outputName);
     });
 });
 

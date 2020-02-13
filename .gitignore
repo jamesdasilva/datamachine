@@ -1,5 +1,6 @@
 examples/serviceAccountKey.json
 examples/data.json
+package-lock.json
 
 # Logs
 logs
