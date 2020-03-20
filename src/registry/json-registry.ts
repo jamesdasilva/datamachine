@@ -25,7 +25,6 @@ export default class JsonRegistry implements IResgitry {
     throw new Error("Method not implemented.");
   }
   public generateOutputFileName(options, inputFileName) {
-    console.log(options);
     if(options.outName) {
       return options.outName;
     }
@@ -33,7 +32,8 @@ export default class JsonRegistry implements IResgitry {
   }
   public getFilePath(fileName){
     const cwd: string = process.cwd();
-    const barType: string = cwd.match(/\\/)[0] as string;
+    const barra = cwd.match(/\//) || cwd.match(/\\/);
+    const barType: string = barra[0] as string;
     if(barType == '\\') {
       const fileNameWithBackslash = fileName.replace(/\//, '\\');
       return `${cwd}\\${fileNameWithBackslash}`;

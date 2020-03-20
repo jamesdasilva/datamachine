@@ -11,7 +11,7 @@ export default function () {
   .description('gerar massa de dados a partir de um schema')
   .action((schemaName, length, options) => {
     let datamachine = new Datamachine(new Log());
-    console.log('<< DATAMACHINE >>', options.outName);
+    console.log('<< DATAMACHINE >>');
     datamachine
       .generate(
         schemaName,

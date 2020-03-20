@@ -1,5 +1,5 @@
-[{"contador":1,"inteiro":48,"valor":46.52,"primos":7,"logico":false,"fruta":"uva","nome":"Ms. Wilford Bergstrom","cpf":"181.569.032-18","nascimento":"1992-03-13T11:32:27.000Z","mediaEnem":616.12},
-{"contador":2,"inteiro":23,"valor":39.17,"primos":7,"logico":false,"fruta":"uva","nome":"Jacques Lindgren","cpf":"769.018.721-86","nascimento":"1992-05-07T10:07:52.000Z","mediaEnem":785.51},
-{"contador":3,"inteiro":27,"valor":49.65,"primos":2,"logico":false,"fruta":"pera","nome":"Jasmin Waelchi","cpf":"765.250.174-16","nascimento":"1991-09-14T09:38:10.000Z","mediaEnem":345.4},
-{"contador":4,"inteiro":23,"valor":22.63,"primos":7,"logico":true,"fruta":"pera","nome":"Jane Nienow","cpf":"977.036.983-77","nascimento":"1992-05-07T22:35:29.000Z","mediaEnem":681.45},
-{"contador":5,"inteiro":35,"valor":30.19,"primos":2,"logico":true,"fruta":"pera","nome":"Maya Koch","cpf":"902.579.969-82","nascimento":"1991-09-21T09:17:36.000Z","mediaEnem":360.54}]
+[{"contador":1,"inteiro":33,"valor":47.8,"primos":7,"logico":false,"fruta":"pera","nome":"Syble Hintz","cpf":"257.871.753-28","nascimento":"1993-05-09T05:22:57.000Z","mediaEnem":512.64},
+{"contador":2,"inteiro":35,"valor":49.82,"primos":5,"logico":false,"fruta":"maçã","nome":"Serenity Weissnat","cpf":"440.419.254-10","nascimento":"1993-11-30T14:38:52.000Z","mediaEnem":811.06},
+{"contador":3,"inteiro":35,"valor":25.87,"primos":3,"logico":true,"fruta":"maçã","nome":"Otis Rippin","cpf":"173.695.056-85","nascimento":"1992-02-06T12:00:29.000Z","mediaEnem":366.78},
+{"contador":4,"inteiro":22,"valor":42.45,"primos":5,"logico":false,"fruta":"uva","nome":"Nicklaus Reinger IV","cpf":"982.629.788-70","nascimento":"1992-08-20T17:38:58.000Z","mediaEnem":358.25},
+{"contador":5,"inteiro":30,"valor":25.84,"primos":2,"logico":true,"fruta":"uva","nome":"Americo Turcotte PhD","cpf":"841.140.018-24","nascimento":"1992-05-09T17:25:19.000Z","mediaEnem":452.61}]

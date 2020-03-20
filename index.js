@@ -171,7 +171,6 @@ var JsonRegistry = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
-        console.log(options);
         if (options.outName) {
             return options.outName;
         }
@@ -179,7 +178,8 @@ var JsonRegistry = /** @class */ (function () {
     };
     JsonRegistry.prototype.getFilePath = function (fileName) {
         var cwd = process.cwd();
-        var barType = cwd.match(/\\/)[0];
+        var barra = cwd.match(/\//) || cwd.match(/\\/);
+        var barType = barra[0];
         if (barType == '\\') {
             var fileNameWithBackslash = fileName.replace(/\//, '\\');
             return cwd + "\\" + fileNameWithBackslash;
@@ -10989,7 +10989,7 @@ function default_1() {
         .description('gerar massa de dados a partir de um schema')
         .action(function (schemaName, length, options) {
         var datamachine = new datamachine_1.default(new log_1.default());
-        console.log('<< DATAMACHINE >>', options.outName);
+        console.log('<< DATAMACHINE >>');
         datamachine
             .generate(schemaName, length, {
             structure: options.structure,
@@ -102320,10 +102320,10 @@ exports.default = (function (program, generateOutput, concatArraysOfObjects, get
     program
         .command('concat <file1> <file2>')
         .alias('c')
-        .option("--chl, --child <child>", "Incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
-        .option("--on, --outname <child>", "Definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
-        .description('Concatenar duas massas diferentes gerando uma única massa de dados')
+        .option("-N, --outname <child>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+        .description('concatenar duas massas diferentes gerando uma única massa de dados')
         .action(function (file1Name, file2Name, options) {
+        var outname = options.outname;
         var jsonRegistry = new json_registry_1.default();
         console.log("Lendo o arquivo " + file1Name + "...");
         var file1 = jsonRegistry.read(file1Name);
@@ -102331,17 +102331,8 @@ exports.default = (function (program, generateOutput, concatArraysOfObjects, get
         var file2 = jsonRegistry.read(file2Name);
         console.log("Concatenando os dados...");
         var concatenedArrays = concatArraysOfObjects(file1, file2);
-        var outputName;
-        if (options.outname) {
-            outputName = options.outname;
-        }
-        else {
-            outputName = createDefaultName(file1Name, file2Name);
-        }
-        // outputName = defineOutName(options, fileName1, , fileName2);
-        console.log(outputName);
+        var outputName = outname ? outname : createDefaultName(file1Name, file2Name);
         console.log("Gerando arquivo de saída...");
-        //generateOutput(output, concatenedArrays, outputName);
         jsonRegistry.write(concatenedArrays, outputName);
     });
 });
