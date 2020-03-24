@@ -1,5 +1,5 @@
 import program = require('commander');
-import Datamachine from '../library/datamachine';
+import Datamachine from '../user-cases/datamachine';
 import Log from './log';
 
 export default function () {

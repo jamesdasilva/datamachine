@@ -1,6 +1,6 @@
 var fs = require('fs');
 import getFilePath from '../helpers/getFilePath';
-import IResgitry from '../library/i-registry';
+import IResgitry from '../user-cases/i-registry';
 
 export default class JsonRegistry implements IResgitry {
   constructor() { }

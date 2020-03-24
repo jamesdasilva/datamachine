@@ -1,5 +1,5 @@
 var _chai = require('chai');
-import Datamachine from '../src/library/datamachine';
+import Datamachine from '../src/user-cases/datamachine';
 import JsonRegistry from '../src/registry/json-registry'
 import ArrayGenerator from '../src/domain/data-generation/array-generator';
 import sinon = require('sinon');

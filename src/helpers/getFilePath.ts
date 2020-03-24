@@ -1,6 +1,7 @@
 export default function(moldFileName){
   const cwd: string = process.cwd();
-  const barType: string = cwd.match(/\\/)[0] as string;
+  const barra = cwd.match(/\//) || cwd.match(/\\/);
+  const barType: string = barra[0] as string;
   if(barType == '\\') {
     const moldFileNameWithBackslash = moldFileName.replace(/\//, '\\');
     return `${cwd}\\${moldFileNameWithBackslash}`;
