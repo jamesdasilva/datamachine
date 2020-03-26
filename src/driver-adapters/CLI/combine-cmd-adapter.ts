@@ -1,5 +1,5 @@
 import program = require('commander');
-import Log from './log';
+import Log from '../../driven-adapters/log/log';
 import CombineData from '../../boundary/internal/user-cases/combine-data';
 
 export default () => {

@@ -1,5 +1,5 @@
-[{"contador":1,"inteiro":42,"valor":29.27,"primos":2,"logico":true,"fruta":"maçã","nome":"Bettie Mitchell","cpf":"736.862.419-27","nascimento":"1993-02-01T09:44:14.000Z","mediaEnem":992.87},
-{"contador":2,"inteiro":44,"valor":36.38,"primos":5,"logico":true,"fruta":"pera","nome":"Nella Cassin","cpf":"371.435.182-55","nascimento":"1991-01-16T17:56:28.000Z","mediaEnem":996.46},
-{"contador":3,"inteiro":25,"valor":41.07,"primos":7,"logico":true,"fruta":"pera","nome":"Lester Armstrong","cpf":"994.307.549-04","nascimento":"1992-12-04T04:28:45.000Z","mediaEnem":859.64},
-{"contador":4,"inteiro":41,"valor":31.77,"primos":2,"logico":false,"fruta":"pera","nome":"Ashley Gerhold","cpf":"216.931.740-65","nascimento":"1991-01-10T09:00:55.000Z","mediaEnem":689.22},
-{"contador":5,"inteiro":44,"valor":47.09,"primos":3,"logico":true,"fruta":"maçã","nome":"Moriah Collier","cpf":"003.235.063-56","nascimento":"1991-06-08T07:57:42.000Z","mediaEnem":819.72}]
+[{"contador":1,"inteiro":44,"valor":25.97,"primos":2,"logico":true,"fruta":"uva","nome":"Rodolfo Turner","cpf":"440.824.521-68","nascimento":"1992-12-25T14:55:42.000Z","mediaEnem":798.93},
+{"contador":2,"inteiro":23,"valor":33.55,"primos":5,"logico":true,"fruta":"pera","nome":"Carley Gislason","cpf":"570.105.474-83","nascimento":"1993-10-12T16:56:22.000Z","mediaEnem":985.12},
+{"contador":3,"inteiro":39,"valor":45.92,"primos":5,"logico":true,"fruta":"pera","nome":"Kris Waters","cpf":"750.545.947-36","nascimento":"1992-05-04T02:56:44.000Z","mediaEnem":710.57},
+{"contador":4,"inteiro":48,"valor":44.45,"primos":3,"logico":false,"fruta":"maçã","nome":"Nolan Tillman","cpf":"919.086.385-24","nascimento":"1993-07-14T02:05:43.000Z","mediaEnem":678.18},
+{"contador":5,"inteiro":25,"valor":33.3,"primos":5,"logico":true,"fruta":"maçã","nome":"Tabitha Watsica","cpf":"055.483.281-07","nascimento":"1992-04-21T00:16:55.000Z","mediaEnem":770.59}]

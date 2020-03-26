@@ -1,6 +1,6 @@
 import program = require('commander');
 import ConcatData from "../../boundary/internal/user-cases/concat-data";
-import Log from "./log";
+import Log from "../../driven-adapters/log/log";
 
 export default () => {
 

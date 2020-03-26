@@ -1,5 +1,5 @@
 import program = require('commander');
-import Log from './log';
+import Log from '../../driven-adapters/log/log';
 import GenerateData from '../../boundary/internal/user-cases/generate-data';
 
 export default function () {

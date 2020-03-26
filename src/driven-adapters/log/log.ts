@@ -1,5 +1,5 @@
 import logSymbols = require('log-symbols');
-import ILog from '../../boundary/internal/user-cases/i-log';
+import ILog from '../../boundary/driven-port/i-log';
 
 export default class Log implements ILog {
   putInfo(text: string) {

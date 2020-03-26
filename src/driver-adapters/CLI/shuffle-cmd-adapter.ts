@@ -1,5 +1,5 @@
 import program = require('commander');
-import Log from './log';
+import Log from '../../driven-adapters/log/log';
 import ShuffleData from '../../boundary/internal/user-cases/shuffle-data';
 
 export default function () {

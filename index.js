@@ -106997,6 +106997,39 @@ exports.default = ShuffleData;
 
 /***/ }),
 
+/***/ "./src/driven-adapters/log/log.ts":
+/*!****************************************!*\
+  !*** ./src/driven-adapters/log/log.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var logSymbols = __webpack_require__(/*! log-symbols */ "./node_modules/log-symbols/index.js");
+var Log = /** @class */ (function () {
+    function Log() {
+    }
+    Log.prototype.putInfo = function (text) {
+        console.log(logSymbols.info, "" + text);
+    };
+    Log.prototype.putSuccess = function (text) {
+        console.log(logSymbols.success, "" + text);
+    };
+    Log.prototype.putWarning = function (text) {
+        console.log(logSymbols.warning, "" + text);
+    };
+    Log.prototype.putErro = function (text) {
+        console.log(logSymbols.error, "" + text);
+    };
+    return Log;
+}());
+exports.default = Log;
+
+
+/***/ }),
+
 /***/ "./src/driven-adapters/registry/json-registry.ts":
 /*!*******************************************************!*\
   !*** ./src/driven-adapters/registry/json-registry.ts ***!
@@ -107701,7 +107734,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var combine_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/combine-data */ "./src/boundary/internal/user-cases/combine-data.ts"));
 exports.default = (function () {
     program
@@ -107734,7 +107767,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
 var concat_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/concat-data */ "./src/boundary/internal/user-cases/concat-data.ts"));
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 exports.default = (function () {
     program
         .command('concat <file1> <file2>')
@@ -107764,7 +107797,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var generate_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/generate-data */ "./src/boundary/internal/user-cases/generate-data.ts"));
 function default_1() {
     program
@@ -107783,39 +107816,6 @@ exports.default = default_1;
 
 /***/ }),
 
-/***/ "./src/driver-adapters/CLI/log.ts":
-/*!****************************************!*\
-  !*** ./src/driver-adapters/CLI/log.ts ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var logSymbols = __webpack_require__(/*! log-symbols */ "./node_modules/log-symbols/index.js");
-var Log = /** @class */ (function () {
-    function Log() {
-    }
-    Log.prototype.putInfo = function (text) {
-        console.log(logSymbols.info, "" + text);
-    };
-    Log.prototype.putSuccess = function (text) {
-        console.log(logSymbols.success, "" + text);
-    };
-    Log.prototype.putWarning = function (text) {
-        console.log(logSymbols.warning, "" + text);
-    };
-    Log.prototype.putErro = function (text) {
-        console.log(logSymbols.error, "" + text);
-    };
-    return Log;
-}());
-exports.default = Log;
-
-
-/***/ }),
-
 /***/ "./src/driver-adapters/CLI/shuffle-cmd-adapter.ts":
 /*!********************************************************!*\
   !*** ./src/driver-adapters/CLI/shuffle-cmd-adapter.ts ***!
@@ -107830,7 +107830,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var shuffle_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/shuffle-data */ "./src/boundary/internal/user-cases/shuffle-data.ts"));
 function default_1() {
     program
