@@ -106516,10 +106516,10 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./src/CLI/combine.ts":
-/*!****************************!*\
-  !*** ./src/CLI/combine.ts ***!
-  \****************************/
+/***/ "./src/boundary/internal/domain/data-generator/array-generator.ts":
+/*!************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-generator/array-generator.ts ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106529,215 +106529,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var datamachine_1 = __importDefault(__webpack_require__(/*! ../user-cases/datamachine */ "./src/user-cases/datamachine.ts"));
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/CLI/log.ts"));
-exports.default = (function (program, generateOutput, combineArraysOfObjects) {
-    program
-        .command('combine <file1> <file2>')
-        .alias('c')
-        .option("--chl, --child <child>", "Incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
-        .option("--on, --outname <child>", "Definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
-        .description('Combinar objetos de duas coleções diferentes')
-        .action(function (file1Name, file2Name, options) {
-        var datamachine = new datamachine_1.default(new log_1.default());
-        console.log('<< DATAMACHINE >>');
-        datamachine.combine(file1Name, file2Name, options);
-    });
-});
-
-
-/***/ }),
-
-/***/ "./src/CLI/concat.ts":
-/*!***************************!*\
-  !*** ./src/CLI/concat.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../registry/json-registry */ "./src/registry/json-registry.ts"));
-var fs = __webpack_require__(/*! fs */ "fs");
-function fileNameIsValid(fileName) {
-    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-    return fileNamePattern.test(fileName);
-}
-function createDefaultName(fileName1, fileName2) {
-    var file1NameWithOutExtension;
-    var file2NameWithOutExtension;
-    var file1NameWithOutFolders;
-    var file2NameWithOutFolders;
-    if (fileNameIsValid(fileName1)) {
-        file1NameWithOutFolders = fileName1.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-    }
-    if (fileNameIsValid(fileName2)) {
-        file2NameWithOutFolders = fileName2.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
-    }
-    return "concat-" + file1NameWithOutExtension[0] + "-" + file2NameWithOutExtension[0];
-}
-exports.default = (function (program, generateOutput, concatArraysOfObjects, getFilePath) {
-    program
-        .command('concat <file1> <file2>')
-        .alias('c')
-        .option("-N, --outname <child>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
-        .description('concatenar duas massas diferentes gerando uma única massa de dados')
-        .action(function (file1Name, file2Name, options) {
-        var outname = options.outname;
-        var jsonRegistry = new json_registry_1.default();
-        console.log("Lendo o arquivo " + file1Name + "...");
-        var file1 = jsonRegistry.read(file1Name);
-        console.log("Lendo o arquivo " + file2Name + "...");
-        var file2 = jsonRegistry.read(file2Name);
-        console.log("Concatenando os dados...");
-        var concatenedArrays = concatArraysOfObjects(file1, file2);
-        var outputName = outname ? outname : createDefaultName(file1Name, file2Name);
-        console.log("Gerando arquivo de saída...");
-        jsonRegistry.write(concatenedArrays, outputName);
-    });
-});
-
-
-/***/ }),
-
-/***/ "./src/CLI/generate.command.ts":
-/*!*************************************!*\
-  !*** ./src/CLI/generate.command.ts ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
-var datamachine_1 = __importDefault(__webpack_require__(/*! ../user-cases/datamachine */ "./src/user-cases/datamachine.ts"));
-var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/CLI/log.ts"));
-function default_1() {
-    program
-        .command('generate <schemas> [length]')
-        .alias('g')
-        .option('-S, --structure <structure>", "array ou collection')
-        .option('-N, --outName <outName>", "nome do arquivo de saída')
-        .description('gerar massa de dados a partir de um schema')
-        .action(function (schemaName, length, options) {
-        var datamachine = new datamachine_1.default(new log_1.default());
-        console.log('<< DATAMACHINE >>');
-        datamachine
-            .generate(schemaName, length, {
-            structure: options.structure,
-            outName: options.outName
-        });
-    });
-}
-exports.default = default_1;
-
-
-/***/ }),
-
-/***/ "./src/CLI/log.ts":
-/*!************************!*\
-  !*** ./src/CLI/log.ts ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var logSymbols = __webpack_require__(/*! log-symbols */ "./node_modules/log-symbols/index.js");
-var Log = /** @class */ (function () {
-    function Log() {
-    }
-    Log.prototype.putInfo = function (text) {
-        console.log(logSymbols.info, "" + text);
-    };
-    Log.prototype.putSuccess = function (text) {
-        console.log(logSymbols.success, "" + text);
-    };
-    Log.prototype.putWarning = function (text) {
-        console.log(logSymbols.warning, "" + text);
-    };
-    Log.prototype.putErro = function (text) {
-        console.log(logSymbols.error, "" + text);
-    };
-    return Log;
-}());
-exports.default = Log;
-
-
-/***/ }),
-
-/***/ "./src/CLI/shuffle.ts":
-/*!****************************!*\
-  !*** ./src/CLI/shuffle.ts ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __webpack_require__(/*! fs */ "fs");
-function default_1(program, generateOutput, shuffleArraysOfObjects, getFilePath) {
-    program
-        .command('shuffle <file1>')
-        .alias('shu')
-        .description('Embaralhar os objetos de uma massa de dados')
-        .action(function (file1Name, options) {
-        console.log("Lendo o arquivo " + file1Name + "...");
-        var file1Path = getFilePath(file1Name);
-        var file1 = JSON.parse(fs.readFileSync(file1Path, 'utf-8'));
-        console.log("Embaralhando os dados...");
-        var shuffledArrays = shuffleArraysOfObjects(file1);
-        var output = 'json';
-        var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-        var file1NameWithOutExtension;
-        var file1NameWithOutFolders;
-        if (fileNamePattern.test(file1Name)) {
-            file1NameWithOutFolders = file1Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-            file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-        }
-        var outputName;
-        if (options.outname) {
-            outputName = options.outname;
-        }
-        else {
-            outputName = file1NameWithOutExtension[0] + "-shuffled";
-        }
-        console.log("Gerando arquivo de saída...");
-        generateOutput(output, shuffledArrays, outputName);
-    });
-}
-exports.default = default_1;
-;
-
-
-/***/ }),
-
-/***/ "./src/domain/data-generation/array-generator.ts":
-/*!*******************************************************!*\
-  !*** ./src/domain/data-generation/array-generator.ts ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var object_generator_1 = __importDefault(__webpack_require__(/*! ./object-generator */ "./src/domain/data-generation/object-generator.ts"));
+var object_generator_1 = __importDefault(__webpack_require__(/*! ./object-generator */ "./src/boundary/internal/domain/data-generator/object-generator.ts"));
 var ArrayGenerator = /** @class */ (function () {
     function ArrayGenerator() {
     }
@@ -106767,10 +106559,10 @@ exports.default = ArrayGenerator;
 
 /***/ }),
 
-/***/ "./src/domain/data-generation/attribute-generator.ts":
-/*!***********************************************************!*\
-  !*** ./src/domain/data-generation/attribute-generator.ts ***!
-  \***********************************************************/
+/***/ "./src/boundary/internal/domain/data-generator/attribute-generator.ts":
+/*!****************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-generator/attribute-generator.ts ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106793,7 +106585,7 @@ var AttributeGenerator = /** @class */ (function () {
         var type = type;
         var regEx = /^\[\d+\]/;
         if (type.constructor == RegExp) {
-            var randExp = __webpack_require__(/*! ../../types/randExp */ "./src/types/randExp.ts"); // mudar isso aqui
+            var randExp = __webpack_require__(/*! ../../../../driven-adapters/types/randExp */ "./src/driven-adapters/types/randExp.ts"); // mudar isso aqui
             if (randExp)
                 return randExp.generate(type);
         }
@@ -106810,7 +106602,7 @@ var AttributeGenerator = /** @class */ (function () {
         }
         else {
             var keyType = this.getName(type);
-            this.AttributeTypes[keyType] = __webpack_require__("./src/types sync recursive ^\\.\\/.*$")("./" + keyType);
+            this.AttributeTypes[keyType] = __webpack_require__("./src/driven-adapters/types sync recursive ^\\.\\/.*$")("./" + keyType);
             if (this.AttributeTypes[keyType])
                 return this.AttributeTypes[keyType].generate(type);
         }
@@ -106823,10 +106615,10 @@ exports.default = AttributeGenerator;
 
 /***/ }),
 
-/***/ "./src/domain/data-generation/object-generator.ts":
-/*!********************************************************!*\
-  !*** ./src/domain/data-generation/object-generator.ts ***!
-  \********************************************************/
+/***/ "./src/boundary/internal/domain/data-generator/object-generator.ts":
+/*!*************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-generator/object-generator.ts ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106836,7 +106628,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var attribute_generator_1 = __importDefault(__webpack_require__(/*! ./attribute-generator */ "./src/domain/data-generation/attribute-generator.ts"));
+var attribute_generator_1 = __importDefault(__webpack_require__(/*! ./attribute-generator */ "./src/boundary/internal/domain/data-generator/attribute-generator.ts"));
 var ObjectGenerator = /** @class */ (function () {
     function ObjectGenerator() {
     }
@@ -106862,10 +106654,10 @@ exports.default = ObjectGenerator;
 
 /***/ }),
 
-/***/ "./src/domain/data-operations/combine-arrays-of-objects.ts":
-/*!*****************************************************************!*\
-  !*** ./src/domain/data-operations/combine-arrays-of-objects.ts ***!
-  \*****************************************************************/
+/***/ "./src/boundary/internal/domain/data-operator/combine-arrays-of-objects.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-operator/combine-arrays-of-objects.ts ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106875,8 +106667,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var raffle_object_1 = __importDefault(__webpack_require__(/*! ../../helpers/raffle-object */ "./src/helpers/raffle-object.ts"));
-var combine_objects_1 = __importDefault(__webpack_require__(/*! ./combine-objects */ "./src/domain/data-operations/combine-objects.ts"));
+var raffle_object_1 = __importDefault(__webpack_require__(/*! ../../../../helpers/raffle-object */ "./src/helpers/raffle-object.ts"));
+var combine_objects_1 = __importDefault(__webpack_require__(/*! ./combine-objects */ "./src/boundary/internal/domain/data-operator/combine-objects.ts"));
 exports.default = (function (array1, array2, childName) {
     return array1.map(function (item) {
         return combine_objects_1.default(item, raffle_object_1.default(array2), childName);
@@ -106886,10 +106678,10 @@ exports.default = (function (array1, array2, childName) {
 
 /***/ }),
 
-/***/ "./src/domain/data-operations/combine-objects.ts":
-/*!*******************************************************!*\
-  !*** ./src/domain/data-operations/combine-objects.ts ***!
-  \*******************************************************/
+/***/ "./src/boundary/internal/domain/data-operator/combine-objects.ts":
+/*!***********************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-operator/combine-objects.ts ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106908,10 +106700,10 @@ exports.default = (function (obj1, obj2, childName) {
 
 /***/ }),
 
-/***/ "./src/domain/data-operations/concat-arrays-of-objects.ts":
-/*!****************************************************************!*\
-  !*** ./src/domain/data-operations/concat-arrays-of-objects.ts ***!
-  \****************************************************************/
+/***/ "./src/boundary/internal/domain/data-operator/concat-arrays-of-objects.ts":
+/*!********************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-operator/concat-arrays-of-objects.ts ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106925,10 +106717,10 @@ exports.default = (function (array1, array2) {
 
 /***/ }),
 
-/***/ "./src/domain/data-operations/shuffle-arrays-of-objects.ts":
-/*!*****************************************************************!*\
-  !*** ./src/domain/data-operations/shuffle-arrays-of-objects.ts ***!
-  \*****************************************************************/
+/***/ "./src/boundary/internal/domain/data-operator/shuffle-arrays-of-objects.ts":
+/*!*********************************************************************************!*\
+  !*** ./src/boundary/internal/domain/data-operator/shuffle-arrays-of-objects.ts ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -106952,6 +106744,1107 @@ exports.default = (function (array) {
     }
     return array;
 });
+
+
+/***/ }),
+
+/***/ "./src/boundary/internal/user-cases/combine-data.ts":
+/*!**********************************************************!*\
+  !*** ./src/boundary/internal/user-cases/combine-data.ts ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/combine-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/combine-arrays-of-objects.ts"));
+function generateOutputFileName(file1Name, file2Name, options) {
+    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
+    var file1NameWithOutExtension;
+    var file2NameWithOutExtension;
+    var file1NameWithOutFolders;
+    var file2NameWithOutFolders;
+    if (fileNamePattern.test(file1Name)) {
+        file1NameWithOutFolders = file1Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
+    }
+    if (fileNamePattern.test(file1Name)) {
+        file2NameWithOutFolders = file2Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
+    }
+    var outputName;
+    if (options.outname) {
+        outputName = options.outname;
+    }
+    else {
+        outputName = file1NameWithOutExtension[0] + "-combined-with-" + file2NameWithOutExtension[0];
+    }
+    return outputName;
+}
+var CombineData = /** @class */ (function () {
+    function CombineData(log) {
+        this.log = log;
+    }
+    CombineData.prototype.exec = function (file1Name, file2Name, options) {
+        var jsonRegistry = new json_registry_1.default();
+        this.log && this.log.putInfo('Carregando schema...');
+        var file1 = jsonRegistry.read(file1Name);
+        if (!file1) {
+            this.log && this.log.putErro('Arquivo de schema não encontrado');
+        }
+        else {
+            var file2 = jsonRegistry.read(file2Name);
+            if (!file2) {
+                this.log && this.log.putErro('Arquivo de schema não encontrado');
+            }
+            else {
+                this.log && this.log.putInfo('Combinando os dados...');
+                var combinedArrays = combine_arrays_of_objects_1.default(file1, file2, options.child);
+                var outputName = generateOutputFileName(file1Name, file2Name, options);
+                this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+                var outSuccess = jsonRegistry.write(combinedArrays, outputName);
+                if (!outSuccess) {
+                    this.log && this.log.putErro('Não foi possível exportar os dados');
+                }
+                else {
+                    this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+                }
+            }
+        }
+    };
+    return CombineData;
+}());
+exports.default = CombineData;
+
+
+/***/ }),
+
+/***/ "./src/boundary/internal/user-cases/concat-data.ts":
+/*!*********************************************************!*\
+  !*** ./src/boundary/internal/user-cases/concat-data.ts ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/concat-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/concat-arrays-of-objects.ts"));
+function fileNameIsValid(fileName) {
+    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
+    return fileNamePattern.test(fileName);
+}
+function createDefaultName(fileName1, fileName2) {
+    var file1NameWithOutExtension;
+    var file2NameWithOutExtension;
+    var file1NameWithOutFolders;
+    var file2NameWithOutFolders;
+    if (fileNameIsValid(fileName1)) {
+        file1NameWithOutFolders = fileName1.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
+    }
+    if (fileNameIsValid(fileName2)) {
+        file2NameWithOutFolders = fileName2.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
+    }
+    return "concat-" + file1NameWithOutExtension[0] + "-" + file2NameWithOutExtension[0];
+}
+var ConcatData = /** @class */ (function () {
+    function ConcatData(log) {
+        this.log = log;
+    }
+    ConcatData.prototype.exec = function (file1Name, file2Name, options) {
+        var outname = options.outname;
+        var jsonRegistry = new json_registry_1.default();
+        this.log && this.log.putInfo('Carregando schema 1 ...');
+        var file1 = jsonRegistry.read(file1Name);
+        if (!file1) {
+            this.log && this.log.putErro('Arquivo de schema 1 não encontrado');
+        }
+        else {
+            this.log && this.log.putInfo('Carregando schema 2 ...');
+            var file2 = jsonRegistry.read(file2Name);
+            if (!file1) {
+                this.log && this.log.putErro('Arquivo de schema 2 não encontrado');
+            }
+            else {
+                this.log && this.log.putInfo('Concatenando os dados...');
+                var concatenedArrays = concat_arrays_of_objects_1.default(file1, file2);
+                var outputName = outname ? outname : createDefaultName(file1Name, file2Name);
+                this.log && this.log.putInfo('Gerando arquivo de saída...');
+                var outSuccess = jsonRegistry.write(concatenedArrays, outputName);
+                if (!outSuccess) {
+                    this.log && this.log.putErro('Não foi possível exportar os dados');
+                }
+                else {
+                    this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+                }
+            }
+        }
+    };
+    return ConcatData;
+}());
+exports.default = ConcatData;
+
+
+/***/ }),
+
+/***/ "./src/boundary/internal/user-cases/generate-data.ts":
+/*!***********************************************************!*\
+  !*** ./src/boundary/internal/user-cases/generate-data.ts ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var array_generator_1 = __importDefault(__webpack_require__(/*! ../domain/data-generator/array-generator */ "./src/boundary/internal/domain/data-generator/array-generator.ts"));
+var GenerateData = /** @class */ (function () {
+    function GenerateData(log) {
+        this.log = log;
+    }
+    GenerateData.prototype.exec = function (schemaName, length, options) {
+        if (length === void 0) { length = 5; }
+        var dataStructure = options.structure || 'array';
+        switch (dataStructure) {
+            case 'array':
+                var jsonRegistry = new json_registry_1.default();
+                this.log && this.log.putInfo('Carregando schema...');
+                var schemas = jsonRegistry.read(schemaName);
+                if (!schemas) {
+                    this.log && this.log.putErro('Arquivo de schema não encontrado');
+                }
+                else {
+                    this.log && this.log.putSuccess('Schema carregado');
+                    this.log && this.log.putInfo('Gerando massa de dados...');
+                    var dataArray = new array_generator_1.default().generate(length, schemas.schema);
+                    if (!dataArray) {
+                        this.log && this.log.putErro('Schema inválido!');
+                    }
+                    else {
+                        var fileName = jsonRegistry.generateOutputFileName(options, schemaName);
+                        this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+                        var outSuccess = jsonRegistry.write(dataArray, fileName);
+                        if (!outSuccess) {
+                            this.log && this.log.putErro('Não foi possível exportar os dados');
+                        }
+                        else {
+                            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+                        }
+                    }
+                }
+                break;
+            default:
+                this.log && this.log.putErro('Estrutura de dados desconhecida');
+        }
+    };
+    return GenerateData;
+}());
+exports.default = GenerateData;
+
+
+/***/ }),
+
+/***/ "./src/boundary/internal/user-cases/shuffle-data.ts":
+/*!**********************************************************!*\
+  !*** ./src/boundary/internal/user-cases/shuffle-data.ts ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/shuffle-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/shuffle-arrays-of-objects.ts"));
+var output_file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../../helpers/output-file-name-generator */ "./src/helpers/output-file-name-generator.ts"));
+var ShuffleData = /** @class */ (function () {
+    function ShuffleData(log) {
+        this.log = log;
+    }
+    ShuffleData.prototype.exec = function (file1Name, options) {
+        var jsonRegistry = new json_registry_1.default();
+        console.log("Lendo o arquivo " + file1Name + "...");
+        var file1 = jsonRegistry.read(file1Name);
+        console.log("Embaralhando os dados...");
+        var shuffledArrays = shuffle_arrays_of_objects_1.default(file1);
+        var outputName = options.outname ? options.outname : new output_file_name_generator_1.default().generate(file1Name, options, 'shuffle');
+        console.log("Gerando arquivo de saída...");
+        var outSuccess = jsonRegistry.write(shuffledArrays, outputName);
+        console.log('>--', outSuccess);
+    };
+    return ShuffleData;
+}());
+exports.default = ShuffleData;
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/registry/json-registry.ts":
+/*!*******************************************************!*\
+  !*** ./src/driven-adapters/registry/json-registry.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs = __webpack_require__(/*! fs */ "fs");
+var getFilePath_1 = __importDefault(__webpack_require__(/*! ../../helpers/getFilePath */ "./src/helpers/getFilePath.ts"));
+var JsonRegistry = /** @class */ (function () {
+    function JsonRegistry() {
+    }
+    JsonRegistry.prototype.write = function (data, dataFileName) {
+        try {
+            var dataJson = JSON.stringify(data);
+            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
+            fs.writeFileSync(dataFileName + ".data.json", dataJsonWithNewline, 'utf-8');
+            return true;
+        }
+        catch (_a) {
+            return false;
+        }
+    };
+    JsonRegistry.prototype.read = function (fileName) {
+        var filePath = this.getFilePath(fileName);
+        if (!fs.existsSync(filePath)) {
+            return false;
+        }
+        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    };
+    JsonRegistry.prototype.extract = function () {
+        throw new Error("Method not implemented.");
+    };
+    JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
+        if (options.outName) {
+            return options.outName;
+        }
+        return inputFileName.split('.')[0];
+    };
+    JsonRegistry.prototype.getFilePath = function (fileName) {
+        var cwd = process.cwd();
+        var barra = cwd.match(/\//) || cwd.match(/\\/);
+        var barType = barra[0];
+        if (barType == '\\') {
+            var fileNameWithBackslash = fileName.replace(/\//, '\\');
+            return cwd + "\\" + fileNameWithBackslash;
+        }
+        else {
+            var fileNameWithBar = fileName.replace(/\\/, '//');
+            return cwd + "/" + fileNameWithBar;
+        }
+    };
+    ;
+    JsonRegistry.prototype.replaceAll = function (_string, search, replacement) {
+        var target = _string;
+        return target.split(search).join(replacement);
+    };
+    ;
+    return JsonRegistry;
+}());
+exports.default = JsonRegistry;
+function a(output, data, dataFileName) {
+    switch (output) {
+        case 'json':
+            var dataFileName = dataFileName.split('.');
+            var jsonRegistry = new JsonRegistry();
+            jsonRegistry.write(data, getFilePath_1.default(dataFileName[0]));
+            break;
+    }
+}
+exports.a = a;
+;
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types sync recursive ^\\.\\/.*$":
+/*!*************************************************!*\
+  !*** ./src/driven-adapters/types sync ^\.\/.*$ ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./boolean": "./src/driven-adapters/types/boolean.ts",
+	"./boolean.ts": "./src/driven-adapters/types/boolean.ts",
+	"./cpf": "./src/driven-adapters/types/cpf.ts",
+	"./cpf.ts": "./src/driven-adapters/types/cpf.ts",
+	"./date": "./src/driven-adapters/types/date.ts",
+	"./date.ts": "./src/driven-adapters/types/date.ts",
+	"./decimal": "./src/driven-adapters/types/decimal.ts",
+	"./decimal.ts": "./src/driven-adapters/types/decimal.ts",
+	"./email": "./src/driven-adapters/types/email.ts",
+	"./email.ts": "./src/driven-adapters/types/email.ts",
+	"./enum": "./src/driven-adapters/types/enum.ts",
+	"./enum.ts": "./src/driven-adapters/types/enum.ts",
+	"./firstName": "./src/driven-adapters/types/firstName.ts",
+	"./firstName.ts": "./src/driven-adapters/types/firstName.ts",
+	"./id": "./src/driven-adapters/types/id.ts",
+	"./id.ts": "./src/driven-adapters/types/id.ts",
+	"./idAutoIncrement": "./src/driven-adapters/types/idAutoIncrement.ts",
+	"./idAutoIncrement.ts": "./src/driven-adapters/types/idAutoIncrement.ts",
+	"./integer": "./src/driven-adapters/types/integer.ts",
+	"./integer.ts": "./src/driven-adapters/types/integer.ts",
+	"./job": "./src/driven-adapters/types/job.ts",
+	"./job.ts": "./src/driven-adapters/types/job.ts",
+	"./lastName": "./src/driven-adapters/types/lastName.ts",
+	"./lastName.ts": "./src/driven-adapters/types/lastName.ts",
+	"./latitude": "./src/driven-adapters/types/latitude.ts",
+	"./latitude.ts": "./src/driven-adapters/types/latitude.ts",
+	"./longitude": "./src/driven-adapters/types/longitude.ts",
+	"./longitude.ts": "./src/driven-adapters/types/longitude.ts",
+	"./name": "./src/driven-adapters/types/name.ts",
+	"./name.ts": "./src/driven-adapters/types/name.ts",
+	"./numericalId": "./src/driven-adapters/types/numericalId.ts",
+	"./numericalId.ts": "./src/driven-adapters/types/numericalId.ts",
+	"./paragraph": "./src/driven-adapters/types/paragraph.ts",
+	"./paragraph.ts": "./src/driven-adapters/types/paragraph.ts",
+	"./paragraphs": "./src/driven-adapters/types/paragraphs.ts",
+	"./paragraphs.ts": "./src/driven-adapters/types/paragraphs.ts",
+	"./primeNumber": "./src/driven-adapters/types/primeNumber.ts",
+	"./primeNumber.ts": "./src/driven-adapters/types/primeNumber.ts",
+	"./randExp": "./src/driven-adapters/types/randExp.ts",
+	"./randExp.ts": "./src/driven-adapters/types/randExp.ts",
+	"./text": "./src/driven-adapters/types/text.ts",
+	"./text.ts": "./src/driven-adapters/types/text.ts",
+	"./word": "./src/driven-adapters/types/word.ts",
+	"./word.ts": "./src/driven-adapters/types/word.ts"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./src/driven-adapters/types sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/boolean.ts":
+/*!**********************************************!*\
+  !*** ./src/driven-adapters/types/boolean.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var boolean = faker.random.boolean();
+            return boolean;
+        }
+        return false;
+    },
+    regExp: /^boolean$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/cpf.ts":
+/*!******************************************!*\
+  !*** ./src/driven-adapters/types/cpf.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Chance = __webpack_require__(/*! chance */ "./node_modules/chance/chance.js");
+module.exports = {
+    generate: function (type) {
+        var chance = new Chance();
+        if (this.regExp.test(type)) {
+            var cpf = chance.cpf();
+            return cpf;
+        }
+        return false;
+    },
+    regExp: /^cpf$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/date.ts":
+/*!*******************************************!*\
+  !*** ./src/driven-adapters/types/date.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var getParams_1 = __importDefault(__webpack_require__(/*! ../../helpers/getParams */ "./src/helpers/getParams.ts"));
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var ano;
+            var params = getParams_1.default(type);
+            var min = params[0] || 1970;
+            var max = params[1] || new Date().getFullYear();
+            while (true) {
+                ano = Math.floor(Math.random() * max);
+                if (ano > min)
+                    break;
+            }
+            var mes = Math.floor(Math.random() * 12);
+            var dia = Math.floor(Math.random() * 28);
+            var hora = Math.floor(Math.random() * 24);
+            var min = Math.floor(Math.random() * 60);
+            var seg = Math.floor(Math.random() * 60);
+            return new Date(ano, mes, dia, hora, min, seg, 0);
+        }
+        return false;
+    },
+    regExp: /^date:\d{4};\d{4}$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/decimal.ts":
+/*!**********************************************!*\
+  !*** ./src/driven-adapters/types/decimal.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var getParams_1 = __importDefault(__webpack_require__(/*! ../../helpers/getParams */ "./src/helpers/getParams.ts"));
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var params = getParams_1.default(type);
+            var decimalPlaces = params[0] || 2;
+            var min = params[1] || 0.00;
+            var max = params[2] || 10000.00;
+            var number;
+            while (true) {
+                number = Math.random() * max;
+                if (number > min)
+                    break;
+            }
+            return parseFloat(Number(number).toFixed(decimalPlaces));
+        }
+        return false;
+    },
+    regExp: /^decimal:\d+;\d*\.?\d+;\d*\.?\d+$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/email.ts":
+/*!********************************************!*\
+  !*** ./src/driven-adapters/types/email.ts ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var email = faker.internet.email();
+            return email.toLocaleLowerCase();
+        }
+        return false;
+    },
+    regExp: /^email$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/enum.ts":
+/*!*******************************************!*\
+  !*** ./src/driven-adapters/types/enum.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var getParams_1 = __importDefault(__webpack_require__(/*! ../../helpers/getParams */ "./src/helpers/getParams.ts"));
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var params = getParams_1.default(type);
+            var index = Math.floor(Math.random() * (params && params.length));
+            return params[index];
+        }
+        return false;
+    },
+    regExp: /^enum:([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]*;)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/firstName.ts":
+/*!************************************************!*\
+  !*** ./src/driven-adapters/types/firstName.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var firstName = faker.name.firstName();
+            return firstName;
+        }
+        return false;
+    },
+    regExp: /^firstName$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/id.ts":
+/*!*****************************************!*\
+  !*** ./src/driven-adapters/types/id.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var generateString = __webpack_require__(/*! ../../helpers/generateString */ "./src/helpers/generateString.ts");
+module.exports = {
+    generate: function (type) {
+        if (this.isValidStringType(type)) {
+            var prefixo = '-dm';
+            var token = generateString(6);
+            var timestamp = new Date().getTime();
+            return prefixo + timestamp + token;
+        }
+        return false;
+    },
+    regExp: /^id$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/idAutoIncrement.ts":
+/*!******************************************************!*\
+  !*** ./src/driven-adapters/types/idAutoIncrement.ts ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function counterFactory() {
+    var count = 0;
+    return function () { return ++count; };
+}
+module.exports = {
+    generate: counterFactory(),
+    regExp: /^idAutoIncrement$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/integer.ts":
+/*!**********************************************!*\
+  !*** ./src/driven-adapters/types/integer.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var getParams_1 = __importDefault(__webpack_require__(/*! ../../helpers/getParams */ "./src/helpers/getParams.ts"));
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var number;
+            var params = getParams_1.default(type);
+            var min = params[0], max = params[1];
+            while (true) {
+                number = Math.floor(Math.random() * max);
+                if (number > min)
+                    break;
+            }
+            return number;
+        }
+        return false;
+    },
+    regExp: /^integer:\d*;\d*$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/job.ts":
+/*!******************************************!*\
+  !*** ./src/driven-adapters/types/job.ts ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var title = faker.name.title();
+            return title;
+        }
+        return false;
+    },
+    regExp: /^job$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/lastName.ts":
+/*!***********************************************!*\
+  !*** ./src/driven-adapters/types/lastName.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var lastName = faker.name.lastName();
+            return lastName;
+        }
+        return false;
+    },
+    regExp: /^lastName$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/latitude.ts":
+/*!***********************************************!*\
+  !*** ./src/driven-adapters/types/latitude.ts ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var latitude = faker.address.latitude();
+            return latitude;
+        }
+        return false;
+    },
+    regExp: /^latitude$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/longitude.ts":
+/*!************************************************!*\
+  !*** ./src/driven-adapters/types/longitude.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var longitude = faker.address.longitude();
+            return longitude;
+        }
+        return false;
+    },
+    regExp: /^longitude$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/name.ts":
+/*!*******************************************!*\
+  !*** ./src/driven-adapters/types/name.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function generate(type) {
+        if (this.regExp.test(type)) {
+            var name_1 = faker.name.findName();
+            return name_1;
+        }
+        return false;
+    },
+    regExp: /^name$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/numericalId.ts":
+/*!**************************************************!*\
+  !*** ./src/driven-adapters/types/numericalId.ts ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/paragraph.ts":
+/*!************************************************!*\
+  !*** ./src/driven-adapters/types/paragraph.ts ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var paragraph = faker.lorem.paragraph();
+            return paragraph;
+        }
+        return false;
+    },
+    regExp: /^paragraph$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/paragraphs.ts":
+/*!*************************************************!*\
+  !*** ./src/driven-adapters/types/paragraphs.ts ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var paragraphs = faker.lorem.paragraphs();
+            return paragraphs;
+        }
+        return false;
+    },
+    regExp: /^paragraphs$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/primeNumber.ts":
+/*!**************************************************!*\
+  !*** ./src/driven-adapters/types/primeNumber.ts ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Chance = __webpack_require__(/*! chance */ "./node_modules/chance/chance.js");
+var getParams_1 = __importDefault(__webpack_require__(/*! ../../helpers/getParams */ "./src/helpers/getParams.ts"));
+module.exports = {
+    generate: function (type) {
+        var params = getParams_1.default(type);
+        var min = params[0], max = params[1];
+        var chance = new Chance();
+        if (this.regExp.test(type)) {
+            var primeNumber = chance.prime({ min: min, max: max });
+            return primeNumber;
+        }
+        return false;
+    },
+    regExp: /^primeNumber:\d*;\d*$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/randExp.ts":
+/*!**********************************************!*\
+  !*** ./src/driven-adapters/types/randExp.ts ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var RandExp = __webpack_require__(/*! randexp */ "./node_modules/randexp/lib/randexp.js");
+module.exports = {
+    generate: function (type) {
+        return new RandExp(new RegExp(type)).gen();
+    }
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/text.ts":
+/*!*******************************************!*\
+  !*** ./src/driven-adapters/types/text.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var text = faker.lorem.text();
+            return text;
+        }
+        return false;
+    },
+    regExp: /^text$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driven-adapters/types/word.ts":
+/*!*******************************************!*\
+  !*** ./src/driven-adapters/types/word.ts ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+module.exports = {
+    generate: function (type) {
+        if (this.regExp.test(type)) {
+            var word = faker.lorem.word();
+            return word;
+        }
+        return false;
+    },
+    regExp: /^word$/
+};
+
+
+/***/ }),
+
+/***/ "./src/driver-adapters/CLI/combine-cmd-adapter.ts":
+/*!********************************************************!*\
+  !*** ./src/driver-adapters/CLI/combine-cmd-adapter.ts ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
+var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var combine_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/combine-data */ "./src/boundary/internal/user-cases/combine-data.ts"));
+exports.default = (function () {
+    program
+        .command('combine <file1> <file2>')
+        .alias('c')
+        .option("--chl, --child <child>", "Incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
+        .option("--on, --outname <child>", "Definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+        .description('Combinar objetos de duas coleções diferentes')
+        .action(function (file1Name, file2Name, options) {
+        console.log('<< DATAMACHINE >>');
+        new combine_data_1.default(new log_1.default()).exec(file1Name, file2Name, options);
+    });
+});
+
+
+/***/ }),
+
+/***/ "./src/driver-adapters/CLI/concat-cmd-adapter.ts":
+/*!*******************************************************!*\
+  !*** ./src/driver-adapters/CLI/concat-cmd-adapter.ts ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
+var concat_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/concat-data */ "./src/boundary/internal/user-cases/concat-data.ts"));
+var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+exports.default = (function () {
+    program
+        .command('concat <file1> <file2>')
+        .alias('c')
+        .option("-N, --outname <child>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+        .description('concatenar duas massas diferentes gerando uma única massa de dados')
+        .action(function (file1Name, file2Name, options) {
+        console.log('<< DATAMACHINE >>');
+        new concat_data_1.default(new log_1.default()).exec(file1Name, file2Name, options);
+    });
+});
+
+
+/***/ }),
+
+/***/ "./src/driver-adapters/CLI/generate-cmd-adapter.ts":
+/*!*********************************************************!*\
+  !*** ./src/driver-adapters/CLI/generate-cmd-adapter.ts ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
+var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var generate_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/generate-data */ "./src/boundary/internal/user-cases/generate-data.ts"));
+function default_1() {
+    program
+        .command('generate <schemas> [length]')
+        .alias('g')
+        .option('-S, --structure <structure>", "array ou collection')
+        .option('-N, --outName <outName>", "nome do arquivo de saída')
+        .description('gerar massa de dados a partir de um schema')
+        .action(function (schemaName, length, options) {
+        console.log('<< DATAMACHINE >>');
+        new generate_data_1.default(new log_1.default()).exec(schemaName, length, options);
+    });
+}
+exports.default = default_1;
+
+
+/***/ }),
+
+/***/ "./src/driver-adapters/CLI/log.ts":
+/*!****************************************!*\
+  !*** ./src/driver-adapters/CLI/log.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var logSymbols = __webpack_require__(/*! log-symbols */ "./node_modules/log-symbols/index.js");
+var Log = /** @class */ (function () {
+    function Log() {
+    }
+    Log.prototype.putInfo = function (text) {
+        console.log(logSymbols.info, "" + text);
+    };
+    Log.prototype.putSuccess = function (text) {
+        console.log(logSymbols.success, "" + text);
+    };
+    Log.prototype.putWarning = function (text) {
+        console.log(logSymbols.warning, "" + text);
+    };
+    Log.prototype.putErro = function (text) {
+        console.log(logSymbols.error, "" + text);
+    };
+    return Log;
+}());
+exports.default = Log;
+
+
+/***/ }),
+
+/***/ "./src/driver-adapters/CLI/shuffle-cmd-adapter.ts":
+/*!********************************************************!*\
+  !*** ./src/driver-adapters/CLI/shuffle-cmd-adapter.ts ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
+var log_1 = __importDefault(__webpack_require__(/*! ./log */ "./src/driver-adapters/CLI/log.ts"));
+var shuffle_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/shuffle-data */ "./src/boundary/internal/user-cases/shuffle-data.ts"));
+function default_1() {
+    program
+        .command('shuffle <file1>')
+        .alias('shu')
+        .description('embaralhar os objetos de uma massa de dados')
+        .option("--on, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+        .action(function (file1Name, options) {
+        console.log('<< DATAMACHINE >>');
+        new shuffle_data_1.default(new log_1.default()).exec(file1Name, options);
+    });
+}
+exports.default = default_1;
+;
 
 
 /***/ }),
@@ -107057,6 +107950,43 @@ exports.default = default_1;
 
 /***/ }),
 
+/***/ "./src/helpers/output-file-name-generator.ts":
+/*!***************************************************!*\
+  !*** ./src/helpers/output-file-name-generator.ts ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var OutputFileNameGenerator = /** @class */ (function () {
+    function OutputFileNameGenerator() {
+    }
+    OutputFileNameGenerator.prototype.fileNameIsValide = function (fileName) {
+        var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
+        return fileNamePattern.test(fileName);
+    };
+    OutputFileNameGenerator.prototype.generate = function (fileName, options, command) {
+        if (options.outname)
+            return "" + options.outname;
+        var fileNameWithOutExtension;
+        var fileNameWithoutFolders;
+        if (this.fileNameIsValide(fileName)) {
+            fileNameWithoutFolders = fileName.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+            fileNameWithOutExtension = fileNameWithoutFolders[0].split('.');
+        }
+        return options.outname
+            ? options.outname
+            : (command ? command : "shuffle-" + fileNameWithOutExtension[0]) + "--" + fileNameWithOutExtension[0];
+    };
+    return OutputFileNameGenerator;
+}());
+exports.default = OutputFileNameGenerator;
+
+
+/***/ }),
+
 /***/ "./src/helpers/raffle-object.ts":
 /*!**************************************!*\
   !*** ./src/helpers/raffle-object.ts ***!
@@ -107094,15 +108024,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
-var json_registry_1 = __importDefault(__webpack_require__(/*! ./registry/json-registry */ "./src/registry/json-registry.ts"));
-var getFilePath_1 = __importDefault(__webpack_require__(/*! ./helpers/getFilePath */ "./src/helpers/getFilePath.ts"));
-var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ./domain/data-operations/combine-arrays-of-objects */ "./src/domain/data-operations/combine-arrays-of-objects.ts"));
-var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ./domain/data-operations/concat-arrays-of-objects */ "./src/domain/data-operations/concat-arrays-of-objects.ts"));
-var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ./domain/data-operations/shuffle-arrays-of-objects */ "./src/domain/data-operations/shuffle-arrays-of-objects.ts"));
-var generate_command_1 = __importDefault(__webpack_require__(/*! ./CLI/generate.command */ "./src/CLI/generate.command.ts"));
-var combine_1 = __importDefault(__webpack_require__(/*! ./CLI/combine */ "./src/CLI/combine.ts"));
-var concat_1 = __importDefault(__webpack_require__(/*! ./CLI/concat */ "./src/CLI/concat.ts"));
-var shuffle_1 = __importDefault(__webpack_require__(/*! ./CLI/shuffle */ "./src/CLI/shuffle.ts"));
+var generate_cmd_adapter_1 = __importDefault(__webpack_require__(/*! ./driver-adapters/CLI/generate-cmd-adapter */ "./src/driver-adapters/CLI/generate-cmd-adapter.ts"));
+var combine_cmd_adapter_1 = __importDefault(__webpack_require__(/*! ./driver-adapters/CLI/combine-cmd-adapter */ "./src/driver-adapters/CLI/combine-cmd-adapter.ts"));
+var concat_cmd_adapter_1 = __importDefault(__webpack_require__(/*! ./driver-adapters/CLI/concat-cmd-adapter */ "./src/driver-adapters/CLI/concat-cmd-adapter.ts"));
+var shuffle_cmd_adapter_1 = __importDefault(__webpack_require__(/*! ./driver-adapters/CLI/shuffle-cmd-adapter */ "./src/driver-adapters/CLI/shuffle-cmd-adapter.ts"));
 program
     .version('1.2.0')
     .description('Datamachine é uma ferramenta para fabricar dados falsos e realistas')
@@ -107111,814 +108036,11 @@ program
     console.log('Command options:');
     console.log('  [command] --help                         para ver variações de comandos');
 });
-generate_command_1.default();
-combine_1.default(program, json_registry_1.default, combine_arrays_of_objects_1.default);
-concat_1.default(program, json_registry_1.default, concat_arrays_of_objects_1.default, getFilePath_1.default);
-shuffle_1.default(program, json_registry_1.default, shuffle_arrays_of_objects_1.default, getFilePath_1.default);
+generate_cmd_adapter_1.default();
+combine_cmd_adapter_1.default();
+concat_cmd_adapter_1.default();
+shuffle_cmd_adapter_1.default();
 program.parse(process.argv);
-
-
-/***/ }),
-
-/***/ "./src/registry/json-registry.ts":
-/*!***************************************!*\
-  !*** ./src/registry/json-registry.ts ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var fs = __webpack_require__(/*! fs */ "fs");
-var getFilePath_1 = __importDefault(__webpack_require__(/*! ../helpers/getFilePath */ "./src/helpers/getFilePath.ts"));
-var JsonRegistry = /** @class */ (function () {
-    function JsonRegistry() {
-    }
-    JsonRegistry.prototype.write = function (data, dataFileName) {
-        try {
-            var dataJson = JSON.stringify(data);
-            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
-            fs.writeFileSync(dataFileName + ".data.json", dataJsonWithNewline, 'utf-8');
-            return true;
-        }
-        catch (_a) {
-            return false;
-        }
-    };
-    JsonRegistry.prototype.read = function (fileName) {
-        var filePath = this.getFilePath(fileName);
-        if (!fs.existsSync(filePath)) {
-            return false;
-        }
-        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    };
-    JsonRegistry.prototype.extract = function () {
-        throw new Error("Method not implemented.");
-    };
-    JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
-        if (options.outName) {
-            return options.outName;
-        }
-        return inputFileName.split('.')[0];
-    };
-    JsonRegistry.prototype.getFilePath = function (fileName) {
-        var cwd = process.cwd();
-        var barra = cwd.match(/\//) || cwd.match(/\\/);
-        var barType = barra[0];
-        if (barType == '\\') {
-            var fileNameWithBackslash = fileName.replace(/\//, '\\');
-            return cwd + "\\" + fileNameWithBackslash;
-        }
-        else {
-            var fileNameWithBar = fileName.replace(/\\/, '//');
-            return cwd + "/" + fileNameWithBar;
-        }
-    };
-    ;
-    JsonRegistry.prototype.replaceAll = function (_string, search, replacement) {
-        var target = _string;
-        return target.split(search).join(replacement);
-    };
-    ;
-    return JsonRegistry;
-}());
-exports.default = JsonRegistry;
-function a(output, data, dataFileName) {
-    switch (output) {
-        case 'json':
-            var dataFileName = dataFileName.split('.');
-            var jsonRegistry = new JsonRegistry();
-            jsonRegistry.write(data, getFilePath_1.default(dataFileName[0]));
-            break;
-    }
-}
-exports.a = a;
-;
-
-
-/***/ }),
-
-/***/ "./src/types sync recursive ^\\.\\/.*$":
-/*!*********************************!*\
-  !*** ./src/types sync ^\.\/.*$ ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"./boolean": "./src/types/boolean.ts",
-	"./boolean.ts": "./src/types/boolean.ts",
-	"./cpf": "./src/types/cpf.ts",
-	"./cpf.ts": "./src/types/cpf.ts",
-	"./date": "./src/types/date.ts",
-	"./date.ts": "./src/types/date.ts",
-	"./decimal": "./src/types/decimal.ts",
-	"./decimal.ts": "./src/types/decimal.ts",
-	"./email": "./src/types/email.ts",
-	"./email.ts": "./src/types/email.ts",
-	"./enum": "./src/types/enum.ts",
-	"./enum.ts": "./src/types/enum.ts",
-	"./firstName": "./src/types/firstName.ts",
-	"./firstName.ts": "./src/types/firstName.ts",
-	"./id": "./src/types/id.ts",
-	"./id.ts": "./src/types/id.ts",
-	"./idAutoIncrement": "./src/types/idAutoIncrement.ts",
-	"./idAutoIncrement.ts": "./src/types/idAutoIncrement.ts",
-	"./integer": "./src/types/integer.ts",
-	"./integer.ts": "./src/types/integer.ts",
-	"./job": "./src/types/job.ts",
-	"./job.ts": "./src/types/job.ts",
-	"./lastName": "./src/types/lastName.ts",
-	"./lastName.ts": "./src/types/lastName.ts",
-	"./latitude": "./src/types/latitude.ts",
-	"./latitude.ts": "./src/types/latitude.ts",
-	"./longitude": "./src/types/longitude.ts",
-	"./longitude.ts": "./src/types/longitude.ts",
-	"./name": "./src/types/name.ts",
-	"./name.ts": "./src/types/name.ts",
-	"./numericalId": "./src/types/numericalId.ts",
-	"./numericalId.ts": "./src/types/numericalId.ts",
-	"./paragraph": "./src/types/paragraph.ts",
-	"./paragraph.ts": "./src/types/paragraph.ts",
-	"./paragraphs": "./src/types/paragraphs.ts",
-	"./paragraphs.ts": "./src/types/paragraphs.ts",
-	"./primeNumber": "./src/types/primeNumber.ts",
-	"./primeNumber.ts": "./src/types/primeNumber.ts",
-	"./randExp": "./src/types/randExp.ts",
-	"./randExp.ts": "./src/types/randExp.ts",
-	"./text": "./src/types/text.ts",
-	"./text.ts": "./src/types/text.ts",
-	"./word": "./src/types/word.ts",
-	"./word.ts": "./src/types/word.ts"
-};
-
-
-function webpackContext(req) {
-	var id = webpackContextResolve(req);
-	return __webpack_require__(id);
-}
-function webpackContextResolve(req) {
-	if(!__webpack_require__.o(map, req)) {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
-	}
-	return map[req];
-}
-webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
-};
-webpackContext.resolve = webpackContextResolve;
-module.exports = webpackContext;
-webpackContext.id = "./src/types sync recursive ^\\.\\/.*$";
-
-/***/ }),
-
-/***/ "./src/types/boolean.ts":
-/*!******************************!*\
-  !*** ./src/types/boolean.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var boolean = faker.random.boolean();
-            return boolean;
-        }
-        return false;
-    },
-    regExp: /^boolean$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/cpf.ts":
-/*!**************************!*\
-  !*** ./src/types/cpf.ts ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Chance = __webpack_require__(/*! chance */ "./node_modules/chance/chance.js");
-module.exports = {
-    generate: function (type) {
-        var chance = new Chance();
-        if (this.regExp.test(type)) {
-            var cpf = chance.cpf();
-            return cpf;
-        }
-        return false;
-    },
-    regExp: /^cpf$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/date.ts":
-/*!***************************!*\
-  !*** ./src/types/date.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var getParams_1 = __importDefault(__webpack_require__(/*! ../helpers/getParams */ "./src/helpers/getParams.ts"));
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var ano;
-            var params = getParams_1.default(type);
-            var min = params[0] || 1970;
-            var max = params[1] || new Date().getFullYear();
-            while (true) {
-                ano = Math.floor(Math.random() * max);
-                if (ano > min)
-                    break;
-            }
-            var mes = Math.floor(Math.random() * 12);
-            var dia = Math.floor(Math.random() * 28);
-            var hora = Math.floor(Math.random() * 24);
-            var min = Math.floor(Math.random() * 60);
-            var seg = Math.floor(Math.random() * 60);
-            return new Date(ano, mes, dia, hora, min, seg, 0);
-        }
-        return false;
-    },
-    regExp: /^date:\d{4};\d{4}$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/decimal.ts":
-/*!******************************!*\
-  !*** ./src/types/decimal.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var getParams_1 = __importDefault(__webpack_require__(/*! ../helpers/getParams */ "./src/helpers/getParams.ts"));
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var params = getParams_1.default(type);
-            var decimalPlaces = params[0] || 2;
-            var min = params[1] || 0.00;
-            var max = params[2] || 10000.00;
-            var number;
-            while (true) {
-                number = Math.random() * max;
-                if (number > min)
-                    break;
-            }
-            return parseFloat(Number(number).toFixed(decimalPlaces));
-        }
-        return false;
-    },
-    regExp: /^decimal:\d+;\d*\.?\d+;\d*\.?\d+$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/email.ts":
-/*!****************************!*\
-  !*** ./src/types/email.ts ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var email = faker.internet.email();
-            return email.toLocaleLowerCase();
-        }
-        return false;
-    },
-    regExp: /^email$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/enum.ts":
-/*!***************************!*\
-  !*** ./src/types/enum.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var getParams_1 = __importDefault(__webpack_require__(/*! ../helpers/getParams */ "./src/helpers/getParams.ts"));
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var params = getParams_1.default(type);
-            var index = Math.floor(Math.random() * (params && params.length));
-            return params[index];
-        }
-        return false;
-    },
-    regExp: /^enum:([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]*;)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/firstName.ts":
-/*!********************************!*\
-  !*** ./src/types/firstName.ts ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var firstName = faker.name.firstName();
-            return firstName;
-        }
-        return false;
-    },
-    regExp: /^firstName$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/id.ts":
-/*!*************************!*\
-  !*** ./src/types/id.ts ***!
-  \*************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var generateString = __webpack_require__(/*! ../helpers/generateString */ "./src/helpers/generateString.ts");
-module.exports = {
-    generate: function (type) {
-        if (this.isValidStringType(type)) {
-            var prefixo = '-dm';
-            var token = generateString(6);
-            var timestamp = new Date().getTime();
-            return prefixo + timestamp + token;
-        }
-        return false;
-    },
-    regExp: /^id$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/idAutoIncrement.ts":
-/*!**************************************!*\
-  !*** ./src/types/idAutoIncrement.ts ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function counterFactory() {
-    var count = 0;
-    return function () { return ++count; };
-}
-module.exports = {
-    generate: counterFactory(),
-    regExp: /^idAutoIncrement$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/integer.ts":
-/*!******************************!*\
-  !*** ./src/types/integer.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var getParams_1 = __importDefault(__webpack_require__(/*! ../helpers/getParams */ "./src/helpers/getParams.ts"));
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var number;
-            var params = getParams_1.default(type);
-            var min = params[0], max = params[1];
-            while (true) {
-                number = Math.floor(Math.random() * max);
-                if (number > min)
-                    break;
-            }
-            return number;
-        }
-        return false;
-    },
-    regExp: /^integer:\d*;\d*$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/job.ts":
-/*!**************************!*\
-  !*** ./src/types/job.ts ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var title = faker.name.title();
-            return title;
-        }
-        return false;
-    },
-    regExp: /^job$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/lastName.ts":
-/*!*******************************!*\
-  !*** ./src/types/lastName.ts ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var lastName = faker.name.lastName();
-            return lastName;
-        }
-        return false;
-    },
-    regExp: /^lastName$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/latitude.ts":
-/*!*******************************!*\
-  !*** ./src/types/latitude.ts ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var latitude = faker.address.latitude();
-            return latitude;
-        }
-        return false;
-    },
-    regExp: /^latitude$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/longitude.ts":
-/*!********************************!*\
-  !*** ./src/types/longitude.ts ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var longitude = faker.address.longitude();
-            return longitude;
-        }
-        return false;
-    },
-    regExp: /^longitude$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/name.ts":
-/*!***************************!*\
-  !*** ./src/types/name.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function generate(type) {
-        if (this.regExp.test(type)) {
-            var name_1 = faker.name.findName();
-            return name_1;
-        }
-        return false;
-    },
-    regExp: /^name$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/numericalId.ts":
-/*!**********************************!*\
-  !*** ./src/types/numericalId.ts ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-
-/***/ }),
-
-/***/ "./src/types/paragraph.ts":
-/*!********************************!*\
-  !*** ./src/types/paragraph.ts ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var paragraph = faker.lorem.paragraph();
-            return paragraph;
-        }
-        return false;
-    },
-    regExp: /^paragraph$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/paragraphs.ts":
-/*!*********************************!*\
-  !*** ./src/types/paragraphs.ts ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var paragraphs = faker.lorem.paragraphs();
-            return paragraphs;
-        }
-        return false;
-    },
-    regExp: /^paragraphs$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/primeNumber.ts":
-/*!**********************************!*\
-  !*** ./src/types/primeNumber.ts ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var Chance = __webpack_require__(/*! chance */ "./node_modules/chance/chance.js");
-var getParams_1 = __importDefault(__webpack_require__(/*! ../helpers/getParams */ "./src/helpers/getParams.ts"));
-module.exports = {
-    generate: function (type) {
-        var params = getParams_1.default(type);
-        var min = params[0], max = params[1];
-        var chance = new Chance();
-        if (this.regExp.test(type)) {
-            var primeNumber = chance.prime({ min: min, max: max });
-            return primeNumber;
-        }
-        return false;
-    },
-    regExp: /^primeNumber:\d*;\d*$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/randExp.ts":
-/*!******************************!*\
-  !*** ./src/types/randExp.ts ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var RandExp = __webpack_require__(/*! randexp */ "./node_modules/randexp/lib/randexp.js");
-module.exports = {
-    generate: function (type) {
-        return new RandExp(new RegExp(type)).gen();
-    }
-};
-
-
-/***/ }),
-
-/***/ "./src/types/text.ts":
-/*!***************************!*\
-  !*** ./src/types/text.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var text = faker.lorem.text();
-            return text;
-        }
-        return false;
-    },
-    regExp: /^text$/
-};
-
-
-/***/ }),
-
-/***/ "./src/types/word.ts":
-/*!***************************!*\
-  !*** ./src/types/word.ts ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var faker = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
-module.exports = {
-    generate: function (type) {
-        if (this.regExp.test(type)) {
-            var word = faker.lorem.word();
-            return word;
-        }
-        return false;
-    },
-    regExp: /^word$/
-};
-
-
-/***/ }),
-
-/***/ "./src/user-cases/datamachine.ts":
-/*!***************************************!*\
-  !*** ./src/user-cases/datamachine.ts ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../registry/json-registry */ "./src/registry/json-registry.ts"));
-var array_generator_1 = __importDefault(__webpack_require__(/*! ../domain/data-generation/array-generator */ "./src/domain/data-generation/array-generator.ts"));
-var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operations/combine-arrays-of-objects */ "./src/domain/data-operations/combine-arrays-of-objects.ts"));
-function generateOutputFileName(file1Name, file2Name, options) {
-    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-    var file1NameWithOutExtension;
-    var file2NameWithOutExtension;
-    var file1NameWithOutFolders;
-    var file2NameWithOutFolders;
-    if (fileNamePattern.test(file1Name)) {
-        file1NameWithOutFolders = file1Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-    }
-    if (fileNamePattern.test(file1Name)) {
-        file2NameWithOutFolders = file2Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
-    }
-    var outputName;
-    if (options.outname) {
-        outputName = options.outname;
-    }
-    else {
-        outputName = file1NameWithOutExtension[0] + "-combined-with-" + file2NameWithOutExtension[0];
-    }
-    return outputName;
-}
-var Datamachine = /** @class */ (function () {
-    function Datamachine(log) {
-        this.log = log;
-    }
-    Datamachine.prototype.generate = function (schemaName, length, options) {
-        if (length === void 0) { length = 5; }
-        var output = 'json';
-        var dataStructure = options.structure || 'array';
-        switch (dataStructure) {
-            case 'array':
-                var jsonRegistry = new json_registry_1.default();
-                this.log && this.log.putInfo('Carregando schema...');
-                var schemas = jsonRegistry.read(schemaName);
-                if (!schemas) {
-                    this.log && this.log.putErro('Arquivo de schema não encontrado');
-                }
-                else {
-                    this.log && this.log.putSuccess('Schema carregado');
-                    this.log && this.log.putInfo('Gerando massa de dados...');
-                    var dataArray = new array_generator_1.default().generate(length, schemas.schema);
-                    if (!dataArray) {
-                        this.log && this.log.putErro('Schema inválido!');
-                    }
-                    else {
-                        var fileName = jsonRegistry.generateOutputFileName(options, schemaName);
-                        this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
-                        var outSuccess = jsonRegistry.write(dataArray, fileName);
-                        if (!outSuccess) {
-                            this.log && this.log.putErro('Não foi possível exportar os dados');
-                        }
-                        else {
-                            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-                        }
-                    }
-                }
-                break;
-            default:
-                this.log && this.log.putErro('Estrutura de dados desconhecida');
-        }
-    };
-    Datamachine.prototype.combine = function (file1Name, file2Name, options) {
-        var jsonRegistry = new json_registry_1.default();
-        this.log && this.log.putInfo('Carregando schema...');
-        var file1 = jsonRegistry.read(file1Name);
-        if (!file1) {
-            this.log && this.log.putErro('Arquivo de schema não encontrado');
-        }
-        else {
-            var file2 = jsonRegistry.read(file2Name);
-            if (!file2) {
-                this.log && this.log.putErro('Arquivo de schema não encontrado');
-            }
-            else {
-                this.log && this.log.putInfo('Combinando os dados...');
-                var combinedArrays = combine_arrays_of_objects_1.default(file1, file2, options.child);
-                var outputName = generateOutputFileName(file1Name, file2Name, options);
-                this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
-                var outSuccess = jsonRegistry.write(combinedArrays, outputName);
-                if (!outSuccess) {
-                    this.log && this.log.putErro('Não foi possível exportar os dados');
-                }
-                else {
-                    this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-                }
-            }
-        }
-    };
-    return Datamachine;
-}());
-exports.default = Datamachine;
 
 
 /***/ }),

@@ -1,15 +1,9 @@
 var program = require('commander');
 
-import generateOutput from "./registry/json-registry";
-import getFilePath from './helpers/getFilePath';
-import combineArraysOfObjects from './domain/data-operations/combine-arrays-of-objects';
-import concatArraysOfObjects from './domain/data-operations/concat-arrays-of-objects';
-import shuffleArraysOfObjects from './domain/data-operations/shuffle-arrays-of-objects';
-
-import exposeGenerateCommand from './CLI/generate.command';
-import exposeCombineCommand from './CLI/combine';
-import exposeConcatCommand from './CLI/concat';
-import exposeShuffleCommand from './CLI/shuffle';
+import exposeGenerateCommand from './driver-adapters/CLI/generate-cmd-adapter';
+import exposeCombineCommand from './driver-adapters/CLI/combine-cmd-adapter';
+import exposeConcatCommand from './driver-adapters/CLI/concat-cmd-adapter';
+import exposeShuffleCommand from './driver-adapters/CLI/shuffle-cmd-adapter';
 
 program
   .version('1.2.0')
@@ -21,25 +15,8 @@ program
   });
 
 exposeGenerateCommand();
-
-exposeCombineCommand(
-  program,
-  generateOutput,
-  combineArraysOfObjects
-);
-
-exposeConcatCommand(
-  program,
-  generateOutput,
-  concatArraysOfObjects,
-  getFilePath
-);
-
-exposeShuffleCommand(
-  program,
-  generateOutput,
-  shuffleArraysOfObjects,
-  getFilePath
-);
+exposeCombineCommand();
+exposeConcatCommand();
+exposeShuffleCommand();
 
 program.parse(process.argv);
