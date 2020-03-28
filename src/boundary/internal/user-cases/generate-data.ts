@@ -1,37 +1,30 @@
-import JsonRegistry from '../../../driven-adapters/registry/json-registry';
 import ArrayGenerator from '../domain/data-generator/array-generator';
+import IWriteOutput from '../../driven-port/i-write-output';
+import IReadInput from '../../driven-port/i-read-input';
+import NameGenerator from '../../../driven-adapters/utils/define-data-file-name';
 
 export default class GenerateData {
-  constructor(private log?: any) { }
-  exec(schemaName: string, length: number = 5, options: any) {
-    var dataStructure = options.structure || 'array'; 
-    switch(dataStructure){
-      case 'array':
-          const jsonRegistry = new JsonRegistry();
-          this.log && this.log.putInfo('Carregando schema...');
-          var schemas = jsonRegistry.read(schemaName);
-          if(!schemas){
-            this.log && this.log.putErro('Arquivo de schema não encontrado');
-          } else {
-            this.log && this.log.putSuccess('Schema carregado');
-            this.log && this.log.putInfo('Gerando massa de dados...');
-            var dataArray = new ArrayGenerator().generate(length, schemas.schema);
-            if(!dataArray){
-              this.log && this.log.putErro('Schema inválido!');
-            } else {
-              let fileName = jsonRegistry.generateOutputFileName(options, schemaName);
-              this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
-              const outSuccess = jsonRegistry.write(dataArray, fileName);
-              if(!outSuccess){
-                this.log && this.log.putErro('Não foi possível exportar os dados');
-              } else {
-                this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-              }
-            }
-          }
-        break;
-      default:
-        this.log && this.log.putErro('Estrutura de dados desconhecida');
+  constructor(
+    private writeOutput: IWriteOutput,
+    private readInput: IReadInput,
+    private nameGenerator: NameGenerator,
+    private log?: any) { }
+  exec(params: any) {
+    const schemaName: string = params.schemaName;
+    const length: number = params.length || 5;
+    const options: any =  params.options;
+    try {
+      this.log && this.log.putInfo('Carregando schema...');
+      var schemas = this.readInput.read(schemaName);
+      this.log && this.log.putSuccess('Schema carregado');
+      this.log && this.log.putInfo('Gerando massa de dados...');
+      var dataArray = new ArrayGenerator().generate(length, schemas.schema);
+      let fileName = this.nameGenerator.defineDataFileName(options.output, schemaName);
+      this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+      this.writeOutput.write(dataArray, fileName);
+      this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+    } catch(e) {
+      this.log && this.log.putErro(e);
     }
   }
 }

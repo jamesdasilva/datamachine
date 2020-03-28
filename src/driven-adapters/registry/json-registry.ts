@@ -1,28 +1,21 @@
 var fs = require('fs');
 import getFilePath from '../../helpers/getFilePath';
-import IResgitry from '../../boundary/driven-port/i-registry';
+import IWriteOutput from '../../boundary/driven-port/i-write-output';
+import IReadOutput from '../../boundary/driven-port/i-read-input';
 
-export default class JsonRegistry implements IResgitry {
+export default class JsonRegistry implements IWriteOutput, IReadOutput {
   constructor() { }
-	public write(data: any, dataFileName: string): boolean {
-    try {
-      var dataJson = JSON.stringify(data);
-      var dataJsonWithNewline = this.replaceAll(dataJson, '},{','},\n{');
-      fs.writeFileSync(`${dataFileName}.data.json`, dataJsonWithNewline, 'utf-8');
-      return true;
-    } catch {
-      return false;
-    }
+	public write(data: any, dataFileName: string): void {
+    var dataJson = JSON.stringify(data);
+    var dataJsonWithNewline = this.replaceAll(dataJson, '},{','},\n{');
+    fs.writeFileSync(`${dataFileName}.json`, dataJsonWithNewline, 'utf-8');
   }
   public read(fileName) {
     const filePath = this.getFilePath(fileName);
     if (!fs.existsSync(filePath)) {
-      return false;
+      throw `O arquivo ${fileName} não foi encontrado`;
     }
     return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-  }
-  public extract() {
-    throw new Error("Method not implemented.");
   }
   public generateOutputFileName(options, inputFileName) {
     if(options.outName) {

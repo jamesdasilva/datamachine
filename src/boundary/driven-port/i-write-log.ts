@@ -1,4 +1,4 @@
-export default interface ILog {
+export default interface IWriteLog {
   putInfo(text: string);
   putSuccess(text: string);
   putWarning(text: string);

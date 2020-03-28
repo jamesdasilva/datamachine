@@ -1,7 +1,7 @@
 import logSymbols = require('log-symbols');
-import ILog from '../../boundary/driven-port/i-log';
+import IWriteLog from '../../boundary/driven-port/i-write-log';
 
-export default class Log implements ILog {
+export default class Log implements IWriteLog {
   putInfo(text: string) {
     console.log(logSymbols.info, `${text}`);
   }

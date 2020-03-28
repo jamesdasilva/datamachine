@@ -106911,45 +106911,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var array_generator_1 = __importDefault(__webpack_require__(/*! ../domain/data-generator/array-generator */ "./src/boundary/internal/domain/data-generator/array-generator.ts"));
 var GenerateData = /** @class */ (function () {
-    function GenerateData(log) {
+    function GenerateData(writeOutput, readInput, nameGenerator, log) {
+        this.writeOutput = writeOutput;
+        this.readInput = readInput;
+        this.nameGenerator = nameGenerator;
         this.log = log;
     }
-    GenerateData.prototype.exec = function (schemaName, length, options) {
-        if (length === void 0) { length = 5; }
-        var dataStructure = options.structure || 'array';
-        switch (dataStructure) {
-            case 'array':
-                var jsonRegistry = new json_registry_1.default();
-                this.log && this.log.putInfo('Carregando schema...');
-                var schemas = jsonRegistry.read(schemaName);
-                if (!schemas) {
-                    this.log && this.log.putErro('Arquivo de schema não encontrado');
-                }
-                else {
-                    this.log && this.log.putSuccess('Schema carregado');
-                    this.log && this.log.putInfo('Gerando massa de dados...');
-                    var dataArray = new array_generator_1.default().generate(length, schemas.schema);
-                    if (!dataArray) {
-                        this.log && this.log.putErro('Schema inválido!');
-                    }
-                    else {
-                        var fileName = jsonRegistry.generateOutputFileName(options, schemaName);
-                        this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
-                        var outSuccess = jsonRegistry.write(dataArray, fileName);
-                        if (!outSuccess) {
-                            this.log && this.log.putErro('Não foi possível exportar os dados');
-                        }
-                        else {
-                            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-                        }
-                    }
-                }
-                break;
-            default:
-                this.log && this.log.putErro('Estrutura de dados desconhecida');
+    GenerateData.prototype.exec = function (params) {
+        var schemaName = params.schemaName;
+        var length = params.length || 5;
+        var options = params.options;
+        try {
+            this.log && this.log.putInfo('Carregando schema...');
+            var schemas = this.readInput.read(schemaName);
+            this.log && this.log.putSuccess('Schema carregado');
+            this.log && this.log.putInfo('Gerando massa de dados...');
+            var dataArray = new array_generator_1.default().generate(length, schemas.schema);
+            var fileName = this.nameGenerator.defineDataFileName(options.output, schemaName);
+            this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+            this.writeOutput.write(dataArray, fileName);
+            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+        }
+        catch (e) {
+            this.log && this.log.putErro(e);
         }
     };
     return GenerateData;
@@ -107049,25 +107035,16 @@ var JsonRegistry = /** @class */ (function () {
     function JsonRegistry() {
     }
     JsonRegistry.prototype.write = function (data, dataFileName) {
-        try {
-            var dataJson = JSON.stringify(data);
-            var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
-            fs.writeFileSync(dataFileName + ".data.json", dataJsonWithNewline, 'utf-8');
-            return true;
-        }
-        catch (_a) {
-            return false;
-        }
+        var dataJson = JSON.stringify(data);
+        var dataJsonWithNewline = this.replaceAll(dataJson, '},{', '},\n{');
+        fs.writeFileSync(dataFileName + ".json", dataJsonWithNewline, 'utf-8');
     };
     JsonRegistry.prototype.read = function (fileName) {
         var filePath = this.getFilePath(fileName);
         if (!fs.existsSync(filePath)) {
-            return false;
+            throw "O arquivo " + fileName + " n\u00E3o foi encontrado";
         }
         return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-    };
-    JsonRegistry.prototype.extract = function () {
-        throw new Error("Method not implemented.");
     };
     JsonRegistry.prototype.generateOutputFileName = function (options, inputFileName) {
         if (options.outName) {
@@ -107720,6 +107697,34 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/driven-adapters/utils/define-data-file-name.ts":
+/*!************************************************************!*\
+  !*** ./src/driven-adapters/utils/define-data-file-name.ts ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var NameGenerator = /** @class */ (function () {
+    function NameGenerator() {
+    }
+    NameGenerator.prototype.extractNameInputFile = function (inputFileName) {
+        return inputFileName.split('.')[0];
+    };
+    NameGenerator.prototype.defineDataFileName = function (userName, inputFileName) {
+        return userName
+            ? userName + ".data"
+            : this.extractNameInputFile(inputFileName) + ".data";
+    };
+    return NameGenerator;
+}());
+exports.default = NameGenerator;
+
+
+/***/ }),
+
 /***/ "./src/driver-adapters/CLI/combine-cmd-adapter.ts":
 /*!********************************************************!*\
   !*** ./src/driver-adapters/CLI/combine-cmd-adapter.ts ***!
@@ -107798,7 +107803,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
 var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var generate_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/generate-data */ "./src/boundary/internal/user-cases/generate-data.ts"));
+var define_data_file_name_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/define-data-file-name */ "./src/driven-adapters/utils/define-data-file-name.ts"));
 function default_1() {
     program
         .command('generate <schemas> [length]')
@@ -107807,8 +107814,12 @@ function default_1() {
         .option('-N, --outName <outName>", "nome do arquivo de saída')
         .description('gerar massa de dados a partir de um schema')
         .action(function (schemaName, length, options) {
-        console.log('<< DATAMACHINE >>');
-        new generate_data_1.default(new log_1.default()).exec(schemaName, length, options);
+        console.log('<< DATAMACHINE >>----');
+        new generate_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new define_data_file_name_1.default(), new log_1.default()).exec({
+            schemaName: schemaName,
+            length: length,
+            options: options
+        });
     });
 }
 exports.default = default_1;
