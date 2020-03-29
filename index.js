@@ -106900,23 +106900,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var shuffle_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/shuffle-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/shuffle-arrays-of-objects.ts"));
-var output_file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../../helpers/output-file-name-generator */ "./src/helpers/output-file-name-generator.ts"));
 var ShuffleData = /** @class */ (function () {
-    function ShuffleData(log) {
+    function ShuffleData(writeOutput, readInput, fileNameGenerator, log) {
+        this.writeOutput = writeOutput;
+        this.readInput = readInput;
+        this.fileNameGenerator = fileNameGenerator;
         this.log = log;
     }
     ShuffleData.prototype.exec = function (file1Name, options) {
-        var jsonRegistry = new json_registry_1.default();
-        console.log("Lendo o arquivo " + file1Name + "...");
-        var file1 = jsonRegistry.read(file1Name);
-        console.log("Embaralhando os dados...");
-        var shuffledArrays = shuffle_arrays_of_objects_1.default(file1);
-        var outputName = options.outname ? options.outname : new output_file_name_generator_1.default().generate(file1Name, options, 'shuffle');
-        console.log("Gerando arquivo de saída...");
-        var outSuccess = jsonRegistry.write(shuffledArrays, outputName);
-        console.log('>--', outSuccess);
+        try {
+            this.log && this.log.putInfo("Carregando dados " + file1Name);
+            var file1 = this.readInput.read(file1Name);
+            this.log && this.log.putInfo('Embaralhando os dados...');
+            var shuffledArrays = shuffle_arrays_of_objects_1.default(file1);
+            var outputName = this.fileNameGenerator.defFileNameByOneEntry(file1Name, options.output, 'shuffle');
+            this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+            this.writeOutput.write(shuffledArrays, outputName);
+            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+        }
+        catch (e) {
+            this.log && this.log.putErro(e);
+        }
     };
     return ShuffleData;
 }());
@@ -107678,8 +107683,10 @@ var FileNameGenerator = /** @class */ (function () {
             return "" + __prefix + __fileName1[0].split('.')[0] + "-" + __fileName2[0].split('.')[0] + __posfix + ".data";
         }
     };
-    FileNameGenerator.prototype.defFileNameByOneEntry = function (_a) {
-        var fileName = _a.fileName, _b = _a.userName, userName = _b === void 0 ? '' : _b, _c = _a.prefix, prefix = _c === void 0 ? '' : _c, _d = _a.posfix, posfix = _d === void 0 ? '' : _d;
+    FileNameGenerator.prototype.defFileNameByOneEntry = function (fileName, userName, prefix, posfix) {
+        if (userName === void 0) { userName = ''; }
+        if (prefix === void 0) { prefix = ''; }
+        if (posfix === void 0) { posfix = ''; }
         if (userName !== '')
             return prefix + "-" + userName + "-" + posfix + ".data";
         if (this.fileNameIsValid(fileName))
@@ -107814,6 +107821,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
 var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var shuffle_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/shuffle-data */ "./src/boundary/internal/user-cases/shuffle-data.ts"));
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/file-name-generator */ "./src/driven-adapters/utils/file-name-generator.ts"));
 function default_1() {
     program
         .command('shuffle <file1>')
@@ -107822,7 +107831,7 @@ function default_1() {
         .option("--on, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
         .action(function (file1Name, options) {
         console.log('<< DATAMACHINE >>');
-        new shuffle_data_1.default(new log_1.default()).exec(file1Name, options);
+        new shuffle_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new file_name_generator_1.default(), new log_1.default()).exec(file1Name, options);
     });
 }
 exports.default = default_1;
@@ -107928,43 +107937,6 @@ function default_1(type) {
     return false;
 }
 exports.default = default_1;
-
-
-/***/ }),
-
-/***/ "./src/helpers/output-file-name-generator.ts":
-/*!***************************************************!*\
-  !*** ./src/helpers/output-file-name-generator.ts ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var OutputFileNameGenerator = /** @class */ (function () {
-    function OutputFileNameGenerator() {
-    }
-    OutputFileNameGenerator.prototype.fileNameIsValide = function (fileName) {
-        var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-        return fileNamePattern.test(fileName);
-    };
-    OutputFileNameGenerator.prototype.generate = function (fileName, options, command) {
-        if (options.outname)
-            return "" + options.outname;
-        var fileNameWithOutExtension;
-        var fileNameWithoutFolders;
-        if (this.fileNameIsValide(fileName)) {
-            fileNameWithoutFolders = fileName.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-            fileNameWithOutExtension = fileNameWithoutFolders[0].split('.');
-        }
-        return options.outname
-            ? options.outname
-            : (command ? command : "shuffle-" + fileNameWithOutExtension[0]) + "--" + fileNameWithOutExtension[0];
-    };
-    return OutputFileNameGenerator;
-}());
-exports.default = OutputFileNameGenerator;
 
 
 /***/ }),

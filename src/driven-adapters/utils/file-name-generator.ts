@@ -22,8 +22,7 @@ export default class FileNameGenerator {
         return `${__prefix}${__fileName1[0].split('.')[0]}-${__fileName2[0].split('.')[0]}${__posfix}.data`;
       }
   }
-  defFileNameByOneEntry({
-    fileName, userName = '', prefix = '', posfix = ''}) {
+  defFileNameByOneEntry(fileName, userName = '', prefix = '', posfix = '') {
     if(userName !== '') return `${prefix}-${userName}-${posfix}.data`;
     if(this.fileNameIsValid(fileName)) return `${prefix}-${fileName}-${posfix}.data`;
   }

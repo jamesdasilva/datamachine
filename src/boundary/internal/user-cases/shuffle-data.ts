@@ -1,21 +1,27 @@
-import JsonRegistry from '../../../driven-adapters/registry/json-registry';
 import shuffleArraysOfObjects from '../domain/data-operator/shuffle-arrays-of-objects';
-import OutputFileNameGenerator from '../../../helpers/output-file-name-generator';
+import IWriteOutput from '../../driven-port/i-write-output';
+import IReadInput from '../../driven-port/i-read-input';
+import FileNameGenerator from '../../../driven-adapters/utils/file-name-generator';
 
 export default class ShuffleData {
-  constructor(private log?: any) { }
+  constructor(
+    private writeOutput: IWriteOutput,
+    private readInput: IReadInput,
+    private fileNameGenerator: FileNameGenerator,
+    private log?: any) { }
+
   exec(file1Name, options) {
-    const jsonRegistry = new JsonRegistry();
-    console.log(`Lendo o arquivo ${file1Name}...`);
-    let file1 = jsonRegistry.read(file1Name);
-
-    console.log(`Embaralhando os dados...`);
-    let shuffledArrays = shuffleArraysOfObjects(file1);
-
-    let outputName = options.outname ? options.outname : new OutputFileNameGenerator().generate(file1Name, options, 'shuffle');
-
-    console.log("Gerando arquivo de saída...");
-    const outSuccess = jsonRegistry.write(shuffledArrays, outputName);
-    console.log('>--', outSuccess);
+    try {
+      this.log && this.log.putInfo(`Carregando dados ${file1Name}`);
+      const file1 = this.readInput.read(file1Name);
+      this.log && this.log.putInfo('Embaralhando os dados...');
+      const shuffledArrays = shuffleArraysOfObjects(file1);
+      const outputName = this.fileNameGenerator.defFileNameByOneEntry(file1Name, options.output, 'shuffle');
+      this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+      this.writeOutput.write(shuffledArrays, outputName);
+      this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
+    } catch(e) {
+      this.log && this.log.putErro(e);
+    }
   }
 }
