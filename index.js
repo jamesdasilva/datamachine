@@ -106761,60 +106761,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var combine_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/combine-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/combine-arrays-of-objects.ts"));
-function generateOutputFileName(file1Name, file2Name, options) {
-    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-    var file1NameWithOutExtension;
-    var file2NameWithOutExtension;
-    var file1NameWithOutFolders;
-    var file2NameWithOutFolders;
-    if (fileNamePattern.test(file1Name)) {
-        file1NameWithOutFolders = file1Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-    }
-    if (fileNamePattern.test(file1Name)) {
-        file2NameWithOutFolders = file2Name.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
-    }
-    var outputName;
-    if (options.outname) {
-        outputName = options.outname;
-    }
-    else {
-        outputName = file1NameWithOutExtension[0] + "-combined-with-" + file2NameWithOutExtension[0];
-    }
-    return outputName;
-}
 var CombineData = /** @class */ (function () {
-    function CombineData(log) {
+    function CombineData(writeOutput, readInput, fileNameGenerator, log) {
+        this.writeOutput = writeOutput;
+        this.readInput = readInput;
+        this.fileNameGenerator = fileNameGenerator;
         this.log = log;
     }
     CombineData.prototype.exec = function (file1Name, file2Name, options) {
-        var jsonRegistry = new json_registry_1.default();
-        this.log && this.log.putInfo('Carregando schema...');
-        var file1 = jsonRegistry.read(file1Name);
-        if (!file1) {
-            this.log && this.log.putErro('Arquivo de schema não encontrado');
+        try {
+            var outname = options.outname;
+            this.log && this.log.putInfo("Carregando schema " + file1Name);
+            var file1 = this.readInput.read(file1Name);
+            this.log && this.log.putInfo("Carregando schema " + file1Name);
+            var file2 = this.readInput.read(file2Name);
+            this.log && this.log.putInfo('Combinando os dados...');
+            var combinedArrays = combine_arrays_of_objects_1.default(file1, file2, options.child);
+            var outputName = this.fileNameGenerator.defFileNameByTwoEntries(file1Name, file2Name, outname, 'combine');
+            this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
+            this.writeOutput.write(combinedArrays, outputName);
+            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
         }
-        else {
-            var file2 = jsonRegistry.read(file2Name);
-            if (!file2) {
-                this.log && this.log.putErro('Arquivo de schema não encontrado');
-            }
-            else {
-                this.log && this.log.putInfo('Combinando os dados...');
-                var combinedArrays = combine_arrays_of_objects_1.default(file1, file2, options.child);
-                var outputName = generateOutputFileName(file1Name, file2Name, options);
-                this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
-                var outSuccess = jsonRegistry.write(combinedArrays, outputName);
-                if (!outSuccess) {
-                    this.log && this.log.putErro('Não foi possível exportar os dados');
-                }
-                else {
-                    this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-                }
-            }
+        catch (e) {
+            this.log && this.log.putErro(e);
         }
     };
     return CombineData;
@@ -106837,58 +106807,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var json_registry_1 = __importDefault(__webpack_require__(/*! ../../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var concat_arrays_of_objects_1 = __importDefault(__webpack_require__(/*! ../domain/data-operator/concat-arrays-of-objects */ "./src/boundary/internal/domain/data-operator/concat-arrays-of-objects.ts"));
-function fileNameIsValid(fileName) {
-    var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+.json$/;
-    return fileNamePattern.test(fileName);
-}
-function createDefaultName(fileName1, fileName2) {
-    var file1NameWithOutExtension;
-    var file2NameWithOutExtension;
-    var file1NameWithOutFolders;
-    var file2NameWithOutFolders;
-    if (fileNameIsValid(fileName1)) {
-        file1NameWithOutFolders = fileName1.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file1NameWithOutExtension = file1NameWithOutFolders[0].split('.');
-    }
-    if (fileNameIsValid(fileName2)) {
-        file2NameWithOutFolders = fileName2.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
-        file2NameWithOutExtension = file2NameWithOutFolders[0].split('.');
-    }
-    return "concat-" + file1NameWithOutExtension[0] + "-" + file2NameWithOutExtension[0];
-}
 var ConcatData = /** @class */ (function () {
-    function ConcatData(log) {
+    function ConcatData(writeOutput, readInput, fileNameGenerator, log) {
+        this.writeOutput = writeOutput;
+        this.readInput = readInput;
+        this.fileNameGenerator = fileNameGenerator;
         this.log = log;
     }
     ConcatData.prototype.exec = function (file1Name, file2Name, options) {
         var outname = options.outname;
-        var jsonRegistry = new json_registry_1.default();
-        this.log && this.log.putInfo('Carregando schema 1 ...');
-        var file1 = jsonRegistry.read(file1Name);
-        if (!file1) {
-            this.log && this.log.putErro('Arquivo de schema 1 não encontrado');
+        try {
+            this.log && this.log.putInfo("Carregando schema " + file1Name);
+            var file1 = this.readInput.read(file1Name);
+            this.log && this.log.putInfo("Carregando schema " + file2Name);
+            var file2 = this.readInput.read(file2Name);
+            this.log && this.log.putInfo('Concatenando os dados...');
+            var concatenedArrays = concat_arrays_of_objects_1.default(file1, file2);
+            var outputName = this.fileNameGenerator.defFileNameByTwoEntries(file1Name, file2Name, outname, 'concat');
+            this.log && this.log.putInfo('Gerando arquivo de saída...');
+            this.writeOutput.write(concatenedArrays, outputName);
+            this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
         }
-        else {
-            this.log && this.log.putInfo('Carregando schema 2 ...');
-            var file2 = jsonRegistry.read(file2Name);
-            if (!file1) {
-                this.log && this.log.putErro('Arquivo de schema 2 não encontrado');
-            }
-            else {
-                this.log && this.log.putInfo('Concatenando os dados...');
-                var concatenedArrays = concat_arrays_of_objects_1.default(file1, file2);
-                var outputName = outname ? outname : createDefaultName(file1Name, file2Name);
-                this.log && this.log.putInfo('Gerando arquivo de saída...');
-                var outSuccess = jsonRegistry.write(concatenedArrays, outputName);
-                if (!outSuccess) {
-                    this.log && this.log.putErro('Não foi possível exportar os dados');
-                }
-                else {
-                    this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
-                }
-            }
+        catch (e) {
+            this.log && this.log.putErro(e);
         }
     };
     return ConcatData;
@@ -106913,10 +106855,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var array_generator_1 = __importDefault(__webpack_require__(/*! ../domain/data-generator/array-generator */ "./src/boundary/internal/domain/data-generator/array-generator.ts"));
 var GenerateData = /** @class */ (function () {
-    function GenerateData(writeOutput, readInput, nameGenerator, log) {
+    function GenerateData(writeOutput, readInput, fileNameGenerator, log) {
         this.writeOutput = writeOutput;
         this.readInput = readInput;
-        this.nameGenerator = nameGenerator;
+        this.fileNameGenerator = fileNameGenerator;
         this.log = log;
     }
     GenerateData.prototype.exec = function (params) {
@@ -106929,7 +106871,7 @@ var GenerateData = /** @class */ (function () {
             this.log && this.log.putSuccess('Schema carregado');
             this.log && this.log.putInfo('Gerando massa de dados...');
             var dataArray = new array_generator_1.default().generate(length, schemas.schema);
-            var fileName = this.nameGenerator.defineDataFileName(options.output, schemaName);
+            var fileName = this.fileNameGenerator.defineDataFileName(options.output, schemaName);
             this.log && this.log.putInfo('Exportando dados para um arquivo ;)');
             this.writeOutput.write(dataArray, fileName);
             this.log && this.log.putSuccess('Pronto! Seus dados foram gerados com sucesso!');
@@ -107697,30 +107639,55 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./src/driven-adapters/utils/define-data-file-name.ts":
-/*!************************************************************!*\
-  !*** ./src/driven-adapters/utils/define-data-file-name.ts ***!
-  \************************************************************/
+/***/ "./src/driven-adapters/utils/file-name-generator.ts":
+/*!**********************************************************!*\
+  !*** ./src/driven-adapters/utils/file-name-generator.ts ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var NameGenerator = /** @class */ (function () {
-    function NameGenerator() {
+var FileNameGenerator = /** @class */ (function () {
+    function FileNameGenerator() {
     }
-    NameGenerator.prototype.extractNameInputFile = function (inputFileName) {
+    FileNameGenerator.prototype.extractNameInputFile = function (inputFileName) {
         return inputFileName.split('.')[0];
     };
-    NameGenerator.prototype.defineDataFileName = function (userName, inputFileName) {
+    FileNameGenerator.prototype.defineDataFileName = function (userName, inputFileName) {
         return userName
             ? userName + ".data"
             : this.extractNameInputFile(inputFileName) + ".data";
     };
-    return NameGenerator;
+    FileNameGenerator.prototype.fileNameIsValid = function (fileName) {
+        var fileNamePattern = /^([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+\/)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+/;
+        return fileNamePattern.test(fileName);
+    };
+    FileNameGenerator.prototype.defFileNameByTwoEntries = function (fileName1, fileName2, userName, prefix, posfix) {
+        if (userName === void 0) { userName = ''; }
+        if (prefix === void 0) { prefix = ''; }
+        if (posfix === void 0) { posfix = ''; }
+        if (userName !== '')
+            return prefix + "-" + userName + "-" + posfix + ".data";
+        if (this.fileNameIsValid(fileName1) && this.fileNameIsValid(fileName2)) {
+            var __fileName1 = fileName1.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+            var __fileName2 = fileName2.match(/[\w\d À-ú,\.\-\?&$@#!\+:\(\)\\°\*º]+.json$/);
+            var __prefix = prefix ? prefix + '-' : '';
+            var __posfix = posfix ? '-' + posfix : '';
+            return "" + __prefix + __fileName1[0].split('.')[0] + "-" + __fileName2[0].split('.')[0] + __posfix + ".data";
+        }
+    };
+    FileNameGenerator.prototype.defFileNameByOneEntry = function (_a) {
+        var fileName = _a.fileName, _b = _a.userName, userName = _b === void 0 ? '' : _b, _c = _a.prefix, prefix = _c === void 0 ? '' : _c, _d = _a.posfix, posfix = _d === void 0 ? '' : _d;
+        if (userName !== '')
+            return prefix + "-" + userName + "-" + posfix + ".data";
+        if (this.fileNameIsValid(fileName))
+            return prefix + "-" + fileName + "-" + posfix + ".data";
+    };
+    return FileNameGenerator;
 }());
-exports.default = NameGenerator;
+exports.default = FileNameGenerator;
 
 
 /***/ }),
@@ -107741,16 +107708,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
 var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var combine_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/combine-data */ "./src/boundary/internal/user-cases/combine-data.ts"));
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/file-name-generator */ "./src/driven-adapters/utils/file-name-generator.ts"));
 exports.default = (function () {
     program
         .command('combine <file1> <file2>')
         .alias('c')
-        .option("--chl, --child <child>", "Incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
-        .option("--on, --outname <child>", "Definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
-        .description('Combinar objetos de duas coleções diferentes')
+        .option("--chl, --child <child>", "incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
+        .option("--on, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+        .description('combinar objetos de duas coleções diferentes')
         .action(function (file1Name, file2Name, options) {
         console.log('<< DATAMACHINE >>');
-        new combine_data_1.default(new log_1.default()).exec(file1Name, file2Name, options);
+        new combine_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new file_name_generator_1.default(), new log_1.default()).exec(file1Name, file2Name, options);
     });
 });
 
@@ -107773,6 +107742,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var program = __webpack_require__(/*! commander */ "./node_modules/commander/index.js");
 var concat_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/concat-data */ "./src/boundary/internal/user-cases/concat-data.ts"));
 var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
+var json_registry_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
+var file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/file-name-generator */ "./src/driven-adapters/utils/file-name-generator.ts"));
 exports.default = (function () {
     program
         .command('concat <file1> <file2>')
@@ -107781,7 +107752,7 @@ exports.default = (function () {
         .description('concatenar duas massas diferentes gerando uma única massa de dados')
         .action(function (file1Name, file2Name, options) {
         console.log('<< DATAMACHINE >>');
-        new concat_data_1.default(new log_1.default()).exec(file1Name, file2Name, options);
+        new concat_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new file_name_generator_1.default(), new log_1.default()).exec(file1Name, file2Name, options);
     });
 });
 
@@ -107805,7 +107776,7 @@ var program = __webpack_require__(/*! commander */ "./node_modules/commander/ind
 var log_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/log/log */ "./src/driven-adapters/log/log.ts"));
 var json_registry_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/registry/json-registry */ "./src/driven-adapters/registry/json-registry.ts"));
 var generate_data_1 = __importDefault(__webpack_require__(/*! ../../boundary/internal/user-cases/generate-data */ "./src/boundary/internal/user-cases/generate-data.ts"));
-var define_data_file_name_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/define-data-file-name */ "./src/driven-adapters/utils/define-data-file-name.ts"));
+var file_name_generator_1 = __importDefault(__webpack_require__(/*! ../../driven-adapters/utils/file-name-generator */ "./src/driven-adapters/utils/file-name-generator.ts"));
 function default_1() {
     program
         .command('generate <schemas> [length]')
@@ -107814,8 +107785,8 @@ function default_1() {
         .option('-N, --outName <outName>", "nome do arquivo de saída')
         .description('gerar massa de dados a partir de um schema')
         .action(function (schemaName, length, options) {
-        console.log('<< DATAMACHINE >>----');
-        new generate_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new define_data_file_name_1.default(), new log_1.default()).exec({
+        console.log('<< DATAMACHINE >>');
+        new generate_data_1.default(new json_registry_1.default(), new json_registry_1.default(), new file_name_generator_1.default(), new log_1.default()).exec({
             schemaName: schemaName,
             length: length,
             options: options

@@ -2,7 +2,7 @@ import program = require('commander');
 import Log from '../../driven-adapters/log/log';
 import JsonRegistry from '../../driven-adapters/registry/json-registry';
 import GenerateData from '../../boundary/internal/user-cases/generate-data';
-import NameGenerator from '../../driven-adapters/utils/define-data-file-name';
+import FileNameGenerator from '../../driven-adapters/utils/file-name-generator';
 
 export default function () {
   program
@@ -12,11 +12,11 @@ export default function () {
   .option('-N, --outName <outName>", "nome do arquivo de saída')
   .description('gerar massa de dados a partir de um schema')
   .action((schemaName, length, options) => {
-    console.log('<< DATAMACHINE >>----');
+    console.log('<< DATAMACHINE >>');
     new GenerateData(
       new JsonRegistry(),
       new JsonRegistry(),
-      new NameGenerator(),
+      new FileNameGenerator(),
       new Log()
       ).exec({
         schemaName,

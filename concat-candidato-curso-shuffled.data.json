@@ -1,8 +1,0 @@
-[{"contador":5,"inteiro":25,"valor":34.22,"primos":3,"logico":false,"fruta":"pera","nome":"Newell Emard","cpf":"262.776.867-04","nascimento":"1992-12-04T19:32:13.000Z","mediaEnem":797.93},
-{"contador":1,"inteiro":24,"valor":39.93,"primos":3,"logico":true,"fruta":"uva","nome":"Eunice Collins","cpf":"716.039.593-00","nascimento":"1993-03-07T23:43:37.000Z","mediaEnem":370.44},
-{"unidade":" Faculdade de Medicina","curso":"Engenharia de Computação"},
-{"contador":3,"inteiro":24,"valor":31.01,"primos":7,"logico":false,"fruta":"pera","nome":"Elvie Nitzsche","cpf":"390.033.491-93","nascimento":"1991-12-08T04:38:07.000Z","mediaEnem":599.34},
-{"unidade":"Faculdade Rui Barbosa","curso":"Letras"},
-{"contador":2,"inteiro":46,"valor":21.12,"primos":3,"logico":true,"fruta":"pera","nome":"Jess Wilkinson","cpf":"982.626.128-92","nascimento":"1993-06-02T19:00:45.000Z","mediaEnem":382.66},
-{"unidade":" Faculdade de Comunicação e Letras","curso":"Medicina"},
-{"contador":4,"inteiro":44,"valor":47.2,"primos":5,"logico":true,"fruta":"uva","nome":"Nia Gislason","cpf":"789.823.981-47","nascimento":"1992-09-03T16:44:33.000Z","mediaEnem":508.07}]

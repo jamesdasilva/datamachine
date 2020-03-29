@@ -1,8 +1,8 @@
-[{"contador":1,"inteiro":42,"valor":29.27,"primos":2,"logico":true,"fruta":"maçã","nome":"Bettie Mitchell","cpf":"736.862.419-27","nascimento":"1993-02-01T09:44:14.000Z","mediaEnem":992.87},
-{"contador":2,"inteiro":44,"valor":36.38,"primos":5,"logico":true,"fruta":"pera","nome":"Nella Cassin","cpf":"371.435.182-55","nascimento":"1991-01-16T17:56:28.000Z","mediaEnem":996.46},
-{"contador":3,"inteiro":25,"valor":41.07,"primos":7,"logico":true,"fruta":"pera","nome":"Lester Armstrong","cpf":"994.307.549-04","nascimento":"1992-12-04T04:28:45.000Z","mediaEnem":859.64},
-{"contador":4,"inteiro":41,"valor":31.77,"primos":2,"logico":false,"fruta":"pera","nome":"Ashley Gerhold","cpf":"216.931.740-65","nascimento":"1991-01-10T09:00:55.000Z","mediaEnem":689.22},
-{"contador":5,"inteiro":44,"valor":47.09,"primos":3,"logico":true,"fruta":"maçã","nome":"Moriah Collier","cpf":"003.235.063-56","nascimento":"1991-06-08T07:57:42.000Z","mediaEnem":819.72},
+[{"contador":1,"inteiro":23,"valor":31.35,"primos":2,"logico":false,"fruta":"uva","nome":"Alexys Jacobi","cpf":"812.905.621-64","nascimento":"1993-07-10T06:11:37.000Z","mediaEnem":716.78},
+{"contador":2,"inteiro":43,"valor":23.43,"primos":7,"logico":true,"fruta":"uva","nome":"Callie Douglas","cpf":"937.672.324-48","nascimento":"1992-08-22T13:29:06.000Z","mediaEnem":741.95},
+{"contador":3,"inteiro":26,"valor":42.42,"primos":2,"logico":true,"fruta":"pera","nome":"Erin Hane","cpf":"269.996.639-80","nascimento":"1993-11-14T20:03:58.000Z","mediaEnem":929.71},
+{"contador":4,"inteiro":25,"valor":47.21,"primos":5,"logico":true,"fruta":"uva","nome":"Sylvester Lesch","cpf":"380.551.596-02","nascimento":"1993-07-23T16:19:49.000Z","mediaEnem":574.02},
+{"contador":5,"inteiro":33,"valor":42.4,"primos":5,"logico":true,"fruta":"pera","nome":"Rafael Yundt","cpf":"379.865.223-64","nascimento":"1992-07-16T00:39:14.000Z","mediaEnem":316.88},
 {"unidade":" Faculdade de Medicina","curso":"Engenharia de Computação"},
 {"unidade":"Faculdade Rui Barbosa","curso":"Letras"},
 {"unidade":" Faculdade de Comunicação e Letras","curso":"Medicina"}]
