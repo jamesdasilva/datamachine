@@ -4399,25 +4399,20 @@ var AttributeGenerator = /** @class */ (function () {
         this.typesRegistry = typesRegistry;
     }
     AttributeGenerator.prototype.generate = function (typeString) {
-        var typeObject = this.extractTypeObject(typeString);
-        return this.typesRegistry.get(typeObject.name).generate(typeObject.params);
+        var typeName = this.extractName(typeString);
+        var arrayParams = this.extractParams(typeString);
+        return this.typesRegistry.get(typeName).generate(arrayParams);
     };
-    AttributeGenerator.prototype.extractTypeObject = function (typeString) {
+    AttributeGenerator.prototype.extractName = function (typeString) {
         var regExpTypeName = /^[\w*]*/g;
-        var typeName = typeString.match(regExpTypeName) + '';
-        if (/^regexp:\/*\//.test(typeString)) {
-            return {
-                name: typeName,
-                params: [typeString.split(':')[1]]
-            };
-        }
+        return typeString.match(regExpTypeName) + '';
+    };
+    AttributeGenerator.prototype.extractParams = function (typeString) {
+        if (/^regexp:\/*\//.test(typeString))
+            return [typeString.split(':')[1]];
         var regExpParams = /:([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]*;)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+$/g;
         var stringParams = (typeString.match(regExpParams) + '').slice(1);
-        var arrayParams = stringParams.split(';');
-        return {
-            name: typeName,
-            params: arrayParams
-        };
+        return stringParams.split(';');
     };
     return AttributeGenerator;
 }());
@@ -4450,7 +4445,7 @@ var ObjectGenerator = /** @class */ (function () {
         if (typeof objeto != 'object')
             return false;
         Object.keys(objeto).forEach(function (item) {
-            if (typeof objeto[item] == 'object' && objeto[item].constructor != RegExp) {
+            if (_this.itIsObject(objeto[item])) {
                 result[item] = _this.generate(objeto[item]); // recursividade 
             }
             else {
@@ -4458,6 +4453,9 @@ var ObjectGenerator = /** @class */ (function () {
             }
         });
         return result;
+    };
+    ObjectGenerator.prototype.itIsObject = function (schemaAtt) {
+        return typeof schemaAtt == 'object' && schemaAtt.constructor != RegExp;
     };
     return ObjectGenerator;
 }());
