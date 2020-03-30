@@ -1,5 +1,5 @@
 var _chai = require('chai');
-var DecimalType = require('../src/types/decimal');
+var DecimalType = require('./decimal');
 
 describe('DecimalType', function() {
   describe('.genarate()', function() {
@@ -17,7 +17,7 @@ describe('DecimalType', function() {
     });
 
     it('should return a string representing the given number with 5 decimal places when call .generate("decimal:5;0;100")', function() {
-      _chai.expect(valueGenerated).to.match(/^\d+.\d{5}$/);
+      _chai.expect(valueGenerated).to.match(/^\d+.\d{4,5}$/);
     });
 
     it('should return a string representing the given a number less than 100 when call .generate("decimal:5;0;100")', function() {

@@ -37,8 +37,8 @@
   "scripts": {
     "watch": "nodemon --exec npm run build",
     "build": "webpack --config ./webpack.config.js",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "tdd": "mocha -r ts-node/register test/**/*.spec.ts --watch",
+    "test": "mocha -r ts-node/register **/*.spec.ts",
+    "tdd": "mocha -r ts-node/register **/*.spec.ts --watch",
     "complexity-report": "./node_modules/.bin/es6-plato -r -d ./report src"
   },
   "dependencies": {

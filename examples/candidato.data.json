@@ -1,5 +1,5 @@
-[{"contador":1,"inteiro":23,"valor":31.35,"primos":2,"logico":false,"fruta":"uva","nome":"Alexys Jacobi","cpf":"812.905.621-64","nascimento":"1993-07-10T06:11:37.000Z","mediaEnem":716.78},
-{"contador":2,"inteiro":43,"valor":23.43,"primos":7,"logico":true,"fruta":"uva","nome":"Callie Douglas","cpf":"937.672.324-48","nascimento":"1992-08-22T13:29:06.000Z","mediaEnem":741.95},
-{"contador":3,"inteiro":26,"valor":42.42,"primos":2,"logico":true,"fruta":"pera","nome":"Erin Hane","cpf":"269.996.639-80","nascimento":"1993-11-14T20:03:58.000Z","mediaEnem":929.71},
-{"contador":4,"inteiro":25,"valor":47.21,"primos":5,"logico":true,"fruta":"uva","nome":"Sylvester Lesch","cpf":"380.551.596-02","nascimento":"1993-07-23T16:19:49.000Z","mediaEnem":574.02},
-{"contador":5,"inteiro":33,"valor":42.4,"primos":5,"logico":true,"fruta":"pera","nome":"Rafael Yundt","cpf":"379.865.223-64","nascimento":"1992-07-16T00:39:14.000Z","mediaEnem":316.88}]
+[{"contador":1,"valor":44.66,"logico":false,"fruta":"maçã","cpf":"414.826.513-19","nascimento":"1991-07-26T22:04:20.000Z","mediaEnem":920.91},
+{"contador":2,"valor":48.98,"logico":true,"fruta":"pera","cpf":"565.750.867-05","nascimento":"1993-10-13T22:41:09.000Z","mediaEnem":638.47},
+{"contador":3,"valor":21.24,"logico":true,"fruta":"pera","cpf":"838.723.531-87","nascimento":"1992-03-19T01:25:36.000Z","mediaEnem":810.18},
+{"contador":4,"valor":36.95,"logico":true,"fruta":"uva","cpf":"080.569.080-80","nascimento":"1993-11-01T02:35:42.000Z","mediaEnem":753.34},
+{"contador":5,"valor":47.51,"logico":true,"fruta":"maçã","cpf":"217.485.519-49","nascimento":"1991-02-12T12:59:13.000Z","mediaEnem":549.48}]

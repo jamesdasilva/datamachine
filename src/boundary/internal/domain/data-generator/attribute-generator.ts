@@ -1,38 +1,32 @@
-export default class AttributeGenerator {
-  private AttributeTypes = {};
-  constructor() { }
+import IObtainTypes from '../../../driven-port/i-obtain-types';
 
-  private getName(type) {
-    let regExpTypeName = /^[\w*]*/g;
-    let typeName = type.match(regExpTypeName) + '';
-    if (typeName != 'null') {
-      return typeName;
-    }
-    return false;
+export default class AttributeGenerator {
+  private typesRegistry: any;
+
+  constructor(typesRegistry: IObtainTypes) { 
+    this.typesRegistry = typesRegistry;
   }
 
-  generate(type) {
-    var type = type;
-    var regEx = /^\[\d+\]/;
-    if(type.constructor == RegExp){
-      let randExp = require(`../../../../driven-adapters/types/randExp`); // mudar isso aqui
-      if(randExp)
-        return randExp.generate(type);
-    }else if(regEx.test(type)){
-      var array = type.match(regEx)[0];
-      var arrayLength = parseInt(array.slice(1, array.length - 1));
-      array = [];
-      type = type.split(']');
-      type = type[1];
-      for(var k = 0; k < arrayLength; k++){
-        array.push(this.generate(type));
+  generate(typeString) {
+    const typeObject = this.extractTypeObject(typeString);
+    return this.typesRegistry.get(typeObject.name).generate(typeObject.params);
+  }
+
+  private extractTypeObject(typeString: string) {
+    const regExpTypeName = /^[\w*]*/g;
+    const typeName = typeString.match(regExpTypeName) + '';
+    if(/^regexp:\/*\//.test(typeString)) {
+      return {
+        name: typeName,
+        params: [typeString.split(':')[1]]
       }
-      return array;
-    }else{
-      var keyType = this.getName(type) as string;
-      this.AttributeTypes[keyType] = require(`../../../../driven-adapters/types/${keyType}`);
-      if(this.AttributeTypes[keyType])
-        return this.AttributeTypes[keyType].generate(type);
     }
-  };
+    const regExpParams = /:([\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]*;)*[\w À-ú,\.\-\?&$@#!\+:\(\)\\°\*º\/\[\]]+$/g
+    const stringParams = (typeString.match(regExpParams) + '').slice(1);
+    const arrayParams = stringParams.split(';');
+    return {
+      name: typeName,
+      params: arrayParams
+    }
+  }
 }

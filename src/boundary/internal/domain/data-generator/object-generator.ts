@@ -1,4 +1,5 @@
 import AttributeGenerator from './attribute-generator';
+import TypesRegistry from '../../../../driven-adapters/types/types-registry'
 
 export default class ObjectGenerator {
   constructor() { }
@@ -9,7 +10,7 @@ export default class ObjectGenerator {
       if(typeof objeto[item] == 'object' && objeto[item].constructor != RegExp) {
         result[item] = this.generate(objeto[item]); // recursividade 
       } else {
-        result[item] = new AttributeGenerator().generate(objeto[item]);
+        result[item] = new AttributeGenerator(new TypesRegistry()).generate(objeto[item]);
       }
     });
     return result;

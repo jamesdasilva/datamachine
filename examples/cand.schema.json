@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0",
+  "schema": [{
+    "decimal": "decimal:2;2;5",
+    "exp": "regexp:/[\\d]{2,4}/"
+  }]
+}
