@@ -60,7 +60,7 @@ describe('class AttributeGenerator', () => {
     });
   });
 
-  describe('The extractParams() method must extract the type name from a complete type string', () => {
+  describe('The extractParams() method must extract the params from a complete type string', () => {
     it('Should return [2, 2, 5] when the entry is equal to "decimal:2;2;5"', () => {
       chai.expect(attGen.extractParams("decimal:2;2;5")).to.eql(['2', '2', '5']);
     });
