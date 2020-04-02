@@ -7,7 +7,7 @@ export default class ObjectGenerator {
 
   public generate(objeto: Object): Object {
     const result: Object = { };  
-    if(typeof objeto != 'object') return false;
+    if(typeof objeto != 'object') return { };
     Object.keys(objeto).forEach(item => { 
       if(this.itIsObject(objeto[item])) {
         result[item] = this.generate(objeto[item]); // recursividade 

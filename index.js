@@ -4443,7 +4443,7 @@ var ObjectGenerator = /** @class */ (function () {
         var _this = this;
         var result = {};
         if (typeof objeto != 'object')
-            return false;
+            return {};
         Object.keys(objeto).forEach(function (item) {
             if (_this.itIsObject(objeto[item])) {
                 result[item] = _this.generate(objeto[item]); // recursividade 
