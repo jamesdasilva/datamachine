@@ -2,12 +2,12 @@ import IObtainTypes from '../../../driven-port/i-obtain-types';
 
 export default class AttributeGenerator {
 
-  constructor(private typesRegistry: IObtainTypes) { }
+  constructor(private obtainType: IObtainTypes) { }
 
   public generate(typeString: string): any {
     const typeName = this.extractName(typeString);
     const arrayParams = this.extractParams(typeString);
-    return this.typesRegistry.get(typeName).generate(arrayParams);
+    return this.obtainType.get(typeName).generate(arrayParams);
   }
 
   public extractName(typeString: string): string {

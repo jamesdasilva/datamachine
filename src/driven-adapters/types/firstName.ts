@@ -1,12 +1,14 @@
-faker = require('faker');
+import faker from 'faker';
+import IGenerateValue from "./i-generate-value";
 
-module.exports = {
-  generate: function (type){
-    if(this.regExp.test(type)){
-      let firstName = faker.name.firstName();
-      return firstName;
-    }
-    return false;
-  },
-  regExp: /^firstName$/
-};
+export default class FisrtNameGen implements IGenerateValue {
+  public regExp = /^firstName$/;
+
+  public generate (params: Array<any>): any {
+    return faker.name.firstName();
+  }
+
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
+}

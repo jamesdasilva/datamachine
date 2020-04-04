@@ -1,4 +1,5 @@
 import ObjectGenerator from './object-generator';
+import TypeProvider from '../../../../driven-adapters/types/types-registry';
 
 export default class ArrayGenerator {
   constructor() { }
@@ -15,7 +16,7 @@ export default class ArrayGenerator {
     }
     for(let k = 0; k < length; k++) {
       indexMold = Math.floor(Math.random() * moldsArray.length);
-      result.push(new ObjectGenerator().generate(moldsArray[indexMold]));
+      result.push(new ObjectGenerator(new TypeProvider()).generate(moldsArray[indexMold]));
     }
     return result;
   }

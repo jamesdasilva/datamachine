@@ -1,13 +1,13 @@
-var faker = require('faker');
+import faker from 'faker';
 
+export default class NameGen {
+  private regExp = /^name$/;
+  
+  public generate(params: Array<any>): any {
+    return faker.name.findName();
+  }
 
-module.exports = {
-  generate: function generate(type){
-    if(this.regExp.test(type)){
-      let name = faker.name.findName();
-      return name;
-    }
-    return false;
-  },
-  regExp: /^name$/
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
 };

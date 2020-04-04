@@ -1,12 +1,15 @@
-var faker = require('faker');
+import faker from 'faker';
 
-module.exports = {
-  generate: function (type){
-    if(this.regExp.test(type)){
-      let paragraphs = faker.lorem.paragraphs();
-      return paragraphs;
-    }
-    return false;
-  },
-  regExp: /^paragraphs$/
+export default class ParagraphsGen {
+  private regExp = /^paragraphs$/;
+  
+  public generate(params: Array<any>): any {
+    return faker.lorem.paragraphs();
+  }
+
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
 };
+
+

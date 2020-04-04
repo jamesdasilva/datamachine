@@ -1,12 +1,13 @@
-faker = require('faker');
+import faker from 'faker';
 
-module.exports = {
-  generate: function (type){
-    if(this.regExp.test(type)){
-      let latitude = faker.address.latitude();
-      return latitude;
-    }
-    return false;
-  },
-  regExp: /^latitude$/
-};
+export default class LatitudeGen {
+  private regExp = /^latitude$/;
+  
+  public generate(params: Array<any>): any {
+    return faker.address.latitude();
+  }
+
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
+}

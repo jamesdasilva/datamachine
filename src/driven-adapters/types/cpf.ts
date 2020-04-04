@@ -1,13 +1,11 @@
-var Chance = require('chance');
+import Chance from 'chance';
+import IGenerateValue from './i-generate-value';
 
-module.exports = {
-  generate: function (type) {
-    var chance = new Chance();
-    if(this.regExp.test(type)){
-      let cpf = chance.cpf();
-      return cpf;
-    }
-    return false;
-  },
-  regExp: /^cpf$/
-};
+export default class CpfGen implements IGenerateValue {
+  public generate(params = []): any {
+      return new Chance().cpf();
+  }
+  public test(stringType: string): boolean {
+    return true;
+  }
+}

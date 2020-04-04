@@ -1,9 +1,14 @@
-function counterFactory(){
-    let count = 0;
-    return () => ++count;
-}
+import IGenerateValue from "./i-generate-value";
 
-module.exports = {
-    generate: counterFactory(),
-    regExp: /^idAutoIncrement$/
+export default class idAutoIncrementGen implements IGenerateValue {
+  private regExp = /^idAutoIncrement$/;
+  private static count = 0;
+
+  public generate(params: Array<any>): any {
+    return ++idAutoIncrementGen.count;
+  }
+
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
 };

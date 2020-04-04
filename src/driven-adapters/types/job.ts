@@ -1,12 +1,12 @@
-faker = require('faker');
+import faker from 'faker';
 
-module.exports = {
-  generate: function (type){
-    if(this.regExp.test(type)){
-      let title = faker.name.title();
-      return title;
-    }
-    return false;
-  },
-  regExp: /^job$/
+export default class JobGen {
+  private regExp = /^job$/;
+  public generate(params: Array<any>): any {
+    return faker.name.title();
+  }
+
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
 };

@@ -1,12 +1,12 @@
-var faker = require('faker');
+import IGenerateValue from "./i-generate-value";
+import faker from "faker";
 
-module.exports = {
-  generate: function (type: any) {
-    if(this.regExp.test(type)){
-      let boolean = faker.random.boolean();
-      return boolean;
-    }
-    return false;
-  },
-  regExp: /^boolean$/
+export default class BooleanGen implements IGenerateValue {
+  public regExp: RegExp = /^boolean$/;
+  public generate() {
+    return faker.random.boolean();
+  }
+  public test(stringType: string) {
+    return this.regExp.test(stringType);
+  }
 };

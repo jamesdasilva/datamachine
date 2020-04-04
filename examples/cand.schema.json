@@ -1,7 +1,24 @@
 {
   "version": "2.0.0",
   "schema": [{
+    "idAutoIncrement": "idAutoIncrement",
+    "id": "id",
     "decimal": "decimal:2;2;5",
-    "exp": "regexp:/[\\d]{2,4}/"
+    "regexp": "regexp:/[\\d]{2,4}/",
+    "boolean": "boolean",
+    "cpf": "cpf",
+    "date": "date:2000;2005",
+    "email": "email",
+    "enum": "enum:teste1;teste2;teste3",
+    "integer": "integer:2;5",
+    "lastName": "lastName",
+    "latitude": "latitude",
+    "longitude": "longitude",
+    "name": "name",
+    "paragraph": "paragraph",
+    "paragraphs": "paragraphs",
+    "primeNumber": "primeNumber:1;20",
+    "text": "text",
+    "word": "word"
   }]
 }

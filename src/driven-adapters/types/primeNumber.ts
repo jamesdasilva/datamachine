@@ -1,17 +1,14 @@
-var Chance = require('chance');
+import Chance from 'chance';
 
-import getParams from '../../helpers/getParams';
+export default class PrimeNumberGen {
+  private regExp = /^primeNumber:\d*;\d*$/;
+  
+  public generate(params: Array<any>): any {
+    return new Chance().prime({min: params[0], max: params[1]});
+  }
 
-module.exports = {
-  generate: function (type){
-    let params = getParams(type);
-    let min = params[0], max = params[1];
-    let chance = new Chance();
-    if(this.regExp.test(type)){
-      let primeNumber = chance.prime({min: min, max: max});
-      return primeNumber;
-    }
-    return false;
-  },
-  regExp: /^primeNumber:\d*;\d*$/
+  public test(stringType: string): boolean {
+    return this.regExp.test(stringType);
+  }
 };
+

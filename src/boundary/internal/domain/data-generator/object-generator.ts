@@ -1,20 +1,17 @@
 import AttributeGenerator from './attribute-generator';
-import TypesRegistry from '../../../../driven-adapters/types/types-registry'
+import IObtainType from '../../../../boundary/driven-port/i-obtain-types'
 
 export default class ObjectGenerator {
 
-  constructor() { }
+  constructor(private obtainType: IObtainType) { }
 
   public generate(objeto: Object): Object {
-    const result: Object = { };  
-    if(typeof objeto != 'object') return { };
+    const result: Object = { };
     Object.keys(objeto).forEach(item => { 
       if(this.itIsObject(objeto[item])) {
         result[item] = this.generate(objeto[item]); // recursividade 
       } else {
-        result[item] = new AttributeGenerator(
-          new TypesRegistry()
-        ).generate(objeto[item]);
+        result[item] = new AttributeGenerator(this.obtainType).generate(objeto[item]);
       }
     });
     return result;
