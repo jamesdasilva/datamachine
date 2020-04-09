@@ -1,7 +1,7 @@
 {
   "name": "datamachine",
-  "version": "1.2.1",
-  "description": "Datamachine is a CLI tool for manufacturing mock data",
+  "version": "2.0.1",
+  "description": "Datamachine é uma ferramenta para fabricar dados falsos e realistas",
   "author": {
     "name": "James da Silva",
     "email": "jamesodas@gmail.com"
@@ -21,7 +21,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/EstudioVnW/datamachine"
+    "url": "https://github.com/jamesdasilva/datamachine"
   },
   "bugs": {
     "url": "https://github.com/jamesdasilva/datamachine.git/issues",
