@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
+    "outDir": "./",
+    "sourceMap": false,
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "noLib": false,
     "target": "es5",
-    "allowJs": true
+    "allowJs": true,
+    "strict": false
   },
   "exclude": [
     "node_modules"

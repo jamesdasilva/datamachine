@@ -1,10 +1,10 @@
 {
   "name": "datamachine",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Datamachine is a CLI tool for manufacturing mock data",
   "author": {
     "name": "James da Silva",
-    "email": "jamessilva@1sti.com.br"
+    "email": "jamesodas@gmail.com"
   },
   "keywords": [
     "data mocks",
@@ -24,16 +24,16 @@
     "url": "https://github.com/EstudioVnW/datamachine"
   },
   "bugs": {
-    "url": "https://github.com/EstudioVnW/datamachine/issues",
-    "email": "jamessilva@1sti.com.br"
+    "url": "https://github.com/jamesdasilva/datamachine.git/issues",
+    "email": "jamesodas@gmail.com"
   },
   "engines": {
     "node": ">=0.8.0"
   },
-  "main": "index.js",
+  "bin": "./index.js",
+  "main": "./index.js",
   "license": "MIT",
   "preferGlobal": true,
-  "bin": "./index.js",
   "scripts": {
     "watch": "nodemon --exec npm run build",
     "build": "webpack --config ./webpack.config.js",
@@ -56,6 +56,7 @@
     "es6-plato": "^1.1.6",
     "mocha": "^5.2.0",
     "nodemon": "^2.0.2",
+    "shebang-loader": "0.0.1",
     "sinon": "8.1.1",
     "ts-loader": "6.2.1",
     "ts-node": "8.6.2",

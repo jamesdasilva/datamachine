@@ -7,9 +7,9 @@ import FileNameGenerator from '../../driven-adapters/utils/file-name-generator';
 export default () => {
   program
     .command('combine <file1> <file2>')
-    .alias('c')
-    .option("--chl, --child <child>", "incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
-    .option("--on, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+    .alias('cb')
+    .option("-C, --child <child>", "incluir o segundo objeto como um filho do primeiro, setando um nome para a chave. Ex.: --child nome-da-chave")
+    .option("-N, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
     .description('combinar objetos de duas coleções diferentes')
     .action((file1Name, file2Name, options) => {
       console.log('<< DATAMACHINE >>');

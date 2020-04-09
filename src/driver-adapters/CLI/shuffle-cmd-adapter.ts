@@ -7,9 +7,9 @@ import FileNameGenerator from '../../driven-adapters/utils/file-name-generator';
 export default function () {
   program
   .command('shuffle <file1>')
-  .alias('shu')
+  .alias('sf')
   .description('embaralhar os objetos de uma massa de dados')
-  .option("--on, --outname <outname>", "definir nome do arquivo de saída. Ex.: --outname nome-do-arquivo")
+  .option("-N, --outname <outname>", "definir nome do arquivo de saída. ex.: --outname nome-do-arquivo")
   .action((file1Name, options) => {
     console.log('<< DATAMACHINE >>');
     new ShuffleData(

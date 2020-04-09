@@ -7,9 +7,8 @@ import FileNameGenerator from '../../driven-adapters/utils/file-name-generator';
 export default function () {
   program
   .command('generate <schemas> [length]')
-  .alias('g')
-  .option('-S, --structure <structure>", "array ou collection')
-  .option('-N, --outName <outName>", "nome do arquivo de saída')
+  .alias('gn')
+  .option('-N, --outname <outname>", "nome do arquivo de saída')
   .description('gerar massa de dados a partir de um schema')
   .action((schemaName, length, options) => {
     console.log('<< DATAMACHINE >>');

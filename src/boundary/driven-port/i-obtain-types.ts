@@ -1,3 +1,3 @@
 export default interface IObtainTypes {
-	get(tName: string)
+	get(tName: string): any
 };
