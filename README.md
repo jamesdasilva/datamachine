@@ -17,22 +17,29 @@ sudo npm i -g datamachine
 O programa será instalado globalmente e poderá ser utilizado em qualquer diretório através do comando ___datamachine___.
 
 ### Getting started
-Para gerar dados com o _datamachine_, deve-se antes de qualquer coisa, criar o _data schema_ e salvar em um arquivo .js. Segue um exemplo:
+Para gerar dados com o _datamachine_, deve-se antes de qualquer coisa, criar o _data schema_ e salvar em um arquivo schema.json. Segue um exemplo:
 ```
-module.exports = [{
-    nome: 'name',
-    cpf: 'cpf',
-    celular: /(\(\d{2}\) \d{5}\-\d{4})/,
-    nascimento: 'date:1990;1994',
-    curso: 'enum:Engenharia de Computação;Medicina;Letras;Comunicação Social',
-    mediaEnem: 'decimal:2;300;1000'
-}]
+{
+  "version": "2.0.0",
+  "schema": [{
+    "contador": "idAutoIncrement",
+    "inteiro": "integer:20;50",
+    "valor": "decimal:2;20;50",
+    "primos": "primeNumber:1;10",
+    "logico": "boolean",
+    "fruta":"enum:maçã;uva;pera",
+    "nome": "name",
+    "cpf": "cpf",
+    "nascimento": "date:1990;1994",
+    "mediaEnem": "decimal:2;300;1000"
+  }]
+}
 ```
 Então os dados podem ser gerados através do comando __datamachine generate__, como por exemplo:
 ```
-$ datamachine generate candidato.schema.js 5
+$ datamachine generate candidato.schema.json 5
 ```
-Este comando cria um array com 5 objetos, estruturados segundo os schema informado no arquivo __candidato.schema.js__. Ele gera um arquivo com o nome __data.json__, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
+Este comando cria um array com 5 objetos, estruturados segundo os schema informado no arquivo __candidato.schema.js__. Ele gera um arquivo com o nome __candidato.data.json__, que contém os dados gerados. Por exemplo, o comando supracitado pode gerar o _json_ abaixo. 
 
 ```
 [{"nome":"Andrew Goyette","cpf":"874.281.534-76","celular":"(31) 55190-5339","nascimento":"1992-01-21T10:19:27.000Z","curso":"Letras","mediaEnem":762.97},
@@ -41,7 +48,7 @@ Este comando cria um array com 5 objetos, estruturados segundo os schema informa
 {"nome":"Glennie Hyatt","cpf":"535.377.996-75","celular":"(36) 12295-4648","nascimento":"1992-03-13T14:32:13.000Z","curso":"Medicina","mediaEnem":437.51},
 {"nome":"Mr. Ericka Schmeler","cpf":"086.883.462-91","celular":"(42) 91668-3807","nascimento":"1992-04-27T01:55:03.000Z","curso":"Letras","mediaEnem":385.61}]
 ```
-Note que um data schema é basicamente um objeto Javascript, em que os valores dos atributos são strings ou expressões regulares. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. O atributo do schema que tiver a string 'decimal:2;300;1000' como valor, irá gerar atributos com valores que serão números com duas casas decimais no intervalo entre 300.00 e 1000.00, como 567.00, 300.54 e 971,67, por exemplo.
+Note que um schema é basicamente um objeto JSON, em que os valores dos atributos são strings. Esses valores defininem o formato dos dados que serão gerados na saída do comando __generate__. O atributo do schema que tiver a string 'decimal:2;300;1000' como valor, irá gerar atributos com valores que serão números com duas casas decimais no intervalo entre 300.00 e 1000.00, como 567.00, 300.54 e 971,67, por exemplo.
 
 ### String Types
 
@@ -112,7 +119,7 @@ O resultado terá o conteúdo:
 
 Se for usado o parâmetro child, como no exemplo a seguir:
 ```
-datamachine combine pessoas.json cidades.json --child=cidade
+datamachine combine pessoas.data.json cidades.data.json --child=cidade
 ```
 O resultado será:
 ```
@@ -132,9 +139,9 @@ Ou seja, os objetos do resultado será aninhados.
 ### Concat Command
 Com o comando __concat__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
 ```
-datamachine concat massa1.json massa2.json
+datamachine concat massa1.data.json massa2.data.json
 ```
-Sendo massa1.json:
+Sendo massa1.data.json:
 ```
 [{"name":"Antonina Schroeder","cpf":"067.710.318-29"},
 {"name":"Coralie Yost","cpf":"514.495.434-05"},
@@ -147,7 +154,7 @@ Sendo massa1.json:
 {"name":"Freeman Senger","cpf":"449.370.375-01"},
 {"name":"Rocky Runte","cpf":"517.723.566-11"}]
 ```
-E massa2.json:
+E massa2.data.json:
 ```
 [{"name":"Antonina Schroeder","cpf":"067.710.318-29","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
 {"name":"Coralie Yost","cpf":"514.495.434-05","cidade":{"cidade":"São Paulo","UF":"São Paulo"}},
@@ -187,7 +194,7 @@ Resultado:
 ### Shuffle Command
 
 ```
-datamachine shuffle massa1.json
+datamachine shuffle massa1.data.json
 ```
 
 Resultado:
@@ -214,9 +221,4 @@ Resultado:
 {"name":"Rocky Runte","cpf":"517.723.566-11","cidade":{"cidade":"São Paulo","UF":"São Paulo"}}]
 ```
 
-### Sub Command
-Com o comando __sub__ é possível gerar uma nova massa com tamanho n a partir da concatenção de duas outras massas.
-```
-datamachine sub massa1.json massa2.json
-```
 
