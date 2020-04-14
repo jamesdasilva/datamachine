@@ -1,5 +1,7 @@
 # datamachine
 
+[![Build Status](https://travis-ci.com/jamesdasilva/datamachine.svg?branch=master)](https://travis-ci.com/jamesdasilva/datamachine)
+
 Através da Datamachine você consegue produzir dados falsos com realismo e precisão para simular API's, fontes de dados e estados de processamento. Para gerar os dados, a Datamachine utiliza bibliotecas como chance.js, Faker.js e randexp.js.
 
 Tendo dados realistas em mãos, fica mais fácil desenvolver partes de um software, como no caso de ter que fazer o front-end sem ter o back-end disponível. Você pode, por exemplo, criar dublês de API's que ainda não foram construídas, combinado a Datamachine com Json Server. 
