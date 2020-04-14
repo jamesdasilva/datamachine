@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - stable
+
+install:
+  - npm install
+
+script:
+  - npm run build
+
+deploy:
+  provider: npm
+  email: "jamesodas@gmail.com"
+  api_key: $NPM_TOKEN
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: false
