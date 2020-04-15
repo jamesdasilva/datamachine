@@ -52,7 +52,7 @@ describe('class AttributeGenerator', () => {
 
   describe('The extractName() method must extract the type name from a complete type string', () => {
     it('Should return "decimal" when the entry is equal to "decimal:2;2;5"', () => {
-      chai.expect(attGen.extractName("decimal:2;2;5")).to.equal("decimal1");
+      chai.expect(attGen.extractName("decimal:2;2;5")).to.equal("decimal");
     });
 
     it('Should return "enum" when the entry is equal to "enum:maçã;uva;pera"', () => {
